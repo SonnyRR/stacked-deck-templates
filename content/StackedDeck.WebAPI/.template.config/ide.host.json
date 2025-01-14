@@ -1,0 +1,38 @@
+{
+  "$schema": "http://json.schemastore.org/vs-2017.3.host",
+  "order": 15,
+  "supportsDocker": false,
+  "icon": "sd-logo-7.png",
+  "symbolInfo": [
+    {
+      "id": "title",
+      "name": {
+        "text": "API Title"
+      },
+      "description": {
+        "text": "The API's title, which will be used in the OpenAPI specification."
+      },
+      "isVisible": true
+    },
+    {
+      "id": "routePrefix",
+      "name": {
+        "text": "Route Prefix"
+      },
+      "description": {
+        "text": "The base route for V1 of this API. Usually, it's the name of the service."
+      },
+      "isVisible": true
+    },
+    {
+      "id": "dockerImageName",
+      "name": {
+        "text": "The docker image name for the API."
+      },
+      "description": {
+        "text": "Docker image name which will be used during Docker build."
+      },
+      "isVisible": true
+    }
+  ]
+}

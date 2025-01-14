@@ -1,0 +1,39 @@
+name: Build, Test & Publish
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - master
+      - main
+  pull_request:
+    branches:
+      - master
+      - main
+
+jobs:
+  build-image:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8
+      with:
+        fetch-depth: 0
+
+    - name: NUKE
+      env:
+        NUKE_TELEMETRY_OPTOUT: true
+        # You'll need to introduce these values as secrets/variables
+        # on a repository level. The dependabot placeholder values are
+        # needed because for security reasons it cannot access secrets
+        # or variables defined on a GitHub repository. If this repo is
+        # hosted on another provider != GitHub, then feel free to remove
+        # them, alongside with the 'Dependabot' yaml configuration.
+        ContainerRegistryPAT: ${{ secrets.PAT || 'dependabot_placeholder' }}
+        ContainerRegistryUsername: ${{ vars.USERNAME || 'dependabot_placeholder' }}
+        ContainerRegistryUrl: ${{ vars.CR_URL || 'dependabot_placeholder' }}
+        # Below you should change the 'git' author info, so that the
+        # semantic version tags are pushed with the correct author.
+        GitAuthorUsername: 'Vasil Kotsev'
+        GitAuthorEmail: 'vasil.kotsev@stackeddeck.localhost'
+      shell: bash
+      run: ./build.sh

@@ -1,0 +1,206 @@
+{
+  "$schema": "http://json.schemastore.org/template",
+  "author": "Vasil Kotsev",
+  "name": "Stacked Deck Web API",
+  "description": "Creates an ASP.NET Core Web API solution with sensible defaults.",
+  "classifications": [
+    "Web",
+    "ASP.NET",
+    "Web API",
+    "API",
+    "Docker",
+    "Solution",
+    "Stacked Deck"
+  ],
+  "precedence": 1337,
+  "identity": "StackedDeck.WebAPI",
+  "groupIdentity": "StackedDeck.WebAPI",
+  "shortName": "sd-webapi",
+  "defaultName": "StackedDeckWebApi",
+  "sourceName": "StackedDeck.WebAPI.Template",
+  "tags": {
+    "language": "C#",
+    "type": "solution"
+  },
+  "symbols": {
+    "templateVersion": {
+      "type": "generated",
+      "generator": "constant",
+      "replaces": "templateVersion",
+      "parameters": {
+        "value": "0.0.1-pre-release"
+      }
+    },
+    "templateUrl": {
+      "type": "generated",
+      "generator": "constant",
+      "replaces": "templateUrl",
+      "parameters": {
+        "value": "https://github.com/SonnyRR/stacked-deck-templates"
+      }
+    },
+    "title": {
+      "type": "parameter",
+      "datatype": "text",
+      "description": "The API's title, used primarily for the Open API specification.",
+      "defaultValue": "StackedDeck Web Service",
+      "replaces": "sd-api-title"
+    },
+    "routePrefix": {
+      "type": "parameter",
+      "datatype": "text",
+      "isRequired": true,
+      "description": "The service's path prefix, which will be used in the base controller. (e.g., 'reference')",
+      "replaces": "sd-api-route-prefix"
+    },
+    "dockerImageName": {
+      "type": "parameter",
+      "datatype": "text",
+      "isRequired": true,
+      "description": "Docker image name which will be used during Docker build.",
+      "replaces": "sd-web-api-image"
+    },
+    "setupRepo": {
+      "type": "parameter",
+      "description": "Setup git repository.",
+      "datatype": "bool",
+      "defaultValue": "true"
+    },
+    "skipRestore": {
+      "type": "parameter",
+      "datatype": "bool",
+      "description": "If specified, skips the automatic restore of the project on create.",
+      "defaultValue": "false"
+    },
+    "copyrightYear": {
+      "type": "generated",
+      "generator": "now",
+      "replaces": "2025",
+      "parameters": {
+        "format": "yyyy"
+      }
+    }
+  },
+  "sources": [
+    {
+      "source": "./",
+      "target": "./",
+      "exclude": [
+        ".git/**/*",
+        ".azure/**/*",
+        ".template.config/**/*",
+        "**/*.user",
+        "**/*.lock.json",
+        "*.nuspec",
+        ".vs/**/*",
+        "**/publish/**/*",
+        "README.md",
+        "**/.DS_Store",
+        ".idea/**/*"
+      ],
+      "rename": {
+        "README-template.md": "README.md"
+      }
+    }
+  ],
+  "postActions": [
+    {
+      "id": "repository-init",
+      "actionId": "3A7C4B45-1F5D-4A30-959A-51B88E82B5D2",
+      "condition": "(setupRepo)",
+      "description": "Setup git repository.",
+      "args": {
+        "executable": "git",
+        "args": "init --initial-branch master"
+      },
+      "manualInstructions": [
+        {
+          "text": "Init git repository"
+        }
+      ],
+      "continueOnError": true
+    },
+    {
+      "id": "restore",
+      "actionId": "210D431B-A78B-4D2F-B762-4ED3E3EA9025",
+      "condition": "(!skipRestore)",
+      "description": "Restore NuGet packages required by this project.",
+      "args": {
+        "files": ["./StackedDeck.WebAPI.Template.sln"]
+      },
+      "manualInstructions": [
+        {
+          "text": "Run 'dotnet restore'"
+        }
+      ],
+      "continueOnError": true
+    },
+    {
+      "id": "format",
+      "actionId": "3A7C4B45-1F5D-4A30-959A-51B88E82B5D2",
+      "description": "Format source code documents",
+      "args": {
+        "executable": "dotnet",
+        "args": "format"
+      },
+      "manualInstructions": [
+        {
+          "text": "Run 'dotnet format' for this solution from your terminal."
+        }
+      ],
+      "continueOnError": true
+    },
+    {
+      "id": "build-script-permissions-unix",
+      "actionId": "CB9A6CF3-4F5C-4860-B9D2-03A574959774",
+      "description": "Make build script executable",
+      "condition": "(OS != \"Windows_NT\")",
+      "args": {
+        "+x": "build.sh"
+      },
+      "manualInstructions": [
+        {
+          "text": "Run 'chmod +x build.sh' to make the build shell script executable."
+        }
+      ],
+      "continueOnError": true
+    },
+    {
+      "id": "build-script-permissions-win",
+      "actionId": "3A7C4B45-1F5D-4A30-959A-51B88E82B5D2",
+      "description": "Make build script executable",
+      "condition": "(OS == \"Windows_NT\")",
+      "args": {
+        "executable": "wsl",
+        "args": "chmod +x build.sh"
+      },
+      "manualInstructions": [
+        {
+          "text": "Under WSL2, Cygwin or MSYS2; Run 'chmod +x build.sh' to make the build shell script executable."
+        }
+      ],
+      "continueOnError": true
+    },
+    {
+      "id": "gitversion-warning",
+      "actionId": "AC1156F7-BB77-4DB8-B28F-24EEBCCA1E5C",
+      "description": "Create an initial git commit if it's missing.",
+      "args": {
+        "executable": "git",
+        "args": "commit -am 'Initial commit'"
+      },
+      "manualInstructions": [
+        {
+          "text": "Before running the NUKE build target, ensure that at least 1 git commit is present.\nSemantic versioning is determined by the git history, so if 0 commits are present - you're going to get an error."
+        }
+      ],
+      "continueOnError": true
+    }
+  ],
+  "guids": [
+    "DD4629CF-3C2F-43E3-B551-404220D08A31",
+    "E3704DA3-3776-43C7-B999-FC0663644D17",
+    "058A0EC5-9EBC-4F68-8D7B-0D5797DAFE31",
+    "72914754-F078-4CEC-BAB6-1AB8BFABF898"
+  ]
+}

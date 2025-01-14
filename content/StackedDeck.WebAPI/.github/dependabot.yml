@@ -1,0 +1,13 @@
+version: 2
+updates:
+  - package-ecosystem: "nuget"
+    directory: "/"
+    schedule:
+      interval: "daily"
+    registries:
+      - nuget-org
+
+  - package-ecosystem: "docker"
+    directory: "/src/StackedDeck.WebAPI.Template.API"
+    schedule:
+      interval: "daily"
