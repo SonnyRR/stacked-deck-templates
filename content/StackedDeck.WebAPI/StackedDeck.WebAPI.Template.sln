@@ -1,0 +1,60 @@
+
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{6571B0E4-26E5-431B-94FB-D1AF78061890}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+		Directory.Build.props = Directory.Build.props
+		Directory.Packages.props = Directory.Packages.props
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StackedDeck.WebAPI.Template.API", "src\StackedDeck.WebAPI.Template.API\StackedDeck.WebAPI.Template.API.csproj", "{058A0EC5-9EBC-4F68-8D7B-0D5797DAFE31}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StackedDeck.WebAPI.Template.Build", "build\StackedDeck.WebAPI.Template.Build.csproj", "{E3704DA3-3776-43C7-B999-FC0663644D17}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StackedDeck.WebAPI.Template.Common", "src\StackedDeck.WebAPI.Template.Common\StackedDeck.WebAPI.Template.Common.csproj", "{DD4629CF-3C2F-43E3-B551-404220D08A31}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StackedDeck.WebAPI.Template.Integration.Tests", "test\StackedDeck.WebAPI.Template.Integration.Tests\StackedDeck.WebAPI.Template.Integration.Tests.csproj", "{72914754-F078-4CEC-BAB6-1AB8BFABF898}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StackedDeck.WebAPI.Template.Unit.Tests", "test\StackedDeck.WebAPI.Template.Unit.Tests\StackedDeck.WebAPI.Template.Unit.Tests.csproj", "{15754C21-3E3A-45AF-8044-4AC5B1E053E3}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{61D60A07-B4E7-420D-A7FB-520C5D74A293}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{058A0EC5-9EBC-4F68-8D7B-0D5797DAFE31}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{058A0EC5-9EBC-4F68-8D7B-0D5797DAFE31}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{058A0EC5-9EBC-4F68-8D7B-0D5797DAFE31}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{058A0EC5-9EBC-4F68-8D7B-0D5797DAFE31}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E3704DA3-3776-43C7-B999-FC0663644D17}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E3704DA3-3776-43C7-B999-FC0663644D17}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DD4629CF-3C2F-43E3-B551-404220D08A31}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DD4629CF-3C2F-43E3-B551-404220D08A31}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DD4629CF-3C2F-43E3-B551-404220D08A31}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DD4629CF-3C2F-43E3-B551-404220D08A31}.Release|Any CPU.Build.0 = Release|Any CPU
+		{72914754-F078-4CEC-BAB6-1AB8BFABF898}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{72914754-F078-4CEC-BAB6-1AB8BFABF898}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{72914754-F078-4CEC-BAB6-1AB8BFABF898}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{72914754-F078-4CEC-BAB6-1AB8BFABF898}.Release|Any CPU.Build.0 = Release|Any CPU
+		{15754C21-3E3A-45AF-8044-4AC5B1E053E3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{15754C21-3E3A-45AF-8044-4AC5B1E053E3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{15754C21-3E3A-45AF-8044-4AC5B1E053E3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{15754C21-3E3A-45AF-8044-4AC5B1E053E3}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {D42CDBC0-80B4-40EC-BF07-54FE2D37134A}
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{15754C21-3E3A-45AF-8044-4AC5B1E053E3} = {61D60A07-B4E7-420D-A7FB-520C5D74A293}
+		{72914754-F078-4CEC-BAB6-1AB8BFABF898} = {61D60A07-B4E7-420D-A7FB-520C5D74A293}
+	EndGlobalSection
+EndGlobal
