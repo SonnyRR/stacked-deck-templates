@@ -1,0 +1,27 @@
+{
+  "symbolInfo": {
+    "routePrefix": {
+      "longName": "route-prefix",
+      "shortName": "rp"
+    },
+    "setupDevCerts": {
+      "longName": "setup-dev-certs",
+      "shortName": "sdc"
+    },
+    "setupRepo": {
+      "longName": "setup-repo",
+      "shortName": "sr"
+    },
+    "title": {
+      "longName": "title"
+    },
+    "skipRestore": {
+      "longName": "no-restore",
+      "shortName": ""
+    },
+    "dockerImageName": {
+      "longName": "image-name",
+      "shortName": ""
+    }
+  }
+}

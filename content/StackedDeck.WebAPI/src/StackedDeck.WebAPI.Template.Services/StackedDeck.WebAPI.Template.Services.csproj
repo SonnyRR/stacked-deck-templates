@@ -1,0 +1,11 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\StackedDeck.WebAPI.Template.Data\StackedDeck.WebAPI.Template.Data.csproj" />
+  </ItemGroup>
+
+</Project>

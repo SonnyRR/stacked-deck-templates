@@ -1,0 +1,20 @@
+name: CI
+on:
+  workflow_dispatch:
+
+jobs:
+  build-image:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+
+    - name: Run Nuke build
+      env:
+        NUKE_TELEMETRY_OPTOUT: true
+        GitAuthorEmail: ${{ github.actor_id }}
+        GitAuthorUsername: ${{ github.actor }}
+      shell: bash
+      run: ./build.sh

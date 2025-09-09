@@ -1,0 +1,105 @@
+{
+  "$schema": "https://json.schemastore.org/launchsettings.json",
+  "profiles": {
+    "HTTP-LOCAL": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Local"
+      },
+      "dotnetRunMessages": true,
+      "applicationUrl": "http://localhost:5133/",
+      "launchUrl": "http://localhost:5133/sd-api-route-prefix/documentation"
+    },
+    "HTTPS-LOCAL": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Local"
+      },
+      "dotnetRunMessages": true,
+      "applicationUrl": "https://localhost:7095/;http://localhost:5133/",
+      "launchUrl": "https://localhost:7095/sd-api-route-prefix/documentation"
+    },
+    "HTTP-DEV": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "dotnetRunMessages": true,
+      "applicationUrl": "http://localhost:5133/",
+      "launchUrl": "http://localhost:5133/sd-api-route-prefix/documentation"
+    },
+    "HTTPS-DEV": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "dotnetRunMessages": true,
+      "applicationUrl": "https://localhost:7095/;http://localhost:5133/",
+      "launchUrl": "https://localhost:7095/sd-api-route-prefix/documentation"
+    },
+    "HTTP-STG": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Staging"
+      },
+      "dotnetRunMessages": true,
+      "applicationUrl": "http://localhost:5133/",
+      "launchUrl": "http://localhost:5133/sd-api-route-prefix/documentation"
+    },
+    "HTTPS-STG": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Staging"
+      },
+      "dotnetRunMessages": true,
+      "applicationUrl": "https://localhost:7095/;http://localhost:5133/",
+      "launchUrl": "https://localhost:7095/sd-api-route-prefix/documentation"
+    },
+    "HTTP-PROD": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Production"
+      },
+      "dotnetRunMessages": true,
+      "applicationUrl": "http://localhost:5133/",
+      "launchUrl": "http://localhost:5133/sd-api-route-prefix/documentation"
+    },
+    "HTTPS-PROD": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Production"
+      },
+      "dotnetRunMessages": true,
+      "applicationUrl": "https://localhost:7095/;http://localhost:5133/",
+      "launchUrl": "https://localhost:7095/sd-api-route-prefix/documentation"
+    },
+    "HTTP-E2E": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "E2E"
+      },
+      "dotnetRunMessages": true,
+      "applicationUrl": "http://localhost:5133/",
+      "launchUrl": "http://localhost:5133/sd-api-route-prefix/documentation"
+    },
+    "HTTPS-E2E": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "E2E"
+      },
+      "dotnetRunMessages": true,
+      "applicationUrl": "https://localhost:7095/;http://localhost:5133/",
+      "launchUrl": "https://localhost:7095/sd-api-route-prefix/documentation"
+    }
+  }
+}

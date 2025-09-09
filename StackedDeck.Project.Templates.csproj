@@ -1,0 +1,42 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <PackageId>StackedDeck.Project.Templates</PackageId>
+        <PackageVersion>1.0.0</PackageVersion>
+        <Title>Stacked Deck Project Templates</Title>
+        <Authors>Vasil Kotsev</Authors>
+        <Description>.NET Project templates, composed to give you advantage akin to a "stacked deck".</Description>
+        <PackageTags>dotnet;templates;aspnet-core;web-api;containers</PackageTags>
+        <PackageIcon>assets\sd-logo-8-512.png</PackageIcon>
+        <PackageProjectUrl>TBA</PackageProjectUrl>
+        <RepositoryUrl>https://github.com/SonnyRR/stacked-deck-templates</RepositoryUrl>
+        <Copyright>Copyright (c) Vasil Kotsev 2025</Copyright>
+        <PackageType>Template</PackageType>
+        <TargetFramework>net9.0</TargetFramework>
+        <IncludeContentInPack>true</IncludeContentInPack>
+        <IncludeBuildOutput>false</IncludeBuildOutput>
+        <ContentTargetFolders>content</ContentTargetFolders>
+        <NoWarn>$(NoWarn);NU5128</NoWarn>
+        <NoDefaultExcludes>true</NoDefaultExcludes>
+        <PackageReadmeFile>README.md</PackageReadmeFile>
+    </PropertyGroup>
+
+    <PropertyGroup>
+        <LocalizeTemplates>false</LocalizeTemplates>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Microsoft.TemplateEngine.Tasks" Version="*" PrivateAssets="all" IsImplicitlyDefined="true"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <Content Include="content\**\*" Exclude="content\**\bin\**;content\**\obj\**;content\**\packages\**;content\**\pkg\**;**\.vs\**"/>
+        <Compile Remove="**\*"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <None Include="README.md" Pack="true" PackagePath=""/>
+        <None Include="content\StackedDeck.WebAPI\.template.config\sd-logo-8-512.png" Pack="true" PackagePath="assets\"/>
+    </ItemGroup>
+
+</Project>
