@@ -16,10 +16,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StackedDeck.WebAPI.Template
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StackedDeck.WebAPI.Template.Common", "src\StackedDeck.WebAPI.Template.Common\StackedDeck.WebAPI.Template.Common.csproj", "{DD4629CF-3C2F-43E3-B551-404220D08A31}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StackedDeck.WebAPI.Template.Services", "src\StackedDeck.WebAPI.Template.Services\StackedDeck.WebAPI.Template.Services.csproj", "{9A5E16ED-F456-4B76-8CE6-FD9368333218}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StackedDeck.WebAPI.Template.Data", "src\StackedDeck.WebAPI.Template.Data\StackedDeck.WebAPI.Template.Data.csproj", "{35FDDBC3-FC40-4B49-903B-7A11F31B91FD}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StackedDeck.WebAPI.Template.Integration.Tests", "test\StackedDeck.WebAPI.Template.Integration.Tests\StackedDeck.WebAPI.Template.Integration.Tests.csproj", "{72914754-F078-4CEC-BAB6-1AB8BFABF898}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StackedDeck.WebAPI.Template.Unit.Tests", "test\StackedDeck.WebAPI.Template.Unit.Tests\StackedDeck.WebAPI.Template.Unit.Tests.csproj", "{15754C21-3E3A-45AF-8044-4AC5B1E053E3}"
@@ -42,14 +38,6 @@ Global
 		{DD4629CF-3C2F-43E3-B551-404220D08A31}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DD4629CF-3C2F-43E3-B551-404220D08A31}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DD4629CF-3C2F-43E3-B551-404220D08A31}.Release|Any CPU.Build.0 = Release|Any CPU
-		{9A5E16ED-F456-4B76-8CE6-FD9368333218}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{9A5E16ED-F456-4B76-8CE6-FD9368333218}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{9A5E16ED-F456-4B76-8CE6-FD9368333218}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{9A5E16ED-F456-4B76-8CE6-FD9368333218}.Release|Any CPU.Build.0 = Release|Any CPU
-		{35FDDBC3-FC40-4B49-903B-7A11F31B91FD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{35FDDBC3-FC40-4B49-903B-7A11F31B91FD}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{35FDDBC3-FC40-4B49-903B-7A11F31B91FD}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{35FDDBC3-FC40-4B49-903B-7A11F31B91FD}.Release|Any CPU.Build.0 = Release|Any CPU
 		{72914754-F078-4CEC-BAB6-1AB8BFABF898}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{72914754-F078-4CEC-BAB6-1AB8BFABF898}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{72914754-F078-4CEC-BAB6-1AB8BFABF898}.Release|Any CPU.ActiveCfg = Release|Any CPU

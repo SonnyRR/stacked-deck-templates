@@ -16,8 +16,6 @@ using StackedDeck.WebAPI.Template.API.Configuration;
 using StackedDeck.WebAPI.Template.API.Extensions;
 using StackedDeck.WebAPI.Template.API.Middlewares;
 using StackedDeck.WebAPI.Template.Common.Extensions;
-using StackedDeck.WebAPI.Template.Data.Extensions;
-using StackedDeck.WebAPI.Template.Services.Extensions;
 
 namespace StackedDeck.WebAPI.Template.API;
 
@@ -120,8 +118,6 @@ public class Startup
     {
         ArgumentNullException.ThrowIfNull(services);
 
-        services.AddApiServices(Configuration, Environment, out var connectionStringsOptions);
-        services.AddPersistenceServices(connectionStringsOptions.Value.Database);
-        services.AddCoreServices();
+        services.AddApiServices(Configuration, Environment, out var _);
     }
 }

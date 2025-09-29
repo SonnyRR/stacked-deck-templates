@@ -28,7 +28,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\StackedDeck.WebAPI.Template.Services\StackedDeck.WebAPI.Template.Services.csproj" />
+    <ProjectReference Include="..\StackedDeck.WebAPI.Template.Common\StackedDeck.WebAPI.Template.Common.csproj" />
   </ItemGroup>
 
 </Project>
