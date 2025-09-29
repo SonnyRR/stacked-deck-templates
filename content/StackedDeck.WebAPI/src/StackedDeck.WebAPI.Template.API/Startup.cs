@@ -71,6 +71,7 @@ public class Startup
 
         app.UseForwardedHeaders();
         app.UseHttpsRedirection();
+        app.UseMiddleware<CorrelationIdMiddleware>();
         app.UseMiddleware<SecurityHeadersMiddleware>();
         app.UseCors();
         app.UseCookiePolicy(new CookiePolicyOptions { Secure = CookieSecurePolicy.Always });

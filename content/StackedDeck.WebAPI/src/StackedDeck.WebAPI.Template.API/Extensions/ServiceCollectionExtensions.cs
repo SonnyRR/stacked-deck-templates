@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
@@ -10,6 +11,8 @@ using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
+
+using Serilog.Enrichers;
 
 using StackedDeck.WebAPI.Template.API.Configuration;
 using StackedDeck.WebAPI.Template.Common.Configuration;
@@ -50,7 +53,18 @@ public static class ServiceCollectionExtensions
 
         services
             .AddHttpContextAccessor()
-            .AddProblemDetails()
+            .AddProblemDetails(options =>
+            {
+                options.CustomizeProblemDetails = context =>
+                    {
+                        if (context.HttpContext.Request.Headers.TryGetValue(Constants.Headers.CORRELATION_ID, out var correlationId))
+                        {
+                            context.ProblemDetails.Extensions.TryAdd(nameof(correlationId), correlationId.ToString());
+                        }
+
+                        context.ProblemDetails.Instance = $"{context.HttpContext.Request.Method} {context.HttpContext.Request.Path}";
+                    };
+            })
             .AddControllers()
             .AddJsonOptions(options =>
             {
