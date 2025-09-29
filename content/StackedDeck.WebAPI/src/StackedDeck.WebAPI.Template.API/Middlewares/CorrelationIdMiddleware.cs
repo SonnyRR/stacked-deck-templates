@@ -26,7 +26,15 @@ public class CorrelationIdMiddleware
     /// <param name="context">The HTTP context.</param>
     public async Task InvokeAsync(HttpContext context)
     {
-        context.Request.Headers.TryAdd(Constants.Headers.CORRELATION_ID, Guid.NewGuid().ToString());
+        var correlationId = Guid.NewGuid().ToString();
+
+        context.Request.Headers.TryAdd(Constants.Headers.CORRELATION_ID, correlationId);
+        context.Response.OnStarting(() =>
+        {
+            context.Response.Headers.Append(Constants.Headers.CORRELATION_ID, correlationId);
+
+            return Task.CompletedTask;
+        });
 
         await next(context);
     }
