@@ -15,7 +15,7 @@ internal interface IDocker : IHasProjects, IHasGitVersion
 
     Target BuildImage => _ => _
         .Description("Builds an OCI compatible Docker image of the API")
-        .DependsOn<IDotNet>(t => t.Test)
+        .DependsOn<IDotNet>(t => t.Publish)
         .Executes(() =>
         {
             DockerTasks.DockerBuild(s => s

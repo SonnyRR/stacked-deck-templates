@@ -21,7 +21,7 @@ internal interface IVersionArtifacts : IHasGitVersion, IHasGitRepository
         .Requires(
             () => GitAuthorEmail,
             () => GitAuthorUsername)
-        .TriggeredBy<IDotNet>(t => t.Publish)
+        .TriggeredBy<IDocker>(t => t.BuildImage)
         .Executes(() =>
         {
             static void StdOutLogger(OutputType _, string msg) => Log.Debug(msg);

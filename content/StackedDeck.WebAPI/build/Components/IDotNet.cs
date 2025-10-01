@@ -46,27 +46,25 @@ internal interface IDotNet : IHasProjects, IHasConfiguration, IHasGitVersion
                 .SetFileVersion(GitVersion.AssemblySemFileVer)
                 .SetInformationalVersion(GitVersion.InformationalVersion)
                 .EnableNoRestore());
-
-            Log.Information("✅ Build completed successfully!");
         });
 
     Target Publish => _ => _
         .Description("Publishes the API artifacts to local file system.")
-        .DependsOn<IDotNet>(t => t.Build)
+        .DependsOn(Test)
         .Executes(() =>
         {
             DotNetTasks.DotNetPublish(s => s
                 .SetProject(WebApiProject)
                 .SetConfiguration(Configuration)
+                .SetOutput(PublicationDirectory)
                 .AddProperty("UseAppHost", false)
                 .EnableNoBuild()
-                .SetOutput(PublicationDirectory)
                 .EnableNoRestore());
         });
 
     Target Test => _ => _
-        .Description("Evaluates the unit test suite.")
-        .DependsOn(Publish)
+        .Description("Evaluates the automated test suites.")
+        .DependsOn(Build)
         .Executes(() =>
         {
             DotNetTasks.DotNetTest(s => s
@@ -76,7 +74,7 @@ internal interface IDotNet : IHasProjects, IHasConfiguration, IHasGitVersion
         });
 
     Target Restore => _ => _
-        .Description("Restores the assemblies' NuGet dependencies")
+        .Description("Restores the NuGet package dependencies for the assemblies in the solution.")
         .DependsOn(Clean)
         .Executes(() => DotNetTasks.DotNetRestore(s => s.SetProjectFile(Solution)));
 }
