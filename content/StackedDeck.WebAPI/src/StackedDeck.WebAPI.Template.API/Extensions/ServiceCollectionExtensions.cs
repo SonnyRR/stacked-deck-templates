@@ -13,6 +13,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 
 using StackedDeck.WebAPI.Template.API.Configuration;
+using StackedDeck.WebAPI.Template.API.Handlers;
 using StackedDeck.WebAPI.Template.Common.Configuration;
 using StackedDeck.WebAPI.Template.Common.Extensions;
 
@@ -51,18 +52,10 @@ public static class ServiceCollectionExtensions
 
         services
             .AddHttpContextAccessor()
-            .AddProblemDetails(options =>
-            {
-                options.CustomizeProblemDetails = context =>
-                    {
-                        if (context.HttpContext.Request.Headers.TryGetValue(Constants.Headers.CORRELATION_ID, out var correlationId))
-                        {
-                            context.ProblemDetails.Extensions.TryAdd(nameof(correlationId), correlationId.ToString());
-                        }
-
-                        context.ProblemDetails.Instance = $"{context.HttpContext.Request.Method} {context.HttpContext.Request.Path}";
-                    };
-            })
+            .AddProblemDetails(options => options
+                    .CustomizeProblemDetails = context => context
+                        .ProblemDetails.WithHttpContextMetadata(context.HttpContext))
+            .AddExceptionHandler<GlobalExceptionHandler>()
             .AddControllers()
             .AddJsonOptions(options =>
             {

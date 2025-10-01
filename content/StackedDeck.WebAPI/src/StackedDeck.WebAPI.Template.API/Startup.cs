@@ -58,13 +58,13 @@ public class Startup
     {
         app.UseSerilogRequestLogging();
 
-        if (env.IsDevelopment() || env.IsLocal())
+        if (env.IsLocal() || env.IsE2E())
         {
             app.UseDeveloperExceptionPage();
         }
         else
         {
-            app.UseExceptionHandler("/Error");
+            app.UseExceptionHandler();
         }
 
         app.UseForwardedHeaders();
