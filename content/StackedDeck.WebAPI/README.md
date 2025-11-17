@@ -12,7 +12,7 @@ batteries included and sensible defaults.
 > you will have to remove those documents manually if you don't wish to
 > use `GitHub` as your pipeline provider.
 
-TFM: `net9.0`
+TFM: `net10.0`
 Identifier: `sd-webapi`
 
 View all configuration parameters:
