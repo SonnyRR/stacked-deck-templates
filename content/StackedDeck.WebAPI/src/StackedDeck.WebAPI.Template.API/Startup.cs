@@ -85,11 +85,8 @@ public class Startup
                     options =>
                     {
                         options.WithTitle(apiOptions.Value.Title);
-                        options.WithClientButton();
                         options.WithOperationTitleSource(OperationTitleSource.Path);
-                        options.WithModels();
-                        options.WithDarkModeToggle();
-                        options.WithTagSorter(TagSorter.Alpha);
+                        options.SortTagsAlphabetically();
 
 #pragma warning disable S125
                         /*
