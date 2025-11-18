@@ -91,7 +91,7 @@ pass forward the custom parameters.
 
 ### 🐳 Docker support
 
-This project comes with a pre-configured `Dockerfile`, utilizing `aspnet:9.0-alpine`
+This project comes with a pre-configured `Dockerfile`, utilizing `aspnet:10.0-alpine`
 as the base runtime image. Globalization features are enabled through the
 `International Components for Unicode` packages from the `alpine` package registry.
 

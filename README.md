@@ -44,7 +44,7 @@ Comes preconfigured with roslyn analyzers, serilog logging infrastructure
 
 #### ✨ Features
 
-- Pre-configured `Dockerfile`, targetting `ASP.NET Core Runtime 9` with
+- Pre-configured `Dockerfile`, targetting `ASP.NET Core Runtime 10` with
   `alpine` based images.
 - Pre-configured `NUKE` build system with common targets for restoring,
   compiling, publishing, testing & containerizing .NET applications
