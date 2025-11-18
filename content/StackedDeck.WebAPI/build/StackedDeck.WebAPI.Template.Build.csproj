@@ -20,8 +20,8 @@
       of NUKE is released, since the older versions, referenced by
       'Nuke.Common' contain vulnerabilities.
     -->
-    <PackageReference Include="Microsoft.Build" Version="17.14.28" />
-    <PackageReference Include="Microsoft.Build.Tasks.Core" Version="17.14.28" />
+    <PackageReference Include="Microsoft.Build" Version="18.0.2" />
+    <PackageReference Include="Microsoft.Build.Tasks.Core" Version="18.0.2" />
   </ItemGroup>
 
   <ItemGroup>
