@@ -1,6 +1,7 @@
 using System;
 
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.CookiePolicy;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
@@ -72,7 +73,11 @@ public class Startup
         app.UseMiddleware<CorrelationIdMiddleware>();
         app.UseMiddleware<SecurityHeadersMiddleware>();
         app.UseCors();
-        app.UseCookiePolicy(new CookiePolicyOptions { Secure = CookieSecurePolicy.Always });
+        app.UseCookiePolicy(new CookiePolicyOptions
+        {
+            Secure = CookieSecurePolicy.Always,
+            HttpOnly = HttpOnlyPolicy.Always
+        });
         app.UseRouting();
         app.UseStatusCodePages();
         app.UseEndpoints(endpoints =>
