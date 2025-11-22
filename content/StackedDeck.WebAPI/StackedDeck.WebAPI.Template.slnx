@@ -1,0 +1,16 @@
+<Solution>
+  <Folder Name="/Solution Items/">
+    <File Path=".editorconfig" />
+    <File Path="Directory.Build.props" />
+    <File Path="Directory.Packages.props" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="test/StackedDeck.WebAPI.Template.Integration.Tests/StackedDeck.WebAPI.Template.Integration.Tests.csproj" />
+    <Project Path="test/StackedDeck.WebAPI.Template.Unit.Tests/StackedDeck.WebAPI.Template.Unit.Tests.csproj" />
+  </Folder>
+  <Project Path="build/StackedDeck.WebAPI.Template.Build.csproj">
+    <Build Project="false" />
+  </Project>
+  <Project Path="src/StackedDeck.WebAPI.Template.API/StackedDeck.WebAPI.Template.API.csproj" />
+  <Project Path="src/StackedDeck.WebAPI.Template.Common/StackedDeck.WebAPI.Template.Common.csproj" />
+</Solution>

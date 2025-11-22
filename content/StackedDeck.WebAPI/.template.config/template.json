@@ -96,7 +96,8 @@
         "**/publish/**/*",
         "README.md",
         "**/.DS_Store",
-        ".idea/**/*"
+        ".idea/**/*",
+        "logs/**/*"
       ],
       "rename": {
         "README-template.md": "README.md"
@@ -126,7 +127,7 @@
       "condition": "(!skipRestore)",
       "description": "Restore NuGet packages required by this project.",
       "args": {
-        "files": ["./StackedDeck.WebAPI.Template.sln"]
+        "files": ["./StackedDeck.WebAPI.Template.slnx"]
       },
       "manualInstructions": [
         {
@@ -196,11 +197,5 @@
       ],
       "continueOnError": true
     }
-  ],
-  "guids": [
-    "DD4629CF-3C2F-43E3-B551-404220D08A31",
-    "E3704DA3-3776-43C7-B999-FC0663644D17",
-    "058A0EC5-9EBC-4F68-8D7B-0D5797DAFE31",
-    "72914754-F078-4CEC-BAB6-1AB8BFABF898"
   ]
 }

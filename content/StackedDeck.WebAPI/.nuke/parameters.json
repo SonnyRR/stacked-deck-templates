@@ -1,4 +1,4 @@
 {
   "$schema": "build.schema.json",
-  "Solution": "StackedDeck.WebAPI.Template.sln"
+  "Solution": "StackedDeck.WebAPI.Template.slnx"
 }
