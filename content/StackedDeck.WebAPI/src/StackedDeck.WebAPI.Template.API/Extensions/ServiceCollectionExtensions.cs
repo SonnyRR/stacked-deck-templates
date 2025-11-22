@@ -7,6 +7,7 @@ using Asp.Versioning;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpOverrides;
+using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
@@ -132,6 +133,7 @@ public static class ServiceCollectionExtensions
             .ValidateDataAnnotations();
 
         services.Configure<ForwardedHeadersOptions>(options => options.ForwardedHeaders = ForwardedHeaders.All);
+        services.Configure<RouteOptions>(options => options.LowercaseUrls = true);
 
         return services;
     }
