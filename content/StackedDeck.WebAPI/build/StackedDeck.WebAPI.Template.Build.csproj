@@ -12,16 +12,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Nuke.Common" Version="9.0.4" />
+    <PackageReference Include="Nuke.Common" Version="10.0.0" />
     <PackageReference Include="Polly" Version="8.6.4" />
-
-    <!--
-      These packages are temporarily referenced, until a new version
-      of NUKE is released, since the older versions, referenced by
-      'Nuke.Common' contain vulnerabilities.
-    -->
-    <PackageReference Include="Microsoft.Build" Version="18.0.2" />
-    <PackageReference Include="Microsoft.Build.Tasks.Core" Version="18.0.2" />
   </ItemGroup>
 
   <ItemGroup>
