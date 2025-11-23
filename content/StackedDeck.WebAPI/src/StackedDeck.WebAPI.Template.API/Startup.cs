@@ -6,10 +6,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
-
-using Scalar.AspNetCore;
 
 using Serilog;
 
@@ -83,33 +80,7 @@ public class Startup
         app.UseEndpoints(endpoints =>
         {
             endpoints.MapHealthCheckEndpoints(env);
-
-            if (!env.IsProduction())
-            {
-                endpoints.MapOpenApi();
-                endpoints.MapScalarApiReference(
-                    "/sd-api-route-prefix/documentation",
-                    options =>
-                    {
-                        options.WithTitle(apiOptions.Value.Title);
-                        options.WithOperationTitleSource(OperationTitleSource.Path);
-                        options.SortTagsAlphabetically();
-
-#pragma warning disable S125
-                        /*
-                         If you decide to support multiple versions of this API,you'll need to specify
-                         the OpenAPI spec documents explicitly. The route pattern is the default one,
-                         set up by the 'endpoints.MapOpenApi()'.The document name (v1.json, v2.json) are
-                         configured by the ServiceCollectionExtensions::AddOpenApiSpecification() extension method.
-
-                         Examples:
-                            options.AddDocument("v1", routePattern:"openapi/v1.json");
-                            options.AddDocument("v2", routePattern:"openapi/v2.json");
-                         */
-#pragma warning restore S125
-                    });
-            }
-
+            endpoints.MapOpenApiEndpoints(env, apiOptions);
             endpoints.MapDefaultControllerRoute();
         });
     }

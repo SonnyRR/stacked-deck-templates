@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Net.Mime;
 using System.Text.Json;
 
@@ -9,6 +10,11 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Options;
+
+using Scalar.AspNetCore;
+
+using StackedDeck.WebAPI.Template.API.Configuration;
 
 namespace StackedDeck.WebAPI.Template.API.Extensions;
 
@@ -17,6 +23,8 @@ namespace StackedDeck.WebAPI.Template.API.Extensions;
 /// </summary>
 public static class EndpointRouteBuilderExtensions
 {
+    private const string API_ROUTE_PREFIX = "/sd-api-route-prefix";
+
     /// <summary>
     /// Maps health check endpoints for the API.
     /// </summary>
@@ -61,7 +69,49 @@ public static class EndpointRouteBuilderExtensions
         // to compose additional 'HealthCheckOptions' instances, so
         // that you override the default filter predicate to match
         // your custom tag(s).
-        builder.MapHealthChecks("/sd-api-route-prefix/health", healthCheckOptions);
+        builder.MapHealthChecks($"{API_ROUTE_PREFIX}/health", healthCheckOptions);
+
+        return builder;
+    }
+
+    /// <summary>
+    /// Maps OpenAPI endpoints for the API, including Scalar.
+    /// </summary>
+    /// <param name="builder">The endpoint route builder.</param>
+    /// <param name="environment">The web host environment.</param>
+    /// <param name="apiOptions">The API options.</param>
+    /// <returns>The endpoint route builder with OpenAPI endpoints mapped.</returns>
+    [SuppressMessage("Major Code Smell", "S125:Sections of code should not be commented out", Justification = "Documentation w/ code example.")]
+    public static IEndpointRouteBuilder MapOpenApiEndpoints(
+        this IEndpointRouteBuilder builder, IWebHostEnvironment environment, IOptions<ApiOptions> apiOptions)
+    {
+        ArgumentNullException.ThrowIfNull(builder);
+        ArgumentNullException.ThrowIfNull(environment);
+        ArgumentNullException.ThrowIfNull(apiOptions);
+
+        if (!environment.IsProduction())
+        {
+            builder.MapOpenApi();
+            builder.MapScalarApiReference(
+                $"{API_ROUTE_PREFIX}/documentation",
+                options =>
+                {
+                    options.WithTitle(apiOptions.Value.Title);
+                    options.WithOperationTitleSource(OperationTitleSource.Path);
+                    options.SortTagsAlphabetically();
+
+                    /*
+                     If you decide to support multiple versions of this API,you'll need to specify
+                     the OpenAPI spec documents explicitly. The route pattern is the default one,
+                     set up by the 'endpoints.MapOpenApi()'.The document name (v1.json, v2.json) are
+                     configured by the ServiceCollectionExtensions::AddOpenApiSpecification() extension method.
+
+                     Examples:
+                        options.AddDocument("v1", routePattern:"openapi/v1.json");
+                        options.AddDocument("v2", routePattern:"openapi/v2.json");
+                     */
+                });
+        }
 
         return builder;
     }
