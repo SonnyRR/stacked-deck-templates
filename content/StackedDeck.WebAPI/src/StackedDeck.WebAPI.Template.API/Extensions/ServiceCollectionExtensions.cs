@@ -14,6 +14,7 @@ using Microsoft.Extensions.Options;
 
 using StackedDeck.WebAPI.Template.API.Configuration;
 using StackedDeck.WebAPI.Template.API.Handlers;
+using StackedDeck.WebAPI.Template.API.Health;
 using StackedDeck.WebAPI.Template.Common.Configuration;
 using StackedDeck.WebAPI.Template.Common.Extensions;
 
@@ -78,6 +79,7 @@ public static class ServiceCollectionExtensions
 
         services.AddApiVersioning();
         services.AddOpenApiSpecification();
+        services.AddHealthProbes();
 
         connectionStringsOptions = sp.GetRequiredService<IOptions<ConnectionStrings>>();
 
@@ -186,6 +188,23 @@ public static class ServiceCollectionExtensions
 #pragma warning restore S125
 
         services.AddOpenApi();
+
+        return services;
+    }
+
+    /// <summary>
+    /// Registers custom API health-check probes in the DI container.
+    /// </summary>
+    /// <param name="services">The service collection.</param>
+    /// <returns>The updated <see cref="IServiceCollection"/> with health probes registered.</returns>
+    private static IServiceCollection AddHealthProbes(this IServiceCollection services)
+    {
+        ArgumentNullException.ThrowIfNull(services);
+
+        // Register additional infrastructure checks here.
+        services
+            .AddHealthChecks()
+            .AddCheck<LivenessHealthCheck>("general", tags: ["all", "server"]);
 
         return services;
     }

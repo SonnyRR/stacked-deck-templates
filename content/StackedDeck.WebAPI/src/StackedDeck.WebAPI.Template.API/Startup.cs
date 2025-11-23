@@ -82,6 +82,8 @@ public class Startup
         app.UseStatusCodePages();
         app.UseEndpoints(endpoints =>
         {
+            endpoints.MapHealthCheckEndpoints(env);
+
             if (!env.IsProduction())
             {
                 endpoints.MapOpenApi();
