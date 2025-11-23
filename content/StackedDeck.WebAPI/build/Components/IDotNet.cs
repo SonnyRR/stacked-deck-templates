@@ -41,7 +41,7 @@ internal interface IDotNet : IHasProjects, IHasConfiguration, IHasGitVersion
         .DependsOn(Restore)
         .Executes(() =>
         {
-            Log.Information("🗂️ Solution File: {Solution}", Solution);
+            Log.Information("🗂️ Solution File: {Solution}", Solution.Path);
             Log.Information("⚙️ Configuration: {Configuration}", Configuration);
             Log.Information("🎯 Assembly Version: {AssemblySemVer}", GitVersion.AssemblySemVer);
             Log.Information("🎯 File Version: {AssemblySemFileVer}", GitVersion.AssemblySemFileVer);
