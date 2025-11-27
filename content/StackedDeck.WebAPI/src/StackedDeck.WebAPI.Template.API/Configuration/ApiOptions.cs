@@ -44,4 +44,15 @@ public sealed class ApiOptions
     /// </remarks>
     [Required]
     public string Identifier { get; set; }
+
+    /// <summary>
+    /// A collection of networks that are considered trusted.
+    /// </summary>
+    /// <remarks>
+    /// Primarily consumed by the 'ForwardedHeadersMiddleware'
+    /// to determine if the request's originating IP is from a
+    /// known network. Because by default 'X-Forwarded-*' headers
+    /// will not be forwarded from unknown networks.
+    /// </remarks>
+    public string[] KnownNetworks { get; set; }
 }

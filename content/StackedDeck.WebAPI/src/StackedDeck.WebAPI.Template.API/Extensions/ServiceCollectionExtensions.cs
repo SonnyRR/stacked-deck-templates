@@ -18,6 +18,8 @@ using StackedDeck.WebAPI.Template.API.Health;
 using StackedDeck.WebAPI.Template.Common.Configuration;
 using StackedDeck.WebAPI.Template.Common.Extensions;
 
+using IPNetwork = System.Net.IPNetwork;
+
 namespace StackedDeck.WebAPI.Template.API.Extensions;
 
 /// <summary>
@@ -134,7 +136,19 @@ public static class ServiceCollectionExtensions
             .AddOptionsWithValidateOnStart<ConnectionStrings>()
             .ValidateDataAnnotations();
 
-        services.Configure<ForwardedHeadersOptions>(options => options.ForwardedHeaders = ForwardedHeaders.All);
+        services.Configure<ForwardedHeadersOptions>(options =>
+        {
+            options.ForwardedHeaders = ForwardedHeaders.All;
+
+            // If your API will sit behind a reverse proxy, you will need to configure a list
+            // of known networks in order for the 'ForwardedHeadersMiddleware' to correctly
+            // forward all 'X-Forwarded-*' headers. By default these headers will not be forwarded
+            // from untrusted networks. You must use CIDR ranges.
+            foreach (var knownNetwork in apiOptionsSection.Get<ApiOptions>()?.KnownNetworks)
+            {
+                options.KnownIPNetworks.Add(IPNetwork.Parse(knownNetwork));
+            }
+        });
         services.Configure<RouteOptions>(options => options.LowercaseUrls = true);
 
         return services;
