@@ -12,12 +12,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Nuke.Common" Version="10.0.0" />
+    <PackageReference Include="Nuke.Common" Version="10.1.0" />
     <PackageReference Include="Polly" Version="8.6.5" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageDownload Include="GitVersion.Tool" Version="[6.5.0]" />
+    <PackageDownload Include="GitVersion.Tool" Version="[6.5.1]" />
   </ItemGroup>
 
   <ItemGroup>
