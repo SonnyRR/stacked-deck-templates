@@ -79,6 +79,27 @@
       "parameters": {
         "format": "yyyy"
       }
+    },
+    "cloudProvider": {
+      "type": "parameter",
+      "datatype": "choice",
+      "enableQuotelessLiterals": true,
+      "choices": [
+        {
+          "choice": "Azure",
+          "description": "Use Azure as the cloud provider."
+        },
+        {
+          "choice": "None",
+          "description": "Don't use a cloud provider."
+        }
+      ],
+      "defaultValue": "Azure",
+      "description": "The cloud provider, used to determine which service configurations should be set up."
+    },
+    "UseAzureCloudProvider": {
+      "type": "computed",
+      "value": "cloudProvider == \"Azure\""
     }
   },
   "sources": [
@@ -101,7 +122,16 @@
       ],
       "rename": {
         "README-template.md": "README.md"
-      }
+      },
+      "modifiers": [
+        {
+          "condition": "!UseAzureCloudProvider",
+          "exclude": [
+            "src/StackedDeck.WebAPI.Template.API/Extensions/AzureAppConfigurationExtensions.cs",
+            "src/StackedDeck.WebAPI.Template.API/Configuration/ManagedIdentityOptions.cs"
+          ]
+        }
+      ]
     }
   ],
   "postActions": [
