@@ -100,16 +100,14 @@ public static class EndpointRouteBuilderExtensions
                     options.WithOperationTitleSource(OperationTitleSource.Path);
                     options.SortTagsAlphabetically();
 
-                    /*
-                     If you decide to support multiple versions of this API,you'll need to specify
-                     the OpenAPI spec documents explicitly. The route pattern is the default one,
-                     set up by the 'endpoints.MapOpenApi()'.The document name (v1.json, v2.json) are
-                     configured by the ServiceCollectionExtensions::AddOpenApiSpecification() extension method.
-
-                     Examples:
-                        options.AddDocument("v1", routePattern:"openapi/v1.json");
-                        options.AddDocument("v2", routePattern:"openapi/v2.json");
-                     */
+                    // If you decide to support multiple versions of this API,you'll need to specify
+                    // the OpenAPI spec documents explicitly. The route pattern is the default one,
+                    // set up by the 'endpoints.MapOpenApi()'.The document name (v1.json, v2.json) are
+                    // configured by the ServiceCollectionExtensions::AddOpenApiSpecification() extension method.
+                    //
+                    // Examples:
+                    //    options.AddDocument("v1", routePattern:"openapi/v1.json");
+                    //    options.AddDocument("v2", routePattern:"openapi/v2.json");
                 });
         }
 
