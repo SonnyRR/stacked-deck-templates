@@ -5,7 +5,7 @@
   "icon": "sd-logo-7.png",
   "symbolInfo": [
     {
-      "id": "title",
+      "id": "Title",
       "name": {
         "text": "API Title"
       },
@@ -15,7 +15,7 @@
       "isVisible": true
     },
     {
-      "id": "routePrefix",
+      "id": "RoutePrefix",
       "name": {
         "text": "Route Prefix"
       },
@@ -25,12 +25,32 @@
       "isVisible": true
     },
     {
-      "id": "dockerImageName",
+      "id": "DockerImageName",
       "name": {
         "text": "The docker image name for the API."
       },
       "description": {
         "text": "Docker image name which will be used during Docker build."
+      },
+      "isVisible": true
+    },
+    {
+      "id": "SetupRepo",
+      "name": {
+        "text": "Set-up git repository"
+      },
+      "description": {
+        "text": "Flag, indicating if a git repository should be initialized."
+      },
+      "isVisible": true
+    },
+    {
+      "id": "CloudProvider",
+      "name": {
+        "text": "The cloud provider which this API will use."
+      },
+      "description": {
+        "text": "The cloud provider, whose services will be utilized in this API."
       },
       "isVisible": true
     }

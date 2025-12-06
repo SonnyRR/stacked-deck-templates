@@ -1,27 +1,28 @@
 {
   "symbolInfo": {
-    "routePrefix": {
+    "RoutePrefix": {
       "longName": "route-prefix",
       "shortName": "rp"
     },
-    "setupRepo": {
+    "SetupRepo": {
       "longName": "setup-repo",
       "shortName": "sr"
     },
-    "title": {
-      "longName": "title"
+    "Title": {
+      "longName": "title",
+      "shortName": "t"
     },
-    "skipRestore": {
+    "SkipRestore": {
       "longName": "no-restore",
       "shortName": ""
     },
-    "dockerImageName": {
+    "DockerImageName": {
       "longName": "image-name",
-      "shortName": ""
+      "shortName": "in"
     },
-    "cloudProvider": {
+    "CloudProvider": {
       "longName": "cloud-provider",
-      "shorName": ""
+      "shorName": "cp"
     }
   }
 }

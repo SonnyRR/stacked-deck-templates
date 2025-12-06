@@ -23,7 +23,7 @@
     "type": "solution"
   },
   "symbols": {
-    "templateVersion": {
+    "TemplateVersion": {
       "type": "generated",
       "generator": "constant",
       "replaces": "templateVersion",
@@ -31,7 +31,7 @@
         "value": "0.0.1-pre-release"
       }
     },
-    "templateUrl": {
+    "TemplateUrl": {
       "type": "generated",
       "generator": "constant",
       "replaces": "templateUrl",
@@ -39,40 +39,40 @@
         "value": "https://github.com/SonnyRR/stacked-deck-templates"
       }
     },
-    "title": {
+    "Title": {
       "type": "parameter",
       "datatype": "text",
       "description": "The API's title, used primarily for the Open API specification.",
       "defaultValue": "StackedDeck Web Service",
       "replaces": "sd-api-title"
     },
-    "routePrefix": {
+    "RoutePrefix": {
       "type": "parameter",
       "datatype": "text",
       "isRequired": true,
       "description": "The service's path prefix, which will be used in the base controller. (e.g., 'reference')",
       "replaces": "sd-api-route-prefix"
     },
-    "dockerImageName": {
+    "DockerImageName": {
       "type": "parameter",
       "datatype": "text",
       "isRequired": true,
       "description": "Docker image name which will be used during Docker build.",
       "replaces": "sd-web-api-image"
     },
-    "setupRepo": {
+    "SetupRepo": {
       "type": "parameter",
       "description": "Setup git repository.",
       "datatype": "bool",
       "defaultValue": "true"
     },
-    "skipRestore": {
+    "SkipRestore": {
       "type": "parameter",
       "datatype": "bool",
       "description": "If specified, skips the automatic restore of the project on create.",
       "defaultValue": "false"
     },
-    "copyrightYear": {
+    "CopyrightYear": {
       "type": "generated",
       "generator": "now",
       "replaces": "2025",
@@ -80,7 +80,7 @@
         "format": "yyyy"
       }
     },
-    "cloudProvider": {
+    "CloudProvider": {
       "type": "parameter",
       "datatype": "choice",
       "enableQuotelessLiterals": true,
@@ -99,7 +99,7 @@
     },
     "UseAzureCloudProvider": {
       "type": "computed",
-      "value": "cloudProvider == \"Azure\""
+      "value": "CloudProvider == \"Azure\""
     }
   },
   "sources": [
@@ -138,7 +138,7 @@
     {
       "id": "repository-init",
       "actionId": "3A7C4B45-1F5D-4A30-959A-51B88E82B5D2",
-      "condition": "(setupRepo)",
+      "condition": "(SetupRepo)",
       "description": "Setup git repository.",
       "args": {
         "executable": "git",
@@ -154,7 +154,7 @@
     {
       "id": "restore",
       "actionId": "210D431B-A78B-4D2F-B762-4ED3E3EA9025",
-      "condition": "(!skipRestore)",
+      "condition": "(!SkipRestore)",
       "description": "Restore NuGet packages required by this project.",
       "args": {
         "files": ["./StackedDeck.WebAPI.Template.slnx"]
