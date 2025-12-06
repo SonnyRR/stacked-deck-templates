@@ -12,13 +12,9 @@ namespace StackedDeck.WebAPI.Template.API.Health;
 /// </summary>
 public class LivenessHealthCheck : IHealthCheck
 {
-    /// <summary>
-    /// Performs the health check asynchronously.
-    /// </summary>
-    /// <param name="context">The health check context.</param>
-    /// <param name="cancellationToken">The cancellation token.</param>
-    /// <returns>A task representing the asynchronous health check operation.</returns>
-    public Task<HealthCheckResult> CheckHealthAsync(HealthCheckContext context, CancellationToken cancellationToken = default)
+    /// <inheritdoc/>
+    public Task<HealthCheckResult> CheckHealthAsync(
+        HealthCheckContext context, CancellationToken cancellationToken = default)
     {
         try
         {
@@ -30,11 +26,14 @@ public class LivenessHealthCheck : IHealthCheck
                 { "os", Environment.OSVersion.Platform.ToString() }
             };
 
-            return Task.FromResult(HealthCheckResult.Healthy("Server is ready", data: metadata));
+            return Task.FromResult(HealthCheckResult.Healthy("Server is live.", data: metadata));
         }
         catch (Exception ex)
         {
-            var failure = HealthCheckResult.Unhealthy("Check failure", exception: ex);
+            var failure = HealthCheckResult.Unhealthy(
+                "Server is not reporting base liveness metrics.",
+                exception: ex);
+
             return Task.FromResult(failure);
         }
     }
