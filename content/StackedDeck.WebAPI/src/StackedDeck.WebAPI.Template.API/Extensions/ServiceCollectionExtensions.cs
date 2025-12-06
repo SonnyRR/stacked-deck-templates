@@ -16,8 +16,11 @@ using StackedDeck.WebAPI.Template.API.Configuration;
 using StackedDeck.WebAPI.Template.API.Handlers;
 using StackedDeck.WebAPI.Template.API.Health;
 using StackedDeck.WebAPI.Template.Common.Configuration;
+
+#if (UseAzureCloudProvider)
 using StackedDeck.WebAPI.Template.Common.Extensions;
 
+#endif
 using IPNetwork = System.Net.IPNetwork;
 
 namespace StackedDeck.WebAPI.Template.API.Extensions;
@@ -46,7 +49,11 @@ public static class ServiceCollectionExtensions
         ArgumentNullException.ThrowIfNull(configuration);
         ArgumentNullException.ThrowIfNull(environment);
 
+#if (UseAzureCloudProvider)
         services.AddApiConfigurationOptions(configuration, environment);
+#else
+        services.AddApiConfigurationOptions(configuration);
+#endif
 
         // Build a temporary service provider to resolve strongly typed options,
         // that are required for other service registrations.
@@ -88,6 +95,7 @@ public static class ServiceCollectionExtensions
         return services;
     }
 
+#if (UseAzureCloudProvider)
     /// <summary>
     /// Registers API specific configuration options in the DI container.
     /// </summary>
@@ -98,6 +106,17 @@ public static class ServiceCollectionExtensions
     /// <exception cref="ArgumentNullException"/>
     private static IServiceCollection AddApiConfigurationOptions(
         this IServiceCollection services, IConfiguration configuration, IWebHostEnvironment environment)
+#else
+    /// <summary>
+    /// Registers API specific configuration options in the DI container.
+    /// </summary>
+    /// <param name="services">The service collection.</param>
+    /// <param name="configuration">The web host configuration.</param>
+    /// <returns>The updated <see cref="IServiceCollection"/> with strongly typed API options configured.</returns>
+    /// <exception cref="ArgumentNullException"/>
+    private static IServiceCollection AddApiConfigurationOptions(
+        this IServiceCollection services, IConfiguration configuration)
+#endif
     {
         ArgumentNullException.ThrowIfNull(services);
         ArgumentNullException.ThrowIfNull(configuration);
@@ -107,6 +126,7 @@ public static class ServiceCollectionExtensions
             .AddOptionsWithValidateOnStart<ApiOptions>()
             .ValidateDataAnnotations();
 
+#if (UseAzureCloudProvider)
         services.Configure<ManagedIdentityOptions>(configuration.GetSection(ManagedIdentityOptions.CFG_SECTION_NAME))
             .AddOptionsWithValidateOnStart<ManagedIdentityOptions>()
             .ValidateDataAnnotations()
@@ -131,6 +151,9 @@ public static class ServiceCollectionExtensions
         var optionsConfigurationRoot = environment.IsLocal() || environment.IsE2E()
             ? configuration
             : configuration.GetSection(apiOptionsSection.GetSection(nameof(ApiOptions.Identifier)).Value);
+#else
+        var optionsConfigurationRoot = configuration;
+#endif
 
         services.Configure<ConnectionStrings>(optionsConfigurationRoot.GetSection(ConnectionStrings.CFG_SECTION_NAME))
             .AddOptionsWithValidateOnStart<ConnectionStrings>()

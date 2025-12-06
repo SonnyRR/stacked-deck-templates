@@ -155,6 +155,7 @@ specification. It is a fully-fledged interactive API client inside of your brows
 and trusted by Fortune 500 companies. Heavily customizable, you can extend to
 comply with your company's design guidelines & security practices.
 
+<!--#if(UseAzureCloudProvider)-->
 ### ⚙️ Azure App Configuration
 
 This project can utilize retrieving, registering & validating variables and secrets
@@ -162,6 +163,7 @@ from `Azure App Config` instances for all environments that are not `LOCAL`.
 Authentication is setup with `User Managed Identities`, so that you can minimize
 the storage of sensitive data in `appsettings.*.json` documents.
 
+<!--#endif-->
 ### 🔁 GitHub Actions Workflow
 
 By default this project comes with a pre-defined `CI` workflow for `GitHub Actions`.

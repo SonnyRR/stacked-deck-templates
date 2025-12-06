@@ -40,7 +40,7 @@ public sealed class ApiOptions
     /// The unique identifier for the API.
     /// </summary>
     /// <remarks>
-    /// Used for hooking up Azure App Configuration.
+    /// Used for hooking up cloud configuration providers.
     /// </remarks>
     [Required]
     public string Identifier { get; set; }

@@ -18,6 +18,10 @@
     "dockerImageName": {
       "longName": "image-name",
       "shortName": ""
+    },
+    "cloudProvider": {
+      "longName": "cloud-provider",
+      "shorName": ""
     }
   }
 }

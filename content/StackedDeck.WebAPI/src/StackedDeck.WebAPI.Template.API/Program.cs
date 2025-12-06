@@ -5,8 +5,10 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
 
 using Serilog;
+#if (UseAzureCloudProvider)
 
 using StackedDeck.WebAPI.Template.API.Extensions;
+#endif
 
 namespace StackedDeck.WebAPI.Template.API;
 
@@ -35,7 +37,9 @@ public class Program
                 .ConfigureWebHostDefaults(webBuilder => webBuilder.UseStartup<Startup>())
                 .UseSerilog((builderContext, loggerConfig)
                     => loggerConfig.ReadFrom.Configuration(builderContext.Configuration))
+#if (UseAzureCloudProvider)
                 .AddAzureAppConfiguration()
+#endif
                 .Build()
                 .Run();
         }
