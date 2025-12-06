@@ -9,7 +9,7 @@ ENV \
     LC_ALL=en_US.UTF-8 \
     LANG=en_US.UTF-8
 
-RUN apk add --no-cache icu-data-full icu-libs
+RUN apk add --no-cache icu-data-full=76.1-r1 icu-libs=76.1-r1
 
 USER $APP_UID
 COPY ["/publish", "."]
