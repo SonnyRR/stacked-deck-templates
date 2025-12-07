@@ -15,7 +15,6 @@ using Microsoft.Extensions.Options;
 using StackedDeck.WebAPI.Template.API.Configuration;
 using StackedDeck.WebAPI.Template.API.Handlers;
 using StackedDeck.WebAPI.Template.API.Health;
-using StackedDeck.WebAPI.Template.Common.Configuration;
 
 #if (UseAzureCloudProvider)
 using StackedDeck.WebAPI.Template.Common.Extensions;

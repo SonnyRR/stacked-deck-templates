@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace StackedDeck.WebAPI.Template.Common.Configuration;
+namespace StackedDeck.WebAPI.Template.API.Configuration;
 
 /// <summary>
 /// Contains various connection strings for application dependencies.
