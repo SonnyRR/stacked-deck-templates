@@ -32,7 +32,7 @@
     </ItemGroup>
 
     <ItemGroup>
-        <Content Include="content\**\*" Exclude="content\**\bin\**;content\**\obj\**;content\**\packages\**;content\**\pkg\**;**\.vs\**;content\**\.DS_Store"/>
+        <Content Include="content\**\*" Exclude="content\**\bin\**;content\**\obj\**;content\**\packages\**;content\**\pkg\**;**\.vs\**;content\**\.DS_Store;content\**\publish\**"/>
         <Compile Remove="**\*"/>
     </ItemGroup>
 
