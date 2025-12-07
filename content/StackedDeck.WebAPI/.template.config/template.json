@@ -197,22 +197,6 @@
       "continueOnError": true
     },
     {
-      "id": "build-script-permissions-win",
-      "actionId": "3A7C4B45-1F5D-4A30-959A-51B88E82B5D2",
-      "description": "Make build script executable",
-      "condition": "(OS == \"Windows_NT\")",
-      "args": {
-        "executable": "wsl",
-        "args": "chmod +x build.sh"
-      },
-      "manualInstructions": [
-        {
-          "text": "Under WSL2, Cygwin or MSYS2; Run 'chmod +x build.sh' to make the build shell script executable."
-        }
-      ],
-      "continueOnError": true
-    },
-    {
       "id": "gitversion-warning",
       "actionId": "AC1156F7-BB77-4DB8-B28F-24EEBCCA1E5C",
       "description": "Create an initial git commit if it's missing.",
