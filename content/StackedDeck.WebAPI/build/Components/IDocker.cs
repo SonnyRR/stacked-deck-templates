@@ -63,7 +63,7 @@ internal interface IDocker : IHasProjects, IHasGitVersion, IHasGitRepository
                     (ex, _, retryCount, _) =>
                     {
                         Log.Warning(ex, "Docker login was unsuccessful");
-                        Log.Information("Attempting to login into GitHub Docker image registry. Try #{RetryCount}", retryCount);
+                        Log.Information("Attempting to login into Docker image registry. Try #{RetryCount}", retryCount);
                     })
                 .Execute(() => DockerLogin(s => s
                     .SetServer(ContainerRegistryUrl)
