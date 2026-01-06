@@ -53,6 +53,16 @@
         "text": "The cloud provider, whose services will be utilized in this API."
       },
       "isVisible": true
+    },
+    {
+      "id": "PipelineProvider",
+      "name": {
+        "text": "The CI/CD pipeline provider."
+      },
+      "description": {
+        "text": "The CI/CD pipeline provider, used for building, testing, publishing & deploying artifacts."
+      },
+      "isVisible": true
     }
   ]
 }

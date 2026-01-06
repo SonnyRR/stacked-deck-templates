@@ -97,9 +97,33 @@
       "defaultValue": "Azure",
       "description": "The cloud provider, used to determine which service configurations should be set up."
     },
+    "PipelineProvider": {
+      "type": "parameter",
+      "datatype": "choice",
+      "enableQuotelessLiterals": true,
+      "choices": [
+        {
+          "choice": "GitHub",
+          "description": "Use GitHub Actions as the CI/CD pipeline provider."
+        },
+        {
+          "choice": "None",
+          "description": "Don't use a CI/CD pipeline provider."
+        }
+      ],
+      "defaultValue": "GitHub"
+    },
     "UseAzureCloudProvider": {
       "type": "computed",
       "value": "CloudProvider == \"Azure\""
+    },
+    "UseGitHubActions": {
+      "type": "computed",
+      "value": "PipelineProvider == \"GitHub\""
+    },
+    "DontUsePipelineProvider": {
+      "type": "computed",
+      "value": "PipelineProvider == \"None\""
     }
   },
   "sources": [
@@ -130,6 +154,10 @@
             "src/StackedDeck.WebAPI.Template.API/Extensions/AzureAppConfigurationExtensions.cs",
             "src/StackedDeck.WebAPI.Template.API/Configuration/ManagedIdentityOptions.cs"
           ]
+        },
+        {
+          "condition": "!UseGitHubActions",
+          "exclude": [".github/**/*"]
         }
       ]
     }

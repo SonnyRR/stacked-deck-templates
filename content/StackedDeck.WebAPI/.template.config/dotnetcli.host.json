@@ -22,7 +22,11 @@
     },
     "CloudProvider": {
       "longName": "cloud-provider",
-      "shorName": "cp"
+      "shortName": "cp"
+    },
+    "PipelineProvider": {
+      "longName": "pipeline-provider",
+      "shortName": "pp"
     }
   }
 }

@@ -73,19 +73,25 @@ target name.
 > the build assembly. New targets can be added depending on the needs and requirements.
 
 ## 🔁 CI/CD providers
+<!--#if(DontUsePipelineProvider)-->
+
+This solution was created explicitly without a configuration for a `CI/CD`
+pipeline provider.
+<!--#endif-->
+<!--#if(UseGitHubActions)-->
 
 This solution uses a configuration for `GitHub Actions`, which builds & pushes `OCI`
 compatible images to a container registry of your choice. It also makes use of
 `dependabot` for automatic dependency version management. Both configurations are
-specific to `GitHub` services, if you're hosting your pipelines on other
-providers - adjust the configurations accordingly. Ensure that the `yaml` documents
-are slim, they should only be concerned with bootsrapping the `NUKE` scripts & to
-pass forward the custom parameters.
+specific to `GitHub` services. Ensure that the `yaml` documents are slim, they
+should only be concerned with bootsrapping the `NUKE` scripts & to pass forward
+the custom parameters.
 
 > [!WARNING]
 > Before trying to trigger a workflow run, review the `.github/workflows/ci.yml`
 > document and the comments inside of it. You are required to setup repository
 > variables & secrets before initiating workflow runs.
+<!--#endif-->
 
 ## 🧩 Features
 
@@ -140,8 +146,8 @@ or set-up additional sinks for structured logs servers like [Seq](https://datalu
 
 ### 🪆 API Versioning
 
-API Versioning is supported out-of-the-box, so if this project matures in time, you
-can easily host multiple versions inside of this web service.
+API Versioning is supported out-of-the-box, so if this project matures in time,
+you can easily host multiple versions inside of this web service.
 
 ### 🗺️ OpenAPI specification
 
