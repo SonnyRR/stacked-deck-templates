@@ -3,24 +3,15 @@
 Below are instructions for you, the AI agent contributing to this codebase.
 Follow them closely & respect them.
 
-## Build/Compilation related tasks
-
-- Use the `NUKE` build system as much as possible.
-- Available targets can be listed via `./build.sh --help`, `./build.ps1 --help`
-  or `nuke --help`.
-- Use the `NUKE` global `.NET` tool if it's installed.
-- If you're doing small changes, that affect a single assembly, fallback to
-  the regular `.NET CLI` to do operations like `build`.
-- Main `Dockerfile` is located under `./src/StackedDeck.WebAPI.Template.API/Dockerfile`.
-- If `OCI` compatible images need to be built, do that through the `NUKE`
-  build system.
-
 ## General
 
-- Business source code is located under `./src/`.
+- Main source code is located under `./src/`.
 - Test assemblies should be maintained under the `./test/`.
 - All build system infrastructure is located in `./build/`.
 - All configurations must be done via `appsettings.{ENV}.json`
+- Ensure that `ASPNETCORE_ENVIRONMENT` env. variable is set to `Local`
+  when working on this codebase, unless explicitly prompted by the user
+  to use a different environment.
   documents. They are located in `./src/StackedDeck.WebAPI.Template.API/`
 - Mimic the project structure in other assemblies.
 - Prefer loosely coupled implementations with strong cohesion.
@@ -32,6 +23,18 @@ Follow them closely & respect them.
   after any changes were applied to you to source code documents. This
   should be your final step in your plans.
 - Prefer a more functional programming approach where appropriate.
+
+## Build Tasks Guide
+
+- Use the `NUKE` build system as much as possible.
+- Available targets can be listed via `./build.sh --help`, `./build.ps1 --help`
+  or `nuke --help`.
+- Use the `NUKE` global `.NET` tool if it's installed.
+- If you're doing small changes, that affect a single assembly, fallback to
+  the regular `dotnet CLI` to do operations like `build`.
+- Main `Dockerfile` is located under `./src/StackedDeck.WebAPI.Template.API/Dockerfile`.
+- If `OCI` compatible images need to be built, do that through the `NUKE`
+  build system.
 
 ## Coding Guide
 
@@ -63,15 +66,17 @@ Follow them closely & respect them.
 - For integration tests, prefer using fixtures as much as possible.
 - Integration tests should always use a single global fixture for spinning-up
   an instance of the `API`.
+- Prefer using the `dotnet CLI` to filter and run single test or a subset of tests
+  to verify your changes. After successful pass, evaluate all tests via the
+  `NUKE` targets
 
 ## Git Contribution Guide
 
 - Don't automatically stage & commit anything unless the user has explicitly
   prompted you to do so.
 - Stash any previous unrelated changes, done by the person contributing to this
-  codebase, before
-  you stage and commit anything else. Save those stashes with some kind of a
-  human readable name.
+  codebase, before you stage and commit anything else. Save those stashes with
+  some kind of a human readable name.
 - Ensure commit messages, done by you, are following the `Conventional Commits`
   specification. Use multi-paragraph bodies where deemed appropriate.
 - If the user has set-up `git hooks`, ensure that you don't bypass those checks.
