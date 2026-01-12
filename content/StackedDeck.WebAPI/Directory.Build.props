@@ -5,6 +5,7 @@
     <Copyright>Copyright © 2025 Vasil Kotsev</Copyright>
     <PackageProjectUrl>https://github.com/SonnyRR/stacked-deck-templates</PackageProjectUrl>
     <PackageReadmeFile>README.md</PackageReadmeFile>
+    <TargetFramework>net10.0</TargetFramework>
     <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <Nullable>disable</Nullable>
