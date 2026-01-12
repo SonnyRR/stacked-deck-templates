@@ -81,7 +81,11 @@ public class Startup
         {
             endpoints.MapHealthCheckEndpoints(env);
             endpoints.MapOpenApiEndpoints(env, apiOptions);
+#if (UseMinimalApis)
+            endpoints.MapMinimalApiEndpoints();
+#else
             endpoints.MapDefaultControllerRoute();
+#endif
         });
     }
 

@@ -63,6 +63,16 @@
         "text": "The CI/CD pipeline provider, used for building, testing, publishing & deploying artifacts."
       },
       "isVisible": true
+    },
+    {
+      "id": "ApiStyle",
+      "name": {
+        "text": "The API's style."
+      },
+      "description": {
+        "text": "The API implementation style. Minimal API or Controllers"
+      },
+      "isVisible": true
     }
   ]
 }

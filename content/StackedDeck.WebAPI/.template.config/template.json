@@ -124,6 +124,27 @@
     "DontUsePipelineProvider": {
       "type": "computed",
       "value": "PipelineProvider == \"None\""
+    },
+    "ApiStyle": {
+      "type": "parameter",
+      "datatype": "choice",
+      "enableQuotelessLiterals": true,
+      "choices": [
+        {
+          "choice": "MinimalAPI",
+          "description": "Use modern Minimal APIs."
+        },
+        {
+          "choice": "Controllers",
+          "description": "Use traditional ASP.NET Core controllers."
+        }
+      ],
+      "defaultValue": "MinimalAPI",
+      "description": "The API implementation style. Minimal APIs use modern endpoint definitions; Controllers use traditional MVC-style controllers."
+    },
+    "UseMinimalApis": {
+      "type": "computed",
+      "value": "ApiStyle == \"MinimalAPI\""
     }
   },
   "sources": [
@@ -158,6 +179,17 @@
         {
           "condition": "!UseGitHubActions",
           "exclude": [".github/**/*"]
+        },
+        {
+          "condition": "UseMinimalApis",
+          "exclude": [
+            "src/StackedDeck.WebAPI.Template.API/Controllers/**/*",
+            "test/StackedDeck.WebAPI.Template.Integration.Tests/Controllers/**/*"
+          ]
+        },
+        {
+          "condition": "!UseMinimalApis",
+          "exclude": ["test/StackedDeck.WebAPI.Template.Integration.Tests/Endpoints/**/*"]
         }
       ]
     }

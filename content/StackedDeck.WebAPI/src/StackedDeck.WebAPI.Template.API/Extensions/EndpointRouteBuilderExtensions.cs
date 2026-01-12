@@ -3,6 +3,10 @@ using System.Diagnostics.CodeAnalysis;
 using System.Net.Mime;
 using System.Text.Json;
 
+#if (UseMinimalApis)
+using Asp.Versioning;
+#endif
+
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.AspNetCore.Hosting;
@@ -113,4 +117,31 @@ public static class EndpointRouteBuilderExtensions
 
         return builder;
     }
+#if (UseMinimalApis)
+
+    /// <summary>
+    /// Maps minimal API endpoints for the API.
+    /// </summary>
+    /// <param name="builder">The endpoint route builder.</param>
+    /// <returns>The endpoint route builder with minimal API endpoints mapped.</returns>
+    public static IEndpointRouteBuilder MapMinimalApiEndpoints(this IEndpointRouteBuilder builder)
+    {
+        ArgumentNullException.ThrowIfNull(builder);
+
+        var apiVersionSet = builder.NewApiVersionSet()
+            .HasApiVersion(new ApiVersion(1))
+            .Build();
+
+        var v1Group = builder.MapGroup($"{API_ROUTE_PREFIX}/v{{version:apiVersion}}")
+            .WithApiVersionSet(apiVersionSet);
+
+        v1Group.MapGet("/greetings", () => Results.Ok("Buongiorno!"))
+            .WithName("GetGreetings")
+            .WithSummary("Greets you.")
+            .WithDescription("This is the default action, set up by the StackedDeck Web API project template using Minimal APIs.")
+            .Produces<string>(StatusCodes.Status200OK);
+
+        return builder;
+    }
+#endif
 }

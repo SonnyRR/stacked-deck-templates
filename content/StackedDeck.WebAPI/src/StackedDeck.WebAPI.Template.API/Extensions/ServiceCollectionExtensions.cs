@@ -65,12 +65,20 @@ public static class ServiceCollectionExtensions
                     .CustomizeProblemDetails = context => context
                         .ProblemDetails.WithHttpContextMetadata(context.HttpContext))
             .AddExceptionHandler<GlobalExceptionHandler>()
+#if (!UseMinimalApis)
             .AddControllers()
             .AddJsonOptions(options =>
             {
                 options.JsonSerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
                 options.JsonSerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull;
             });
+#else
+            .ConfigureHttpJsonOptions(options =>
+            {
+                options.SerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
+                options.SerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull;
+            });
+#endif
 
         services
             .AddCors(options => options

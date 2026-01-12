@@ -27,6 +27,10 @@
     "PipelineProvider": {
       "longName": "pipeline-provider",
       "shortName": "pp"
+    },
+    "ApiStyle": {
+      "longName": "api-style",
+      "shortName": ""
     }
   }
 }
