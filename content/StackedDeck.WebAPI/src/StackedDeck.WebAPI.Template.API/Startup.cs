@@ -77,6 +77,9 @@ public class Startup
         });
         app.UseRouting();
         app.UseStatusCodePages();
+#if (UseFastEndpoints)
+        app.UseFastEndpoints();
+#else
         app.UseEndpoints(endpoints =>
         {
             endpoints.MapHealthCheckEndpoints(env);
@@ -87,6 +90,7 @@ public class Startup
             endpoints.MapDefaultControllerRoute();
 #endif
         });
+#endif
     }
 
     /// <summary>

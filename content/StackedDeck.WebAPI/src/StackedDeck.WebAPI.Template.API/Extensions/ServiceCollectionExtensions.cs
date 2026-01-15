@@ -77,21 +77,24 @@ public static class ServiceCollectionExtensions
             {
                 options.SerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
                 options.SerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull;
-            });
+             });
+#endif
+#if (UseFastEndpoints)
+             .AddFastEndpoints();
 #endif
 
         services
-            .AddCors(options => options
-                .AddDefaultPolicy(policyBuilder =>
-                {
-                    policyBuilder
-                        .SetIsOriginAllowedToAllowWildcardSubdomains()
-                        .WithOrigins(apiOptions.CorsOrigins)
-                        .AllowAnyMethod()
-                        .AllowAnyHeader();
+           .AddCors(options => options
+               .AddDefaultPolicy(policyBuilder =>
+               {
+                   policyBuilder
+                       .SetIsOriginAllowedToAllowWildcardSubdomains()
+                       .WithOrigins(apiOptions.CorsOrigins)
+                       .AllowAnyMethod()
+                       .AllowAnyHeader();
 
-                    // Set AllowCredentials() if you change the default origins and you plan to use SSO.
-                }));
+                   // Set AllowCredentials() if you change the default origins and you plan to use SSO.
+               }));
 
         services.AddApiVersioning();
         services.AddOpenApiSpecification();
