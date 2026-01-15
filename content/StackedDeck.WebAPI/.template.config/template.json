@@ -137,14 +137,26 @@
         {
           "choice": "Controllers",
           "description": "Use traditional ASP.NET Core controllers."
+        },
+        {
+          "choice": "FastEndpoints",
+          "description": "Use FastEndpoints with REPR pattern."
         }
       ],
       "defaultValue": "MinimalAPI",
-      "description": "The API implementation style. Minimal APIs use modern endpoint definitions; Controllers use traditional MVC-style controllers."
+      "description": "The API implementation style. Minimal APIs use modern endpoint definitions; Controllers use traditional MVC-style controllers; FastEndpoints uses the REPR pattern."
     },
     "UseMinimalApis": {
       "type": "computed",
       "value": "ApiStyle == \"MinimalAPI\""
+    },
+    "UseFastEndpoints": {
+      "type": "computed",
+      "value": "ApiStyle == \"FastEndpoints\""
+    },
+    "UseControllers": {
+      "type": "computed",
+      "value": "ApiStyle == \"Controllers\""
     }
   },
   "sources": [
@@ -184,12 +196,23 @@
           "condition": "UseMinimalApis",
           "exclude": [
             "src/StackedDeck.WebAPI.Template.API/Controllers/**/*",
+            "test/StackedDeck.WebAPI.Template.Integration.Tests/Controllers/**/*",
+            "src/StackedDeck.WebAPI.Template.API/Endpoints/**/*"
+          ]
+        },
+        {
+          "condition": "UseFastEndpoints",
+          "exclude": [
+            "src/StackedDeck.WebAPI.Template.API/Controllers/**/*",
             "test/StackedDeck.WebAPI.Template.Integration.Tests/Controllers/**/*"
           ]
         },
         {
-          "condition": "!UseMinimalApis",
-          "exclude": ["test/StackedDeck.WebAPI.Template.Integration.Tests/Endpoints/**/*"]
+          "condition": "UseControllers",
+          "exclude": [
+            "test/StackedDeck.WebAPI.Template.Integration.Tests/Endpoints/**/*",
+            "src/StackedDeck.WebAPI.Template.API/Endpoints/**/*"
+          ]
         }
       ]
     }

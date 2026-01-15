@@ -70,7 +70,7 @@
         "text": "The API's style."
       },
       "description": {
-        "text": "The API implementation style. Minimal API or Controllers"
+        "text": "The API implementation style. Minimal APIs, Controllers, or FastEndpoints with REPR pattern"
       },
       "isVisible": true
     }

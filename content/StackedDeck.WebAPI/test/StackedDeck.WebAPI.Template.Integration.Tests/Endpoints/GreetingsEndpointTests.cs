@@ -1,4 +1,7 @@
 using System.Net;
+#if (UseFastEndpoints)
+using System.Text.Json;
+#endif
 using System.Threading.Tasks;
 
 using Shouldly;
@@ -37,7 +40,14 @@ public class GreetingsEndpointTests
         {
             result.ShouldNotBeNull();
             result.StatusCode.ShouldBe(HttpStatusCode.OK);
+#if (UseFastEndpoints)
+            var responseContent = await result.Content.ReadAsStringAsync();
+            var response = JsonSerializer.Deserialize<GreetingsResponse>(responseContent, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+            response.ShouldNotBeNull();
+            response.Message.ShouldBe("Buongiorno!");
+#else
             (await result.Content.ReadAsStringAsync()).ShouldBe("Buongiorno!");
+#endif
         });
     }
 }
