@@ -24,7 +24,7 @@ public class GreetingsEndpointTests
     /// Tests whether the greetings minimal API endpoint
     /// returns an OK response with the expected greeting content.
     /// </summary>
-    [Fact]
+    [Fact(DisplayName = "Greetings endpoint returns OK with Italian greeting")]
     public async Task GetGreetings_ReturnsOK_WithAnItalianGreeting()
     {
         // Act

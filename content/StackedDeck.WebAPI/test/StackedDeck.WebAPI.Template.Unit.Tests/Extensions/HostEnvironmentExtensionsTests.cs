@@ -34,7 +34,7 @@ public class HostEnvironmentExtensionsTests
     /// </summary>
     /// <param name="environment">The environment identifier.</param>
     /// <param name="isExpectedEnvironment">Boolean flag, indicating if the expected environment is correct.</param>
-    [Theory]
+    [Theory(DisplayName = "IsE2E extension correctly identifies E2E environment")]
     [ClassData(typeof(E2EEnvironmentTestData))]
     public void IsE2E_WhenEnvironmentIsE2E_ReturnsCorrectFlag(string environment, bool isExpectedEnvironment)
     {
@@ -53,7 +53,7 @@ public class HostEnvironmentExtensionsTests
     /// </summary>
     /// <param name="environment">The environment identifier.</param>
     /// <param name="isExpectedEnvironment">Boolean flag, indicating if the expected environment is correct.</param>
-    [Theory]
+    [Theory(DisplayName = "IsLocal extension correctly identifies Local environment")]
     [ClassData(typeof(LocalEnvironmentTestData))]
     public void IsLocal_WhenEnvironmentIsLocal_ReturnsCorrectFlag(string environment, bool isExpectedEnvironment)
     {
