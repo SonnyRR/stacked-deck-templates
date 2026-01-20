@@ -4,6 +4,10 @@ using System.Text.Json.Serialization;
 
 using Asp.Versioning;
 
+#if (UseFastEndpoints)
+using FastEndpoints;
+#endif
+
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpOverrides;
@@ -65,7 +69,10 @@ public static class ServiceCollectionExtensions
                     .CustomizeProblemDetails = context => context
                         .ProblemDetails.WithHttpContextMetadata(context.HttpContext))
             .AddExceptionHandler<GlobalExceptionHandler>()
-#if (!UseMinimalApis)
+#if (UseFastEndpoints)
+            .AddFastEndpoints()
+#endif
+#if (UseControllers)
             .AddControllers()
             .AddJsonOptions(options =>
             {
@@ -77,10 +84,7 @@ public static class ServiceCollectionExtensions
             {
                 options.SerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
                 options.SerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull;
-             });
-#endif
-#if (UseFastEndpoints)
-             .AddFastEndpoints();
+            });
 #endif
 
         services

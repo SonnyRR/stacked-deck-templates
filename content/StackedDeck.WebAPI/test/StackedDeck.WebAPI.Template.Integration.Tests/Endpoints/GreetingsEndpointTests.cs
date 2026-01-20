@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 using Shouldly;
 
+#if (UseFastEndpoints)
+using StackedDeck.WebAPI.Endpoints.Greetings;
+#endif
 using StackedDeck.WebAPI.Template.Integration.Tests.Fixtures;
 
 namespace StackedDeck.WebAPI.Template.Integration.Tests.Endpoints;

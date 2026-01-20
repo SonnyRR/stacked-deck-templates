@@ -1,5 +1,4 @@
-#if (UseFastEndpoints)
-namespace StackedDeck.WebAPI.Template.API.Endpoints;
+namespace StackedDeck.WebAPI.Template.API.Endpoints.Greetings;
 
 /// <summary>
 /// Response DTO for the Greetings endpoint.
@@ -11,4 +10,3 @@ public class GreetingsResponse
     /// </summary>
     public string Message { get; set; } = default!;
 }
-#endif
