@@ -6,6 +6,7 @@ using Asp.Versioning;
 
 #if (UseFastEndpoints)
 using FastEndpoints;
+using FastEndpoints.AspVersioning;
 #endif
 
 using Microsoft.AspNetCore.Builder;
@@ -200,6 +201,7 @@ public static class ServiceCollectionExtensions
     {
         ArgumentNullException.ThrowIfNull(services);
 
+#if (!UseFastEndpoints)
         services
             .AddApiVersioning(options =>
             {
@@ -213,6 +215,20 @@ public static class ServiceCollectionExtensions
                 options.GroupNameFormat = "'v'VVV";
                 options.SubstituteApiVersionInUrl = true;
             });
+#else
+        services
+            .AddVersioning(versioningOptions =>
+            {
+                versioningOptions.ReportApiVersions = true;
+                versioningOptions.AssumeDefaultVersionWhenUnspecified = true;
+                versioningOptions.DefaultApiVersion = ApiVersion.Default;
+                versioningOptions.ApiVersionReader = ApiVersionReader.Combine(new UrlSegmentApiVersionReader());
+            }, explorerOptions =>
+            {
+                explorerOptions.GroupNameFormat = "'v'VVV";
+                explorerOptions.SubstituteApiVersionInUrl = true;
+            });
+#endif
 
         return services;
     }
