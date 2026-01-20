@@ -11,7 +11,7 @@ namespace StackedDeck.WebAPI.Template.API.Endpoints.Greetings;
 /// <summary>
 /// Endpoint for retrieving a greeting message using FastEndpoints.
 /// </summary>
-public class GreetingsEndpoint : Endpoint<GreetingsRequest, GreetingsResponse>
+public class GreetingsEndpoint : EndpointWithoutRequest<GreetingsResponse>
 {
     /// <summary>
     /// Configures the endpoint route and metadata.
@@ -24,23 +24,22 @@ public class GreetingsEndpoint : Endpoint<GreetingsRequest, GreetingsResponse>
             s.Summary = "Greets you.";
             s.Description = "This is the default action, set up by the StackedDeck Web API project template using FastEndpoints with REPR pattern.";
         });
-        Description(d => d
-            .Produces<GreetingsResponse>(200, MediaTypeNames.Application.Json));
+        Description(d => d.Produces<GreetingsResponse>(200, MediaTypeNames.Application.Json));
+        AllowAnonymous();
     }
 
     /// <summary>
     /// Handles the request and returns the response.
     /// </summary>
-    /// <param name="req">The request DTO.</param>
     /// <param name="ct">Cancellation token.</param>
     /// <returns>The response DTO.</returns>
-    public override async Task HandleAsync(GreetingsRequest req, CancellationToken ct)
+    public override async Task HandleAsync(CancellationToken ct)
     {
         var response = new GreetingsResponse
         {
             Message = "Buongiorno!"
         };
 
-        await SendAsync(response, cancellation: ct);
+        await Send.OkAsync(response, ct);
     }
 }

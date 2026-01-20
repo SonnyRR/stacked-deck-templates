@@ -88,14 +88,14 @@ public class Startup
 #if (UseMinimalApis)
             endpoints.MapMinimalApiEndpoints();
 #endif
+#if (UseFastEndpoints)
+            endpoints.UseFastEndpoints();
+#endif
 #if (UseControlelrs)
             endpoints.MapDefaultControllerRoute();
 #endif
         });
 
-#if (UseFastEndpoints)
-        app.UseFastEndpoints();
-#endif
     }
 
     /// <summary>
