@@ -8,6 +8,10 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 
+#if (UseFastEndpoints)
+using FastEndpoints;
+#endif
+
 using Serilog;
 
 using StackedDeck.WebAPI.Template.API.Configuration;
@@ -77,19 +81,20 @@ public class Startup
         });
         app.UseRouting();
         app.UseStatusCodePages();
-#if (UseFastEndpoints)
-        app.UseFastEndpoints();
-#else
         app.UseEndpoints(endpoints =>
         {
             endpoints.MapHealthCheckEndpoints(env);
             endpoints.MapOpenApiEndpoints(env, apiOptions);
 #if (UseMinimalApis)
             endpoints.MapMinimalApiEndpoints();
-#else
+#endif
+#if (UseControlelrs)
             endpoints.MapDefaultControllerRoute();
 #endif
         });
+
+#if (UseFastEndpoints)
+        app.UseFastEndpoints();
 #endif
     }
 
