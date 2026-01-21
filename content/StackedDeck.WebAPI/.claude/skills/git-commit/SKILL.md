@@ -57,6 +57,9 @@ Use the following branch naming convention:
 
 - Prefer committing concise stuff, don't include a lot of changes in a single commit
 - Don't stage documents that include secrets, API keys or other sensitive information
+- Stash any previous unrelated changes, done by the person contributing to this
+  codebase, before you stage and commit anything else. Save those stashes with
+  some kind of a human readable name
 
 ## Message Format
 
