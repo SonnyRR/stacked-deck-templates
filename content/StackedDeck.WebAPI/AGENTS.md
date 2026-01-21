@@ -24,18 +24,6 @@ Follow them closely & respect them.
   should be your final step in your plans.
 - Prefer a more functional programming approach where appropriate.
 
-## Build Tasks Guide
-
-- Use the `NUKE` build system as much as possible.
-- Available targets can be listed via `./build.sh --help`, `./build.ps1 --help`
-  or `nuke --help`.
-- Use the `NUKE` global `.NET` tool if it's installed.
-- If you're doing small changes, that affect a single assembly, fallback to
-  the regular `dotnet CLI` to do operations like `build`.
-- Main `Dockerfile` is located under `./src/StackedDeck.WebAPI.Template.API/Dockerfile`.
-- If `OCI` compatible images need to be built, do that through the `NUKE`
-  build system.
-
 ## Coding Guide
 
 - Obey the rulesets defined in `./.editorconfig` when writing code.
@@ -69,17 +57,3 @@ Follow them closely & respect them.
 - Prefer using the `dotnet CLI` to filter and run single test or a subset of tests
   to verify your changes. After successful pass, evaluate all tests via the
   `NUKE` targets
-
-## Git Contribution Guide
-
-- Don't automatically stage & commit anything unless the user has explicitly
-  prompted you to do so.
-- Stash any previous unrelated changes, done by the person contributing to this
-  codebase, before you stage and commit anything else. Save those stashes with
-  some kind of a human readable name.
-- Ensure commit messages, done by you, are following the `Conventional Commits`
-  specification. Use multi-paragraph bodies where deemed appropriate.
-- If the user has set-up `git hooks`, ensure that you don't bypass those checks.
-- If you're creating branches, prefix them with `feature/`, `fix/`, `chore/`,
-  `ci/`, etc. followed by a small description splitted by dashes.
-  Example: `feature/add-contact-management`.
