@@ -10,11 +10,6 @@
 A curated collection of C#/.NET project templates, that I've composed for
 personal use. Their concept is to give advantage, akin to a "stacked card deck".
 
-> [!WARNING]
-> While this package is stable and production-ready, there are still some
-> things that are 🚧 WIP. This warning will be removed when the first stable
-> version is published into the offical NuGet gallery.
-
 ## 🧰 Installation
 
 ```sh
@@ -44,19 +39,33 @@ Comes preconfigured with roslyn analyzers, serilog logging infrastructure
 
 #### ✨ Features
 
-- Pre-configured `Dockerfile`, targetting `ASP.NET Core Runtime 10` with
-  `alpine` based images.
-- Pre-configured `NUKE` build system with common targets for restoring,
-  compiling, publishing, testing & containerizing .NET applications
+- Pre-configured `Dockerfile` with
+  - Targeting `ASP.NET Core Runtime 10`
+  - `alpine` linux based images
+  - Pinned package versions
+  - Health checks
+- Pre-configured `NUKE` build system with common targets
+  - Restoring
+  - Compiling
+  - Publishing
+  - Testing
+  - Building `OCI` compatible images
+- Semantic versioning with GitVersion
 - Roslyn Analyzers
   - `Roslynator.Analyzers`
   - `SonarAnalyzer.CSharp`
 - Structured logging infrastructure with `Serilog`
 - Coding conventions (`.editorconfig`)
-- API Versioning
+- Multiple API styles with full API versioning support
+  - `Controllers`
+  - `Minimal API`
 - `OpenAPI v3` specification generation
 - `Scalar` API client for interacting with the `OpenAPI` specification
-- Support for `Azure App Configuration`
-- Support for `Azure Managed Identity` authentication
+- Optional support for `Azure App Configuration`
+- Optional support for `Azure Managed Identity` authentication
+- Health checks endpoint with liveness probe and system metadata
+- Strongly typed configurations via dedicated environment-specific `appsettings.json` documents
+- Shared project properties via `Directory.Build.props`
 - Automatic dependency version management with `Dependabot`
-- Pre-configured `CI` pipeline with `GitHub Actions`
+- Optional pre-configured `CI` pipeline with `GitHub Actions`
+- AI Agent Skills for NUKE build system and git operations
