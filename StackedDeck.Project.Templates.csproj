@@ -1,8 +1,8 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
         <PackageId>StackedDeck.Project.Templates</PackageId>
-        <PackageVersion>0.0.1</PackageVersion>
+        <PackageVersion>0.0.2</PackageVersion>
         <Title>Stacked Deck Project Templates</Title>
         <Authors>Vasil Kotsev</Authors>
         <Description>.NET Project templates, composed to give you advantage akin to a "stacked card deck".</Description>
@@ -20,7 +20,54 @@
         <ContentTargetFolders>content</ContentTargetFolders>
         <NoWarn>$(NoWarn);NU5128</NoWarn>
         <NoDefaultExcludes>true</NoDefaultExcludes>
-        <PackageReleaseNotes>Initial pre-release version.</PackageReleaseNotes>
+        <PackageReleaseNotes>
+        ✨ Features
+        - Introduce parameter for API styles (241342a)
+        - Introduce CI/CD pipeline parameter (bc69a10)
+        - Add initial support for cloud providers (871fbce)
+        - Allow known network CIDR ranges to be configured (542ff7f)
+        - Introduce custom health checks (e5aed10)
+
+        🚀 Improvements
+        - Extend content inclusion wildcard (989419a)
+        - Move 'ConnectionStrings' model to API assembly (143525d)
+        - Introduce HEALTHCHECK instruction to Dockerfile (5b6c06b)
+        - Refactor template symbols (02c923f)
+        - Update implementation for LivenessHealthCheck (167c46c)
+        - Extract extension method for configuring OpenAPI endpoints (bd2dc28)
+        - Override route options to enforce lowercase URLs (9031207)
+        - Extend cookie policy to include 'HttpOnly' flag (2ad6d4c)
+        - Replace obsolete Scalar methods (b330c44)
+
+        🐛 Fixes
+        - Fix incorrect log parameter (0066f45)
+        - Remove incorrect registries section (999cc40)
+
+        🔧 Chores
+        - Extract TFMs to Directory.Build.props (5894eae)
+        - Migrate solution to SLNX format (3a48190, 4de8796)
+        - Bump NUKE to v10.0.0 (efd74f0)
+        - Upgrade GitVersion.Tool to v6.5.0 (3b6b1d0)
+        - Bump ASP.NET runtime Alpine image to v10 (b87f3d1)
+        - Upgrade TFMs to .NET 10 and update NuGet packages (61a494a, c0520c9, 5a2c16f, and 12+ dependency bumps)
+        - Opt-out of .NET CLI telemetry in GitHub Actions (942a532)
+        - Update concurrency group expression (035fa5c)
+        - Pin Alpine APK package versions (8800555)
+        - Introduce caching &amp; concurrency group to ci.yml (f648d72)
+        - Deprecate post action for setting build script permissions on Windows NT (5ea1e1b)
+
+        📝 Documentation
+        - Extend AGENTS.md (342e943, d1db88e)
+        - Update README reference to base ASP.NET image (0b1479f)
+        - Update README docs to reference ASP.NET runtime v10 (565cd1a)
+
+        🤖 Development Tools
+        - Introduce skill for drafting changelog notes (69df6c3)
+        - Extend staging guidelines for git-commit skill (5da2e7f)
+        - Trim down AGENTS.md to reduce token context (11dd88b)
+        - Introduce AI agent skills (9b9ddc8)
+        - Add human readable display names for test scenarios (d2de90c)
+        </PackageReleaseNotes>
     </PropertyGroup>
 
     <PropertyGroup>
