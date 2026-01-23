@@ -3,7 +3,7 @@
 Below are examples of how to invoke build targets from the `NUKE`
 build system.
 
-## 1. Discovering Build Targets
+## 1. Discovering Targets
 
 You can pass the `--help` parameter for a summary of the available build targets
 in this codebase:
@@ -12,7 +12,7 @@ in this codebase:
 nuke --help
 ```
 
-## 2. Invoking Build Targets
+## 2. Invoking Targets
 
 After you've found an appropriate target, you can invoke it by passing its
 name:

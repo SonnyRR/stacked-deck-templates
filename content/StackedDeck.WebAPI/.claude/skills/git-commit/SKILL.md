@@ -11,7 +11,7 @@ metadata:
 
 # Git Commit Messages
 
-When working on codebases, that leverage `git` as the `VCS`, ensure that
+When working on codebases that leverage `git` as the `VCS`, ensure that
 any existing conventions like [conventional commits](https://www.conventionalcommits.org/en/v1.0.0/#specification)
 are leveraged for code that you have generated, staged & plan to commit.
 If no such conventions are set-up in the repository, fallback to sensible defaults

@@ -46,9 +46,9 @@ toolchain for this repository.
 
 **Revert** to standard `dotnet CLI` operations when:
 
-- You need to verify that a single assembly compiles successfully;
-- A single `unit` / `integration` test scenario needs to be evaluated;
-- Code changes impact only a single `C#` assembly;
+- You need to verify that a single assembly compiles successfully
+- A single `unit` / `integration` test scenario needs to be evaluated
+- Code changes impact only a single `C#` assembly
 
 ## How to Use
 
@@ -71,6 +71,12 @@ Prefer to use the `nuke` global dotnet CLI tool, if it's installed, via:
 
 ```sh
 nuke --help
+```
+
+If it's not - prompt the user to install it:
+
+```sh
+dotnet tool install -g nuke.globaltool
 ```
 
 ## Examples
