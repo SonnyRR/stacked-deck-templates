@@ -2,8 +2,8 @@ using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Net.Mime;
 using System.Text.Json;
-
 #if (UseMinimalApis)
+
 using Asp.Versioning;
 #endif
 
