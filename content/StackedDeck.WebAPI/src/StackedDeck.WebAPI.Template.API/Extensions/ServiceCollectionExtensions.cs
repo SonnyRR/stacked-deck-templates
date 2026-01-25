@@ -25,6 +25,11 @@ using StackedDeck.WebAPI.Template.API.Health;
 using StackedDeck.WebAPI.Template.Common.Extensions;
 
 #endif
+
+#if (UseFastEndpoints)
+using static StackedDeck.WebAPI.Template.API.Constants;
+
+#endif
 using IPNetwork = System.Net.IPNetwork;
 
 namespace StackedDeck.WebAPI.Template.API.Extensions;
@@ -187,6 +192,7 @@ public static class ServiceCollectionExtensions
                 options.KnownIPNetworks.Add(IPNetwork.Parse(knownNetwork));
             }
         });
+
         services.Configure<RouteOptions>(options => options.LowercaseUrls = true);
 
         return services;
@@ -228,6 +234,8 @@ public static class ServiceCollectionExtensions
                 explorerOptions.GroupNameFormat = "'v'VVV";
                 explorerOptions.SubstituteApiVersionInUrl = true;
             });
+
+        VersionSets.CreateApi(Api.Routes.Versioning.V1_SET, v => v.HasApiVersion(new ApiVersion(1.0)));
 #endif
 
         return services;

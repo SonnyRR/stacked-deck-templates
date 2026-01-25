@@ -1,5 +1,9 @@
 using System;
 
+#if (UseFastEndpoints)
+using Asp.Versioning;
+
+#endif
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.CookiePolicy;
 using Microsoft.AspNetCore.Hosting;
@@ -10,8 +14,8 @@ using Microsoft.Extensions.Options;
 
 #if (UseFastEndpoints)
 using FastEndpoints;
-#endif
 
+#endif
 using Serilog;
 
 using StackedDeck.WebAPI.Template.API.Configuration;
@@ -89,7 +93,13 @@ public class Startup
             endpoints.MapMinimalApiEndpoints();
 #endif
 #if (UseFastEndpoints)
-            endpoints.MapFastEndpoints();
+            endpoints.MapFastEndpoints(b =>
+            {
+                b.Endpoints.RoutePrefix = Constants.Api.Routes.PREFIX.TrimStart('/');
+                b.Versioning.PrependToRoute = true;
+                b.Versioning.Prefix = "v";
+                b.Versioning.DefaultVersion = ApiVersion.Default.MajorVersion.GetValueOrDefault();
+            });
 #endif
 #if (UseControlelrs)
             endpoints.MapDefaultControllerRoute();
