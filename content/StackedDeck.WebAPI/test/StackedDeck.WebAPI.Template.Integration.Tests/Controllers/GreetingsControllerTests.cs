@@ -6,6 +6,8 @@ using Shouldly;
 using StackedDeck.WebAPI.Template.API.Controllers;
 using StackedDeck.WebAPI.Template.Integration.Tests.Fixtures;
 
+using static StackedDeck.WebAPI.Template.API.Constants.Api;
+
 namespace StackedDeck.WebAPI.Template.Integration.Tests.Controllers;
 
 /// <summary>
@@ -31,7 +33,7 @@ public class GreetingsControllerTests
         // Act
         var result = await apiFixture
             .Client
-            .GetAsync("/sd-api-route-prefix/v1/greetings", TestContext.Current.CancellationToken);
+            .GetAsync($"{Routes.PREFIX}/{Routes.Versioning.V1_SET}/greetings", TestContext.Current.CancellationToken);
 
         // Assert
         result.ShouldSatisfyAllConditions(async void () =>

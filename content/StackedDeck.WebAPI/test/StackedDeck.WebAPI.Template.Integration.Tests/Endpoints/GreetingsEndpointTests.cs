@@ -11,6 +11,8 @@ using StackedDeck.WebAPI.Template.API.Endpoints.Greetings;
 #endif
 using StackedDeck.WebAPI.Template.Integration.Tests.Fixtures;
 
+using static StackedDeck.WebAPI.Template.API.Constants.Api;
+
 namespace StackedDeck.WebAPI.Template.Integration.Tests.Endpoints;
 
 /// <summary>
@@ -36,7 +38,7 @@ public class GreetingsEndpointTests
         // Act
         var result = await apiFixture
             .Client
-            .GetAsync("/sd-api-route-prefix/v1/greetings", TestContext.Current.CancellationToken);
+            .GetAsync($"{Routes.PREFIX}/{Routes.Versioning.V1_SET}/greetings", TestContext.Current.CancellationToken);
 
         // Assert
         result.ShouldSatisfyAllConditions(async void () =>

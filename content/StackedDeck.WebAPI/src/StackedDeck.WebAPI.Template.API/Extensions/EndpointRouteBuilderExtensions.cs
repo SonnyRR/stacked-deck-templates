@@ -20,6 +20,8 @@ using Scalar.AspNetCore;
 
 using StackedDeck.WebAPI.Template.API.Configuration;
 
+using static StackedDeck.WebAPI.Template.API.Constants;
+
 namespace StackedDeck.WebAPI.Template.API.Extensions;
 
 /// <summary>
@@ -27,8 +29,6 @@ namespace StackedDeck.WebAPI.Template.API.Extensions;
 /// </summary>
 public static class EndpointRouteBuilderExtensions
 {
-    private const string API_ROUTE_PREFIX = "/sd-api-route-prefix";
-
     /// <summary>
     /// Maps health check endpoints for the API.
     /// </summary>
@@ -73,7 +73,7 @@ public static class EndpointRouteBuilderExtensions
         // to compose additional 'HealthCheckOptions' instances, so
         // that you override the default filter predicate to match
         // your custom tag(s).
-        builder.MapHealthChecks($"{API_ROUTE_PREFIX}/health", healthCheckOptions);
+        builder.MapHealthChecks($"{Api.Routes.PREFIX}/health", healthCheckOptions);
 
         return builder;
     }
@@ -97,7 +97,7 @@ public static class EndpointRouteBuilderExtensions
         {
             builder.MapOpenApi();
             builder.MapScalarApiReference(
-                $"{API_ROUTE_PREFIX}/documentation",
+                $"{Api.Routes.PREFIX}/documentation",
                 options =>
                 {
                     options.WithTitle(apiOptions.Value.Title);
@@ -132,7 +132,7 @@ public static class EndpointRouteBuilderExtensions
             .HasApiVersion(new ApiVersion(1))
             .Build();
 
-        var v1Group = builder.MapGroup($"{API_ROUTE_PREFIX}/v{{version:apiVersion}}")
+        var v1Group = builder.MapGroup($"{Api.Routes.PREFIX}/v{{version:apiVersion}}")
             .WithApiVersionSet(apiVersionSet);
 
         v1Group.MapGet("/greetings", () => Results.Ok("Buongiorno!"))

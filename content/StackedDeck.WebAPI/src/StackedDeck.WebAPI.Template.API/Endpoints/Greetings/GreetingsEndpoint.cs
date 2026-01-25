@@ -2,8 +2,12 @@ using System.Net.Mime;
 using System.Threading;
 using System.Threading.Tasks;
 
-using FastEndpoints;
+using Asp.Versioning;
 
+using FastEndpoints;
+using FastEndpoints.AspVersioning;
+
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 
 namespace StackedDeck.WebAPI.Template.API.Endpoints.Greetings;
@@ -18,13 +22,14 @@ public class GreetingsEndpoint : EndpointWithoutRequest<GreetingsResponse>
     /// </summary>
     public override void Configure()
     {
-        Get("sd-api-route-prefix/v1/greetings");
+        Get("/greetings");
+        Options(b => b.WithVersionSet(Constants.Api.Routes.Versioning.V1_SET).MapToApiVersion(ApiVersion.Default));
         Summary(s =>
         {
             s.Summary = "Greets you.";
             s.Description = "This is the default action, set up by the StackedDeck Web API project template using FastEndpoints with REPR pattern.";
         });
-        Description(d => d.Produces<GreetingsResponse>(200, MediaTypeNames.Application.Json));
+        Description(d => d.Produces<GreetingsResponse>(StatusCodes.Status200OK, MediaTypeNames.Application.Json));
         AllowAnonymous();
     }
 
