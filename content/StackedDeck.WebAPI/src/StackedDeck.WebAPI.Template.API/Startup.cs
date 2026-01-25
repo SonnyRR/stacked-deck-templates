@@ -101,7 +101,7 @@ public class Startup
                 b.Versioning.DefaultVersion = ApiVersion.Default.MajorVersion.GetValueOrDefault();
             });
 #endif
-#if (UseControlelrs)
+#if (UseControllers)
             endpoints.MapDefaultControllerRoute();
 #endif
         });

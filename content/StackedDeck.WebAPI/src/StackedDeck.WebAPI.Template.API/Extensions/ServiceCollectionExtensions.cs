@@ -3,8 +3,8 @@ using System.Text.Json;
 using System.Text.Json.Serialization;
 
 using Asp.Versioning;
-
 #if (UseFastEndpoints)
+
 using FastEndpoints;
 using FastEndpoints.AspVersioning;
 #endif
@@ -20,16 +20,15 @@ using Microsoft.Extensions.Options;
 using StackedDeck.WebAPI.Template.API.Configuration;
 using StackedDeck.WebAPI.Template.API.Handlers;
 using StackedDeck.WebAPI.Template.API.Health;
-
 #if (UseAzureCloudProvider)
+
 using StackedDeck.WebAPI.Template.Common.Extensions;
-
 #endif
-
 #if (UseFastEndpoints)
-using static StackedDeck.WebAPI.Template.API.Constants;
 
+using static StackedDeck.WebAPI.Template.API.Constants;
 #endif
+
 using IPNetwork = System.Net.IPNetwork;
 
 namespace StackedDeck.WebAPI.Template.API.Extensions;
