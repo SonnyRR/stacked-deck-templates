@@ -128,14 +128,17 @@ public static class EndpointRouteBuilderExtensions
     {
         ArgumentNullException.ThrowIfNull(builder);
 
-        var apiVersionSet = builder.NewApiVersionSet()
+        var apiVersionSet = builder
+            .NewApiVersionSet()
             .HasApiVersion(new ApiVersion(1))
             .Build();
 
-        var v1Group = builder.MapGroup($"{Api.Routes.PREFIX}/v{{version:apiVersion}}")
+        var v1Group = builder
+            .MapGroup($"{Api.Routes.PREFIX}/v{{version:apiVersion}}")
             .WithApiVersionSet(apiVersionSet);
 
-        v1Group.MapGet("/greetings", () => Results.Ok("Buongiorno!"))
+        v1Group
+            .MapGet("/greetings", () => "Buongiorno!")
             .WithName("GetGreetings")
             .WithSummary("Greets you.")
             .WithDescription("This is the default action, set up by the StackedDeck Web API project template using Minimal APIs.")
