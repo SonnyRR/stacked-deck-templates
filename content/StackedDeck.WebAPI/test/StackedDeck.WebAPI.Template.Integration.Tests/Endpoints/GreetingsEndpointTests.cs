@@ -16,7 +16,7 @@ using static StackedDeck.WebAPI.Template.API.Constants.Api;
 namespace StackedDeck.WebAPI.Template.Integration.Tests.Endpoints;
 
 /// <summary>
-/// Contains integration tests for the Greetings minimal API endpoint.
+/// Contains integration tests for the Greetings API endpoint.
 /// </summary>
 public class GreetingsEndpointTests
 {
@@ -29,7 +29,7 @@ public class GreetingsEndpointTests
         => this.apiFixture = apiFixture;
 
     /// <summary>
-    /// Tests whether the greetings minimal API endpoint
+    /// Tests whether the greetings API endpoint
     /// returns an OK response with the expected greeting content.
     /// </summary>
     [Fact(DisplayName = "Greetings endpoint returns OK with Italian greeting")]
