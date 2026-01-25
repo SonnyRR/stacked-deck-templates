@@ -1,3 +1,4 @@
+<!-- markdownlint-disable MD013 MD033-->
 <h1 align="center">
   <img src="https://res.cloudinary.com/vasil-kotsev/image/upload/v1760256567/sd-logo-7_ptdcot.png" alt="Stacked Deck" width="256" height="256">
   <br />&nbsp;<br />&nbsp; ♠️ Stacked Deck Project Templates ♠️
@@ -8,7 +9,13 @@
 &nbsp;
 
 A curated collection of C#/.NET project templates, that I've composed for
-personal use. Their concept is to give advantage, akin to a "stacked card deck".
+personal use, rapid, batteries-included, performant enterprise solutions for
+green-field projects. Focusing on sensible defaults, new technologies,
+enforcable conventions and low-friction experience OOB.
+
+Their concept is to give advantage, akin to a "stacked card deck".
+
+\- Vasil Kotsev
 
 ## 🧰 Installation
 
@@ -34,8 +41,9 @@ dotnet new update
 ### 🌐 Stacked Deck Web API (C#)
 
 Sets up a solution with a containerized `ASP.NET Core Web API` service.
-Comes preconfigured with roslyn analyzers, serilog logging infrastructure
-& coding conventions with `.editorconfig`.
+Comes preconfigured with all the necessary bells & whistles to create
+containerized, enterprise-ready, maintainable and performant services
+with sensible defaults. For detailed information, see the section below.
 
 #### ✨ Features
 
@@ -58,7 +66,8 @@ Comes preconfigured with roslyn analyzers, serilog logging infrastructure
 - Coding conventions (`.editorconfig`)
 - Multiple API styles with full API versioning support
   - `Controllers`
-  - `Minimal API`
+  - `Minimal API (default)`
+  - `FastEndpoints`
 - `OpenAPI v3` specification generation
 - `Scalar` API client for interacting with the `OpenAPI` specification
 - Optional support for `Azure App Configuration`
