@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
@@ -19,6 +20,10 @@ using Microsoft.Extensions.Options;
 
 using OpenTelemetry.Metrics;
 using OpenTelemetry.Resources;
+#if (UseOTELCollector)
+using OpenTelemetry.Exporter;
+using OpenTelemetry.Trace;
+#endif
 
 using StackedDeck.WebAPI.Template.API.Configuration;
 using StackedDeck.WebAPI.Template.API.Handlers;
@@ -111,7 +116,12 @@ public static class ServiceCollectionExtensions
         services.AddApiVersioning();
         services.AddOpenApiSpecification();
         services.AddHealthProbes();
+#if (UseOTELCollector)
+        var otelOptions = sp.GetRequiredService<IOptions<OpenTelemetryOptions>>().Value;
+        services.AddTelemetry(apiOptions.Identifier, otelOptions);
+#else
         services.AddTelemetry(apiOptions.Identifier);
+#endif
 
         connectionStringsOptions = sp.GetRequiredService<IOptions<ConnectionStrings>>();
 
@@ -181,6 +191,12 @@ public static class ServiceCollectionExtensions
         services.Configure<ConnectionStrings>(optionsConfigurationRoot.GetSection(ConnectionStrings.CFG_SECTION_NAME))
             .AddOptionsWithValidateOnStart<ConnectionStrings>()
             .ValidateDataAnnotations();
+
+#if (UseOTELCollector)
+        services.Configure<OpenTelemetryOptions>(optionsConfigurationRoot.GetSection(OpenTelemetryOptions.CFG_SECTION_NAME))
+            .AddOptionsWithValidateOnStart<OpenTelemetryOptions>()
+            .ValidateDataAnnotations();
+#endif
 
         services.Configure<ForwardedHeadersOptions>(options =>
         {
@@ -287,6 +303,20 @@ public static class ServiceCollectionExtensions
         return services;
     }
 
+#if (UseOTELCollector)
+    /// <summary>
+    /// Registers OpenTelemetry services in the DI container.
+    /// </summary>
+    /// <param name="services">The service collection.</param>
+    /// <param name="serviceName">The name of the service.</param>
+    /// <param name="otelOptions">The OpenTelemetry configuration options.</param>
+    /// <returns>
+    /// The updated <see cref="IServiceCollection"/> with OpenTelemetry services registered.
+    /// </returns>
+    /// <exception cref="ArgumentNullException"/>
+    /// <exception cref="ArgumentException"/>
+    private static IServiceCollection AddTelemetry(this IServiceCollection services, string serviceName, OpenTelemetryOptions otelOptions)
+#else
     /// <summary>
     /// Registers OpenTelemetry services in the DI container.
     /// </summary>
@@ -298,9 +328,13 @@ public static class ServiceCollectionExtensions
     /// <exception cref="ArgumentNullException"/>
     /// <exception cref="ArgumentException"/>
     private static IServiceCollection AddTelemetry(this IServiceCollection services, string serviceName)
+#endif
     {
         ArgumentNullException.ThrowIfNull(services);
         ArgumentException.ThrowIfNullOrWhiteSpace(serviceName);
+
+#if (UseOTELCollector)
+        ArgumentNullException.ThrowIfNull(otelOptions);
 
         services.AddOpenTelemetry()
             .ConfigureResource(resource => resource.AddService(serviceName))
@@ -308,7 +342,36 @@ public static class ServiceCollectionExtensions
                 .AddRuntimeInstrumentation()
                 .AddAspNetCoreInstrumentation()
                 .AddHttpClientInstrumentation()
+                .AddOtlpExporter(options =>
+                {
+                    options.Endpoint = new Uri(otelOptions.Endpoint);
+                    options.Protocol = otelOptions.Protocol;
+                    if (otelOptions.Headers.Count > 0)
+                    {
+                        options.Headers = string.Join(",", otelOptions.Headers.Select(h => $"{h.Key}={h.Value}"));
+                    }
+                }))
+            .WithTracing(tracing => tracing
+                .AddAspNetCoreInstrumentation()
+                .AddHttpClientInstrumentation()
+                .AddOtlpExporter(options =>
+                {
+                    options.Endpoint = new Uri(otelOptions.Endpoint);
+                    options.Protocol = otelOptions.Protocol;
+                    if (otelOptions.Headers.Count > 0)
+                    {
+                        options.Headers = string.Join(",", otelOptions.Headers.Select(h => $"{h.Key}={h.Value}"));
+                    }
+                }));
+#else
+        services.AddOpenTelemetry()
+            .ConfigureResource(resource => resource.AddService(serviceName))
+            .WithMetrics(metrics => metrics
+                .AddRuntimeInstrumentation()
+                .AddAspNetCoreInstrumentation()
+                .AddHttpClientInstrumentation()
                 .AddPrometheusExporter());
+#endif
 
         return services;
     }

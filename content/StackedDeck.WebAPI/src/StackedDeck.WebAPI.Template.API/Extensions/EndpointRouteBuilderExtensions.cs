@@ -148,6 +148,7 @@ public static class EndpointRouteBuilderExtensions
     }
 #endif
 
+#if (UsePrometheusScrape)
     /// <summary>
     /// Maps the Prometheus metrics scraping endpoint.
     /// </summary>
@@ -161,4 +162,5 @@ public static class EndpointRouteBuilderExtensions
 
         return builder;
     }
+#endif
 }

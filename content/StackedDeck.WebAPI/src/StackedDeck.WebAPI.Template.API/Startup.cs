@@ -88,7 +88,9 @@ public class Startup
         app.UseEndpoints(endpoints =>
         {
             endpoints.MapHealthCheckEndpoints(env);
+#if (UsePrometheusScrape)
             endpoints.MapMetricsEndpoint();
+#endif
             endpoints.MapOpenApiEndpoints(env, apiOptions);
 #if (UseMinimalApis)
             endpoints.MapMinimalApiEndpoints();

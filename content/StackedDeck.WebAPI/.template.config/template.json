@@ -157,6 +157,31 @@
     "UseControllers": {
       "type": "computed",
       "value": "ApiStyle == \"Controllers\""
+    },
+    "TelemetryCollectionMode": {
+      "type": "parameter",
+      "datatype": "choice",
+      "enableQuotelessLiterals": true,
+      "choices": [
+        {
+          "choice": "PrometheusScrape",
+          "description": "Metrics only with Prometheus scraping endpoint."
+        },
+        {
+          "choice": "OTELCollector",
+          "description": "Full OTEL SDK with OTLP export to Collector (traces + metrics)."
+        }
+      ],
+      "defaultValue": "PrometheusScrape",
+      "description": "The telemetry collection mode. PrometheusScrape uses the Prometheus scraping endpoint for metrics only. OTELCollector uses the OpenTelemetry Collector for both traces and metrics via OTLP."
+    },
+    "UsePrometheusScrape": {
+      "type": "computed",
+      "value": "TelemetryCollectionMode == \"PrometheusScrape\""
+    },
+    "UseOTELCollector": {
+      "type": "computed",
+      "value": "TelemetryCollectionMode == \"OTELCollector\""
     }
   },
   "sources": [
@@ -178,7 +203,9 @@
         "logs/**/*"
       ],
       "rename": {
-        "README-template.md": "README.md"
+        "README-template.md": "README.md",
+        "infrastructure/local/prometheus-scrape.yml": "infrastructure/local/prometheus.yml",
+        "infrastructure/local/prometheus-otel.yml": "infrastructure/local/prometheus.yml"
       },
       "modifiers": [
         {
@@ -212,6 +239,22 @@
           "exclude": [
             "test/StackedDeck.WebAPI.Template.Integration.Tests/Endpoints/**/*",
             "src/StackedDeck.WebAPI.Template.API/Endpoints/**/*"
+          ]
+        },
+        {
+          "condition": "UsePrometheusScrape",
+          "exclude": [
+            "infrastructure/local/otel-collector-config.yml",
+            "infrastructure/local/tempo-config.yml",
+            "infrastructure/local/grafana-datasources.yml",
+            "infrastructure/local/prometheus-otel.yml",
+            "src/StackedDeck.WebAPI.Template.API/Configuration/OpenTelemetryOptions.cs"
+          ]
+        },
+        {
+          "condition": "UseOTELCollector",
+          "exclude": [
+            "infrastructure/local/prometheus-scrape.yml"
           ]
         }
       ]
