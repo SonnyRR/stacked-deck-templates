@@ -88,6 +88,7 @@ public class Startup
         app.UseEndpoints(endpoints =>
         {
             endpoints.MapHealthCheckEndpoints(env);
+            endpoints.MapMetricsEndpoint();
             endpoints.MapOpenApiEndpoints(env, apiOptions);
 #if (UseMinimalApis)
             endpoints.MapMinimalApiEndpoints();

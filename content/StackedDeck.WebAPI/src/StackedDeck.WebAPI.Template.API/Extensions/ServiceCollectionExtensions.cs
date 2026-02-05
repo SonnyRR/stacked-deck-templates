@@ -17,6 +17,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 
+using OpenTelemetry.Metrics;
+using OpenTelemetry.Resources;
+
 using StackedDeck.WebAPI.Template.API.Configuration;
 using StackedDeck.WebAPI.Template.API.Handlers;
 using StackedDeck.WebAPI.Template.API.Health;
@@ -108,6 +111,7 @@ public static class ServiceCollectionExtensions
         services.AddApiVersioning();
         services.AddOpenApiSpecification();
         services.AddHealthProbes();
+        services.AddTelemetry(apiOptions.Identifier);
 
         connectionStringsOptions = sp.GetRequiredService<IOptions<ConnectionStrings>>();
 
@@ -279,6 +283,32 @@ public static class ServiceCollectionExtensions
         services
             .AddHealthChecks()
             .AddCheck<LivenessHealthCheck>("general", tags: ["all", "server"]);
+
+        return services;
+    }
+
+    /// <summary>
+    /// Registers OpenTelemetry services in the DI container.
+    /// </summary>
+    /// <param name="services">The service collection.</param>
+    /// <param name="serviceName">The name of the service.</param>
+    /// <returns>
+    /// The updated <see cref="IServiceCollection"/> with OpenTelemetry services registered.
+    /// </returns>
+    /// <exception cref="ArgumentNullException"/>
+    /// <exception cref="ArgumentException"/>
+    private static IServiceCollection AddTelemetry(this IServiceCollection services, string serviceName)
+    {
+        ArgumentNullException.ThrowIfNull(services);
+        ArgumentException.ThrowIfNullOrWhiteSpace(serviceName);
+
+        services.AddOpenTelemetry()
+            .ConfigureResource(resource => resource.AddService(serviceName))
+            .WithMetrics(metrics => metrics
+                .AddRuntimeInstrumentation()
+                .AddAspNetCoreInstrumentation()
+                .AddHttpClientInstrumentation()
+                .AddPrometheusExporter());
 
         return services;
     }
