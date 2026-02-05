@@ -204,8 +204,8 @@
       ],
       "rename": {
         "README-template.md": "README.md",
-        "infrastructure/local/prometheus-scrape.yml": "infrastructure/local/prometheus.yml",
-        "infrastructure/local/prometheus-otel.yml": "infrastructure/local/prometheus.yml"
+        "infra/local/prometheus-scrape.yml": "infra/local/prometheus.yml",
+        "infra/local/prometheus-otel.yml": "infra/local/prometheus.yml"
       },
       "modifiers": [
         {
@@ -244,17 +244,17 @@
         {
           "condition": "UsePrometheusScrape",
           "exclude": [
-            "infrastructure/local/otel-collector-config.yml",
-            "infrastructure/local/tempo-config.yml",
-            "infrastructure/local/grafana-datasources.yml",
-            "infrastructure/local/prometheus-otel.yml",
+            "infra/local/otel-collector-config.yml",
+            "infra/local/tempo-config.yml",
+            "infra/local/grafana-datasources.yml",
+            "infra/local/prometheus-otel.yml",
             "src/StackedDeck.WebAPI.Template.API/Configuration/OpenTelemetryOptions.cs"
           ]
         },
         {
           "condition": "UseOTELCollector",
           "exclude": [
-            "infrastructure/local/prometheus-scrape.yml"
+            "infra/local/prometheus-scrape.yml"
           ]
         }
       ]
