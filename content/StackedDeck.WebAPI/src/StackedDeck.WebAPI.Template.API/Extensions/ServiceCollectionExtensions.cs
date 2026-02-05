@@ -196,8 +196,8 @@ public static class ServiceCollectionExtensions
         services.Configure<OpenTelemetryOptions>(optionsConfigurationRoot.GetSection(OpenTelemetryOptions.CFG_SECTION_NAME))
             .AddOptionsWithValidateOnStart<OpenTelemetryOptions>()
             .ValidateDataAnnotations();
-#endif
 
+#endif
         services.Configure<ForwardedHeadersOptions>(options =>
         {
             options.ForwardedHeaders = ForwardedHeaders.All;
