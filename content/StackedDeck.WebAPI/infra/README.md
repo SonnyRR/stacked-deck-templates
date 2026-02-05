@@ -1,10 +1,11 @@
 # 🏗️ Infrastructure
 
-This directory contains Infrastructure as Code (IaC) definitions for deploying and managing the application's infrastructure resources.
+This directory contains Infrastructure as Code (IaC) definitions for deploying and
+managing the application's infrastructure resources.
 
 ## 📁 Directory Structure
 
-```
+```txt
 infra/
 ├── local/          # 🖥️ Local development environment resources
 └── (extensible)    # Add your environment-specific IaC here
@@ -12,7 +13,8 @@ infra/
 
 ## 🎯 Purpose
 
-This directory is designed to be extensible. You can add subdirectories for different environments or IaC tools:
+This directory is designed to be extensible. You can add subdirectories for different
+environments or IaC tools:
 
 - **Terraform** configurations for cloud resources
 - **Pulumi** projects for infrastructure
@@ -27,12 +29,12 @@ Choose the appropriate subdirectory for your target environment:
 
 | Directory | Purpose |
 |-----------|---------|
-//#if (UsePrometheusScrape)
+<!--#if(UsePrometheusScrape)-->
 | `local/` | Local development with Prometheus via Docker Compose |
-//#endif
-//#if (UseOTELCollector)
+<!--#endif-->
+<!--#if(UseOTELCollector)-->
 | `local/` | Local development with full observability stack via Docker Compose |
-//#endif
+<!--#endif-->
 | (your-env)/ | Add your staging/production IaC here |
 
 ## 📝 Guidelines

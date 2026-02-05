@@ -73,10 +73,12 @@ target name.
 > the build assembly. New targets can be added depending on the needs and requirements.
 
 ## 🔁 CI/CD providers
+
 <!--#if(DontUsePipelineProvider)-->
 
 This solution was created explicitly without a configuration for a `CI/CD`
 pipeline provider.
+
 <!--#endif-->
 <!--#if(UseGitHubActions)-->
 
@@ -91,6 +93,7 @@ the custom parameters.
 > Before trying to trigger a workflow run, review the `.github/workflows/ci.yml`
 > document and the comments inside of it. You are required to setup repository
 > variables & secrets before initiating workflow runs.
+
 <!--#endif-->
 
 ## 🧩 Features
@@ -162,6 +165,7 @@ and trusted by Fortune 500 companies. Heavily customizable, you can extend to
 comply with your company's design guidelines & security practices.
 
 <!--#if(UseAzureCloudProvider)-->
+
 ### ⚙️ Azure App Configuration
 
 This project can utilize retrieving, registering & validating variables and secrets
@@ -170,6 +174,7 @@ Authentication is setup with `User Managed Identities`, so that you can minimize
 the storage of sensitive data in `appsettings.*.json` documents.
 
 <!--#endif-->
+
 ### 🔁 GitHub Actions Workflow
 
 By default this project comes with a pre-defined `CI` workflow for `GitHub Actions`.
@@ -182,3 +187,75 @@ registry, that you must configure before running the pipeline.
 open PRs whenever a new `NuGet` pkg version is released or an updated `Dockerfile`
 dependency is pushed. It will also notify you of security incidents and vulnerabilities
 related to your 3rd party dependencies.
+
+### 🏗️ Infrastructure as Code (IaC)
+
+This project includes an extensible `infra/` directory structure designed
+to grow with your needs:
+
+#### 📁 Directory Structure
+
+```txt
+infra/
+├── local/          # 🖥️ Local development observability stack
+└── (extensible)    # Add your environment-specific IaC here
+```
+
+#### 🖥️ Local Development Stack
+
+<!--#if(UsePrometheusScrape)-->
+The `infra/local/` directory provides a Prometheus instance for local
+development via Docker Compose:
+
+| Service           | Purpose                              |
+| ----------------- | ------------------------------------ |
+| 🎯 **Prometheus** | Metrics collection and visualization |
+
+**Quick Start:**
+
+```bash
+docker compose -f infra/local/docker-compose.yml up prometheus
+```
+
+<!--#endif-->
+<!--#if(UseOTELCollector)-->
+
+The `infra/local/` directory provides a complete observability stack for local
+development via Docker Compose:
+
+| Service               | Purpose                        |
+| --------------------- | ------------------------------ |
+| 🎯 **Prometheus**     | Metrics collection and storage |
+| 📊 **Grafana**        | Dashboards and alerting        |
+| 🔍 **Tempo**          | Distributed tracing            |
+| 📡 **OTEL Collector** | OpenTelemetry data collection  |
+
+**Quick Start:**
+
+```bash
+docker compose -f infra/local/docker-compose.yml --profile otel up
+```
+
+<!--#endif-->
+#### 🌐 Extensibility
+
+The `infra/` directory is intentionally left open for you to add:
+
+- **Terraform** configurations for Azure/AWS/GCP
+- **Pulumi** projects for cloud resources
+- **Azure Bicep** templates
+- **AWS CloudFormation** templates
+- **Kubernetes Helm** charts
+- **Ansible** playbooks
+
+Each environment should have its own subdirectory with environment-specific configurations.
+
+> [!NOTE]
+> Local infrastructure resources are optimized for development purposes only and
+> should not be used in production environments.
+<!--#if(UsePrometheusScrape)-->
+> This project uses Prometheus scraping for metrics collection.
+<!--#endif-->
+<!--#if(UseOTELCollector)-->
+> This project uses OpenTelemetry Collector for metrics and distributed tracing.
+<!--#endif-->

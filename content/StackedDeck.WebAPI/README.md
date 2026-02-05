@@ -189,35 +189,32 @@ infra/
 
 #### 🖥️ Local Development Stack
 
-//#if (UsePrometheusScrape)
-The `infra/local/` directory provides a Prometheus instance for local development via Docker Compose:
+The `infra/local/` directory includes Docker Compose configurations for local observability with support for two telemetry collection modes:
 
-| Service | Purpose |
-|---------|---------|
-| 🎯 **Prometheus** | Metrics collection and visualization |
+**Prometheus Scrape Mode** (default):
+- 🎯 **Prometheus** - Metrics collection via scraping endpoint
+
+**OTEL Collector Mode** (full observability):
+- 🎯 **Prometheus** - Metrics storage
+- 📊 **Grafana** - Dashboards and alerting  
+- 🔍 **Tempo** - Distributed tracing
+- 📡 **OTEL Collector** - OpenTelemetry data collection
 
 **Quick Start:**
 
 ```bash
+# Prometheus scrape mode (default)
 docker compose -f infra/local/docker-compose.yml up prometheus
-```
-//#endif
-//#if (UseOTELCollector)
-The `infra/local/` directory provides a complete observability stack for local development via Docker Compose:
 
-| Service | Purpose |
-|---------|---------|
-| 🎯 **Prometheus** | Metrics collection and storage |
-| 📊 **Grafana** | Dashboards and alerting |
-| 🔍 **Tempo** | Distributed tracing |
-| 📡 **OTEL Collector** | OpenTelemetry data collection |
-
-**Quick Start:**
-
-```bash
+# Full observability stack (OTEL Collector mode)
 docker compose -f infra/local/docker-compose.yml --profile otel up
 ```
-//#endif
+
+> [!TIP]
+> Use the `--telemetry-mode` parameter when creating a project to select your preferred telemetry collection mode:
+> ```sh
+> dotnet new sd-webapi --telemetry-mode OTELCollector
+> ```
 
 #### 🌐 Extensibility
 
@@ -234,9 +231,3 @@ Each environment should have its own subdirectory with environment-specific conf
 
 > [!NOTE]
 > Local infrastructure resources are optimized for development purposes only and should not be used in production environments.
-//#if (UsePrometheusScrape)
-> This template uses Prometheus scraping for metrics collection.
-//#endif
-//#if (UseOTELCollector)
-> This template uses OpenTelemetry Collector for metrics and distributed tracing.
-//#endif

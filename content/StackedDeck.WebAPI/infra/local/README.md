@@ -1,12 +1,13 @@
 # 🖥️ Local Development Infrastructure
 
-This directory contains Docker Compose configurations and supporting files for running observability services locally during development.
+This directory contains Docker Compose configurations and supporting files for
+running observability services locally during development.
 
-//#if (UsePrometheusScrape)
+<!--#if(UsePrometheusScrape)-->
 ## 📦 Services
 
-| Service | Port | Description |
-|---------|------|-------------|
+| Service           | Port   | Description                    |
+| ----------------- | ------ | ------------------------------ |
 | 🎯 **Prometheus** | `9090` | Metrics collection and storage |
 
 ## 🚀 Quick Start
@@ -24,9 +25,10 @@ Start Prometheus for local metrics collection:
 docker compose up prometheus
 ```
 
-Access Prometheus UI at: http://localhost:9090
+Access Prometheus UI at: <http://localhost:9090>
 
-Your application should expose metrics at the `/metrics` endpoint (default: http://localhost:5133/metrics) for Prometheus to scrape.
+Your application should expose metrics at the `/metrics` endpoint
+(default: <http://localhost:5133/metrics>) for Prometheus to scrape.
 
 ## 📁 Configuration Files
 
@@ -48,21 +50,23 @@ Modify the configuration files as needed for your local setup:
 
 ## 🐛 Troubleshooting
 
-| Issue | Solution |
-|-------|----------|
-| Port conflicts | Modify port mappings in `docker-compose.yml` |
-| Service not starting | Check logs: `docker compose logs prometheus` |
+| Issue                    | Solution                                                                 |
+| ------------------------ | ------------------------------------------------------------------------ |
+| Port conflicts           | Modify port mappings in `docker-compose.yml`                             |
+| Service not starting     | Check logs: `docker compose logs prometheus`                             |
 | No metrics in Prometheus | Verify target is reachable at `http://host.docker.internal:5133/metrics` |
-//#endif
-//#if (UseOTELCollector)
+
+<!--#endif-->
+<!--#if(UseOTELCollector)-->
+
 ## 📦 Services
 
-| Service | Port | Description |
-|---------|------|-------------|
-| 🎯 **Prometheus** | `9090` | Metrics collection and storage |
-| 📊 **Grafana** | `3000` | Visualization dashboards |
-| 🔍 **Tempo** | `3200` | Distributed tracing backend |
-| 📡 **OTEL Collector** | `4317` `4318` `8889` | OpenTelemetry data collection |
+| Service               | Port                 | Description                    |
+| --------------------- | -------------------- | ------------------------------ |
+| 🎯 **Prometheus**     | `9090`               | Metrics collection and storage |
+| 📊 **Grafana**        | `3000`               | Visualization dashboards       |
+| 🔍 **Tempo**          | `3200`               | Distributed tracing backend    |
+| 📡 **OTEL Collector** | `4317` `4318` `8889` | OpenTelemetry data collection  |
 
 ## 🚀 Quick Start
 
@@ -80,6 +84,7 @@ docker compose --profile otel up
 ```
 
 Access the services:
+
 - 📊 **Grafana**: http://localhost:3000 (admin/admin)
 - 🎯 **Prometheus**: http://localhost:9090
 - 📡 **Collector Metrics**: http://localhost:8889/metrics
@@ -111,10 +116,11 @@ Modify the configuration files as needed for your local setup:
 
 ## 🐛 Troubleshooting
 
-| Issue | Solution |
-|-------|----------|
-| Port conflicts | Modify port mappings in `docker-compose.yml` |
-| Service not starting | Check logs: `docker compose logs <service-name>` |
-| No metrics in Prometheus | Verify Collector metrics endpoint is reachable at `:8889/metrics` |
-| No traces in Tempo | Check OTLP endpoint configuration in application (should be `http://localhost:4317`) |
-//#endif
+| Issue                    | Solution                                                                             |
+| ------------------------ | ------------------------------------------------------------------------------------ |
+| Port conflicts           | Modify port mappings in `docker-compose.yml`                                         |
+| Service not starting     | Check logs: `docker compose logs <service-name>`                                     |
+| No metrics in Prometheus | Verify Collector metrics endpoint is reachable at `:8889/metrics`                    |
+| No traces in Tempo       | Check OTLP endpoint configuration in application (should be `http://localhost:4317`) |
+
+<!--#endif-->
