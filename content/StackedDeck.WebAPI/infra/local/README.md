@@ -30,6 +30,41 @@ Access Prometheus UI at: <http://localhost:9090>
 Your application should expose metrics at the `/metrics` endpoint
 (default: <http://localhost:5133/metrics>) for Prometheus to scrape.
 
+### 🔧 Exposing Your API to Prometheus
+
+When running your API locally and Prometheus in Docker, the API must bind to all
+network interfaces (not just localhost) so Docker containers can reach it.
+
+**Option 1: Edit Launch Profile (Recommended for regular use)**
+
+Edit `src/StackedDeck.WebAPI.Template.API/Properties/launchSettings.json`:
+
+Change the `HTTPS-LOCAL` profile from:
+```json
+"applicationUrl": "https://localhost:7095/;http://localhost:5133/"
+```
+
+To:
+```json
+"applicationUrl": "https://*:7095/;http://*:5133/"
+```
+
+Then run:
+```bash
+dotnet run --launch-profile HTTPS-LOCAL
+```
+
+**Option 2: Environment Variable (Quick one-off)**
+
+```bash
+ASPNETCORE_URLS="https://*:7095;http://*:5133" dotnet run --launch-profile HTTPS-LOCAL
+```
+
+> [!WARNING]
+> Using `*` binds to all network interfaces. Only use this for local development
+> in trusted network environments. You may see a firewall prompt on macOS when
+> first running with this configuration.
+
 ## 📁 Configuration Files
 
 - `docker-compose.yml` - Service definitions

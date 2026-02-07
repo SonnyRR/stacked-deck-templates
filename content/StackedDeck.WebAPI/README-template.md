@@ -214,8 +214,13 @@ development via Docker Compose:
 **Quick Start:**
 
 ```bash
-docker compose -f infra/local/docker-compose.yml up prometheus
+docker compose -f infra/local/docker-compose.yml up -d
 ```
+
+> [!IMPORTANT]
+> When running Prometheus in Docker and your API locally, you must expose the API
+> to all network interfaces. See the [Local Infrastructure README](infra/local/README.md)
+> for detailed instructions on configuring your launch profile or using environment variables.
 
 <!--#endif-->
 <!--#if(UseOTELCollector)-->
@@ -233,7 +238,7 @@ development via Docker Compose:
 **Quick Start:**
 
 ```bash
-docker compose -f infra/local/docker-compose.yml --profile otel up
+docker compose -f infra/local/docker-compose.yml up -d
 ```
 
 <!--#endif-->

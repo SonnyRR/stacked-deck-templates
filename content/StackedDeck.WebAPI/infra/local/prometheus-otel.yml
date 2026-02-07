@@ -12,3 +12,9 @@ scrape_configs:
       - targets: ['otel-collector:8889']
     metrics_path: /metrics
     scrape_interval: 15s
+
+  - job_name: 'tempo'
+    static_configs:
+      - targets: ['tempo:3200']
+    metrics_path: /metrics
+    scrape_interval: 15s

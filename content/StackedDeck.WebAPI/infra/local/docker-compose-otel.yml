@@ -1,29 +1,27 @@
-version: '3.8'
-
 services:
   prometheus:
-    image: prom/prometheus:v2.55.0
+    image: prom/prometheus:v3.9.1
     container_name: prometheus
     ports:
       - "9090:9090"
     volumes:
       - ./prometheus.yml:/etc/prometheus/prometheus.yml:ro
+      - prometheus-data:/prometheus
     command:
       - '--config.file=/etc/prometheus/prometheus.yml'
       - '--storage.tsdb.path=/prometheus'
       - '--web.console.libraries=/usr/share/prometheus/console_libraries'
       - '--web.console.templates=/usr/share/prometheus/consoles'
       - '--web.enable-lifecycle'
+      - '--enable-feature=remote-write-receiver'
     extra_hosts:
       - "host.docker.internal:host-gateway"
     networks:
       - observability
 
   otel-collector:
-    image: otel/opentelemetry-collector-contrib:0.114.0
+    image: otel/opentelemetry-collector-contrib:0.145.0
     container_name: otel-collector
-    profiles:
-      - otel
     command: ["--config=/etc/otel-collector-config.yml"]
     volumes:
       - ./otel-collector-config.yml:/etc/otel-collector-config.yml:ro
@@ -37,13 +35,12 @@ services:
       - observability
 
   tempo:
-    image: grafana/tempo:2.6.1
+    image: grafana/tempo:2.10.0
     container_name: tempo
-    profiles:
-      - otel
     command: ["-config.file=/etc/tempo.yml"]
     volumes:
       - ./tempo-config.yml:/etc/tempo.yml:ro
+      - tempo-data:/var/tempo
     ports:
       - "3200:3200"   # Tempo HTTP
       - "9095:9095"   # Tempo gRPC
@@ -51,10 +48,8 @@ services:
       - observability
 
   grafana:
-    image: grafana/grafana:11.3.1
+    image: grafana/grafana:12.3.2
     container_name: grafana
-    profiles:
-      - otel
     ports:
       - "3000:3000"
     environment:
@@ -72,3 +67,7 @@ services:
 networks:
   observability:
     driver: bridge
+
+volumes:
+  tempo-data:
+  prometheus-data:
