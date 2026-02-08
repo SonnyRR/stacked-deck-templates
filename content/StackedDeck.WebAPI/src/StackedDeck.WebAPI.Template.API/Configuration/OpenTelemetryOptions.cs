@@ -23,7 +23,7 @@ public sealed class OpenTelemetryOptions
     /// </remarks>
     [Required]
     [Url]
-    public string Endpoint { get; set; } = "http://localhost:4317";
+    public string Endpoint { get; set; }
 
     /// <summary>
     /// The export protocol.
@@ -31,7 +31,7 @@ public sealed class OpenTelemetryOptions
     /// <remarks>
     /// Defaults to <see cref="OtlpExportProtocol.Grpc"/>.
     /// </remarks>
-    public OtlpExportProtocol Protocol { get; set; } = OtlpExportProtocol.Grpc;
+    public OtlpExportProtocol Protocol { get; set; }
 
     /// <summary>
     /// Optional headers for authentication.
