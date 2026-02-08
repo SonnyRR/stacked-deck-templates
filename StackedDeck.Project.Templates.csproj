@@ -2,7 +2,7 @@
 
     <PropertyGroup>
         <PackageId>StackedDeck.Project.Templates</PackageId>
-        <PackageVersion>0.0.4</PackageVersion>
+        <PackageVersion>0.0.5</PackageVersion>
         <Title>Stacked Deck Project Templates</Title>
         <Authors>Vasil Kotsev</Authors>
         <Description>.NET Project templates, composed to give you advantage akin to a "stacked card deck".</Description>
@@ -21,8 +21,12 @@
         <NoWarn>$(NoWarn);NU5128</NoWarn>
         <NoDefaultExcludes>true</NoDefaultExcludes>
         <PackageReleaseNotes>
-        📝 Documentation
-        - Replace README doc. for NuGet pkg (f0ced19)
+✨ Features
+- 🏗️ Introduce OTEL infrastructure &amp; configurable telemetry collection modes (d28112d)
+
+🚀 Improvements
+- ⬆️ Bump Scalar.AspNetCore to v2.12.36 (58f4843, b05eecc)
+- ⬆️ Bump SonarAnalyzer.CSharp from 10.18.0.131500 to 10.19.0.132793 (57a06ea)
         </PackageReleaseNotes>
     </PropertyGroup>
 
