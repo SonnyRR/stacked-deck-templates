@@ -18,9 +18,6 @@ public sealed class OpenTelemetryOptions
     /// <summary>
     /// The OTLP collector endpoint URL.
     /// </summary>
-    /// <remarks>
-    /// Default value is "http://localhost:4317" for local development.
-    /// </remarks>
     [Required]
     [Url]
     public string Endpoint { get; set; }
@@ -28,9 +25,6 @@ public sealed class OpenTelemetryOptions
     /// <summary>
     /// The export protocol.
     /// </summary>
-    /// <remarks>
-    /// Defaults to <see cref="OtlpExportProtocol.Grpc"/>.
-    /// </remarks>
     public OtlpExportProtocol Protocol { get; set; }
 
     /// <summary>
