@@ -2,8 +2,8 @@
 
 This directory contains Docker Compose configurations and supporting files for
 running observability services locally during development.
-
 <!--#if(UsePrometheusScrape)-->
+
 ## 📦 Services
 
 | Service           | Port   | Description                    |
@@ -12,12 +12,12 @@ running observability services locally during development.
 
 ## 🚀 Quick Start
 
-### Prerequisites
+### 📝 Prerequisites
 
 - [Docker](https://docs.docker.com/get-docker/)
 - [Docker Compose](https://docs.docker.com/compose/install/)
 
-### Usage
+### 🪛 Usage
 
 Start Prometheus for local metrics collection:
 
@@ -30,40 +30,11 @@ Access Prometheus UI at: <http://localhost:9090>
 Your application should expose metrics at the `/metrics` endpoint
 (default: <http://localhost:5133/metrics>) for Prometheus to scrape.
 
-### 🔧 Exposing Your API to Prometheus
-
-When running your API locally and Prometheus in Docker, the API must bind to all
-network interfaces (not just localhost) so Docker containers can reach it.
-
-**Option 1: Edit Launch Profile (Recommended for regular use)**
-
-Edit `src/StackedDeck.WebAPI.Template.API/Properties/launchSettings.json`:
-
-Change the `HTTPS-LOCAL` profile from:
-```json
-"applicationUrl": "https://localhost:7095/;http://localhost:5133/"
-```
-
-To:
-```json
-"applicationUrl": "https://*:7095/;http://*:5133/"
-```
-
-Then run:
-```bash
-dotnet run --launch-profile HTTPS-LOCAL
-```
-
-**Option 2: Environment Variable (Quick one-off)**
-
-```bash
-ASPNETCORE_URLS="https://*:7095;http://*:5133" dotnet run --launch-profile HTTPS-LOCAL
-```
-
-> [!WARNING]
-> Using `*` binds to all network interfaces. Only use this for local development
-> in trusted network environments. You may see a firewall prompt on macOS when
-> first running with this configuration.
+> [!NOTE]
+> Prometheus scrapes your API via `host.docker.internal:7095`. This works automatically
+> on macOS and Windows. Linux users may need to add the `--add-host host.docker.internal:host-gateway`
+> flag when running Docker Compose, or alternatively bind the API to all interfaces
+> (`https://*:7095`).
 
 ## 📁 Configuration Files
 
@@ -105,12 +76,12 @@ Modify the configuration files as needed for your local setup:
 
 ## 🚀 Quick Start
 
-### Prerequisites
+### 📝 Prerequisites
 
 - [Docker](https://docs.docker.com/get-docker/)
 - [Docker Compose](https://docs.docker.com/compose/install/)
 
-### Usage
+### 🪛 Usage
 
 Start the full observability stack with OTEL Collector:
 
@@ -120,9 +91,9 @@ docker compose --profile otel up
 
 Access the services:
 
-- 📊 **Grafana**: http://localhost:3000 (admin/admin)
-- 🎯 **Prometheus**: http://localhost:9090
-- 📡 **Collector Metrics**: http://localhost:8889/metrics
+- 📊 **Grafana**: <http://localhost:3000> (admin/admin)
+- 🎯 **Prometheus**: <http://localhost:9090>
+- 📡 **Collector Metrics**: <http://localhost:8889/metrics>
 
 Your application will automatically send traces and metrics to the OTEL Collector at `http://localhost:4317` via OTLP/gRPC.
 
@@ -157,5 +128,4 @@ Modify the configuration files as needed for your local setup:
 | Service not starting     | Check logs: `docker compose logs <service-name>`                                     |
 | No metrics in Prometheus | Verify Collector metrics endpoint is reachable at `:8889/metrics`                    |
 | No traces in Tempo       | Check OTLP endpoint configuration in application (should be `http://localhost:4317`) |
-
 <!--#endif-->

@@ -73,7 +73,6 @@ target name.
 > the build assembly. New targets can be added depending on the needs and requirements.
 
 ## 🔁 CI/CD providers
-
 <!--#if(DontUsePipelineProvider)-->
 
 This solution was created explicitly without a configuration for a `CI/CD`
@@ -93,7 +92,6 @@ the custom parameters.
 > Before trying to trigger a workflow run, review the `.github/workflows/ci.yml`
 > document and the comments inside of it. You are required to setup repository
 > variables & secrets before initiating workflow runs.
-
 <!--#endif-->
 
 ## 🧩 Features
@@ -163,7 +161,6 @@ An `OpenAPI v3` specification is automatically generated at runtime via the
 specification. It is a fully-fledged interactive API client inside of your browser
 and trusted by Fortune 500 companies. Heavily customizable, you can extend to
 comply with your company's design guidelines & security practices.
-
 <!--#if(UseAzureCloudProvider)-->
 
 ### ⚙️ Azure App Configuration
@@ -172,7 +169,6 @@ This project can utilize retrieving, registering & validating variables and secr
 from `Azure App Config` instances for all environments that are not `LOCAL`.
 Authentication is setup with `User Managed Identities`, so that you can minimize
 the storage of sensitive data in `appsettings.*.json` documents.
-
 <!--#endif-->
 
 ### 🔁 GitHub Actions Workflow
@@ -203,45 +199,18 @@ infra/
 
 #### 🖥️ Local Development Stack
 
+The `infra/local/` directory provides Docker Compose configurations for
+running observability services locally. See the
+[Local Infrastructure README](infra/local/README.md) for detailed setup
+instructions, service URLs, and troubleshooting.
+
 <!--#if(UsePrometheusScrape)-->
-The `infra/local/` directory provides a Prometheus instance for local
-development via Docker Compose:
-
-| Service           | Purpose                              |
-| ----------------- | ------------------------------------ |
-| 🎯 **Prometheus** | Metrics collection and visualization |
-
-**Quick Start:**
-
-```bash
-docker compose -f infra/local/docker-compose.yml up -d
-```
-
-> [!IMPORTANT]
-> When running Prometheus in Docker and your API locally, you must expose the API
-> to all network interfaces. See the [Local Infrastructure README](infra/local/README.md)
-> for detailed instructions on configuring your launch profile or using environment variables.
-
+- 🎯 **Prometheus** for metrics collection
 <!--#endif-->
 <!--#if(UseOTELCollector)-->
-
-The `infra/local/` directory provides a complete observability stack for local
-development via Docker Compose:
-
-| Service               | Purpose                        |
-| --------------------- | ------------------------------ |
-| 🎯 **Prometheus**     | Metrics collection and storage |
-| 📊 **Grafana**        | Dashboards and alerting        |
-| 🔍 **Tempo**          | Distributed tracing            |
-| 📡 **OTEL Collector** | OpenTelemetry data collection  |
-
-**Quick Start:**
-
-```bash
-docker compose -f infra/local/docker-compose.yml up -d
-```
-
+- 🎯 **Prometheus**, 📊 **Grafana**, 🔍 **Tempo**, and 📡 **OTEL Collector**
 <!--#endif-->
+
 #### 🌐 Extensibility
 
 The `infra/` directory is intentionally left open for you to add:

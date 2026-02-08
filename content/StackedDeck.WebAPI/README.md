@@ -177,11 +177,12 @@ related to your 3rd party dependencies.
 
 ### 🏗️ Infrastructure as Code (IaC)
 
-This template includes an extensible `infra/` directory structure designed to grow with your project needs:
+This template includes an extensible `infra/` directory structure designed to grow
+with your project needs:
 
 #### 📁 Directory Structure
 
-```
+```txt
 infra/
 ├── local/          # 🖥️ Local development observability stack
 └── (extensible)    # Add your environment-specific IaC here
@@ -189,32 +190,15 @@ infra/
 
 #### 🖥️ Local Development Stack
 
-The `infra/local/` directory includes Docker Compose configurations for local observability with support for two telemetry collection modes:
+The `infra/local/` directory includes Docker Compose configurations for
+local observability with support for two telemetry collection modes.
+See the [Local Infrastructure README](infra/local/README.md) for detailed
+setup instructions and service URLs.
 
-**Prometheus Scrape Mode** (default):
-- 🎯 **Prometheus** - Metrics collection via scraping endpoint
+**Available Modes:**
 
-**OTEL Collector Mode** (full observability):
-- 🎯 **Prometheus** - Metrics storage
-- 📊 **Grafana** - Dashboards and alerting  
-- 🔍 **Tempo** - Distributed tracing
-- 📡 **OTEL Collector** - OpenTelemetry data collection
-
-**Quick Start:**
-
-```bash
-# Prometheus scrape mode (default)
-docker compose -f infra/local/docker-compose.yml up prometheus
-
-# Full observability stack (OTEL Collector mode)
-docker compose -f infra/local/docker-compose.yml --profile otel up
-```
-
-> [!TIP]
-> Use the `--telemetry-mode` parameter when creating a project to select your preferred telemetry collection mode:
-> ```sh
-> dotnet new sd-webapi --telemetry-mode OTELCollector
-> ```
+- **Prometheus Scrape Mode** (default) - Metrics collection only
+- **OTEL Collector Mode** - Full observability with traces, metrics, and dashboards
 
 #### 🌐 Extensibility
 
@@ -230,4 +214,5 @@ The `infra/` directory is intentionally left open for you to add:
 Each environment should have its own subdirectory with environment-specific configurations.
 
 > [!NOTE]
-> Local infrastructure resources are optimized for development purposes only and should not be used in production environments.
+> Local infrastructure resources are optimized for development purposes only and
+> should not be used in production environments.

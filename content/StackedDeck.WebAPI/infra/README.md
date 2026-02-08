@@ -27,15 +27,15 @@ environments or IaC tools:
 
 Choose the appropriate subdirectory for your target environment:
 
-| Directory | Purpose |
-|-----------|---------|
+| Directory   | Purpose                                              |
+|-------------|------------------------------------------------------|
 <!--#if(UsePrometheusScrape)-->
-| `local/` | Local development with Prometheus via Docker Compose |
+| `local/`    | Local development with Prometheus via Docker Compose |
 <!--#endif-->
 <!--#if(UseOTELCollector)-->
-| `local/` | Local development with full observability stack via Docker Compose |
+| `local/`    | Local development with full observability stack      |
 <!--#endif-->
-| (your-env)/ | Add your staging/production IaC here |
+| (your-env)/ | Add your staging/production IaC here                 |
 
 ## 📝 Guidelines
 
