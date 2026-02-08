@@ -77,6 +77,7 @@ target name.
 
 This solution was created explicitly without a configuration for a `CI/CD`
 pipeline provider.
+
 <!--#endif-->
 <!--#if(UseGitHubActions)-->
 
@@ -160,16 +161,16 @@ An `OpenAPI v3` specification is automatically generated at runtime via the
 specification. It is a fully-fledged interactive API client inside of your browser
 and trusted by Fortune 500 companies. Heavily customizable, you can extend to
 comply with your company's design guidelines & security practices.
-
 <!--#if(UseAzureCloudProvider)-->
+
 ### ⚙️ Azure App Configuration
 
 This project can utilize retrieving, registering & validating variables and secrets
 from `Azure App Config` instances for all environments that are not `LOCAL`.
 Authentication is setup with `User Managed Identities`, so that you can minimize
 the storage of sensitive data in `appsettings.*.json` documents.
-
 <!--#endif-->
+
 ### 🔁 GitHub Actions Workflow
 
 By default this project comes with a pre-defined `CI` workflow for `GitHub Actions`.
@@ -182,3 +183,53 @@ registry, that you must configure before running the pipeline.
 open PRs whenever a new `NuGet` pkg version is released or an updated `Dockerfile`
 dependency is pushed. It will also notify you of security incidents and vulnerabilities
 related to your 3rd party dependencies.
+
+### 🏗️ Infrastructure as Code (IaC)
+
+This project includes an extensible `infra/` directory structure designed
+to grow with your needs:
+
+#### 📁 Directory Structure
+
+```txt
+infra/
+├── local/          # 🖥️ Local development observability stack
+└── (extensible)    # Add your environment-specific IaC here
+```
+
+#### 🖥️ Local Development Stack
+
+The `infra/local/` directory provides Docker Compose configurations for
+running observability services locally. See the
+[Local Infrastructure README](infra/local/README.md) for detailed setup
+instructions, service URLs, and troubleshooting.
+
+<!--#if(UsePrometheusScrape)-->
+- 🎯 **Prometheus** for metrics collection
+<!--#endif-->
+<!--#if(UseOTELCollector)-->
+- 🎯 **Prometheus**, 📊 **Grafana**, 🔍 **Tempo**, and 📡 **OTEL Collector**
+<!--#endif-->
+
+#### 🌐 Extensibility
+
+The `infra/` directory is intentionally left open for you to add:
+
+- **Terraform** configurations for Azure/AWS/GCP
+- **Pulumi** projects for cloud resources
+- **Azure Bicep** templates
+- **AWS CloudFormation** templates
+- **Kubernetes Helm** charts
+- **Ansible** playbooks
+
+Each environment should have its own subdirectory with environment-specific configurations.
+
+> [!NOTE]
+> Local infrastructure resources are optimized for development purposes only and
+> should not be used in production environments.
+<!--#if(UsePrometheusScrape)-->
+> This project uses Prometheus scraping for metrics collection.
+<!--#endif-->
+<!--#if(UseOTELCollector)-->
+> This project uses OpenTelemetry Collector for metrics and distributed tracing.
+<!--#endif-->

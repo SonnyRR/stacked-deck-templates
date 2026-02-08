@@ -78,3 +78,9 @@ with sensible defaults. For detailed information, see the section below.
 - Automatic dependency version management with `Dependabot`
 - Optional pre-configured `CI` pipeline with `GitHub Actions`
 - AI Agent Skills for NUKE build system and git operations
+- `OpenTelemetry` observability infrastructure with multiple collection modes
+  - `Prometheus` scraping endpoint for metrics-only collection
+  - `OTEL Collector` for distributed traces and metrics via `OTLP`
+- Infrastructure as Code (`IaC`) directory structure
+  - Local development observability stack (`Docker Compose`)
+  - `Prometheus`, `Grafana`, `Tempo`, and `OTEL Collector` for local development

@@ -147,4 +147,20 @@ public static class EndpointRouteBuilderExtensions
         return builder;
     }
 #endif
+#if (UsePrometheusScrape)
+
+    /// <summary>
+    /// Maps the Prometheus metrics scraping endpoint.
+    /// </summary>
+    /// <param name="builder">The endpoint route builder.</param>
+    /// <returns>The endpoint route builder with the metrics endpoint mapped.</returns>
+    public static IEndpointRouteBuilder MapMetricsEndpoint(this IEndpointRouteBuilder builder)
+    {
+        ArgumentNullException.ThrowIfNull(builder);
+
+        builder.MapPrometheusScrapingEndpoint(Api.Routes.PREFIX + "/metrics");
+
+        return builder;
+    }
+#endif
 }

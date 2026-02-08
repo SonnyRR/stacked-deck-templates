@@ -73,6 +73,16 @@
         "text": "The API implementation style. Minimal APIs, Controllers, or FastEndpoints with REPR pattern"
       },
       "isVisible": true
+    },
+    {
+      "id": "TelemetryCollectionMode",
+      "name": {
+        "text": "Telemetry collection mode"
+      },
+      "description": {
+        "text": "Choose between Prometheus scraping endpoint for metrics only, or full OTEL Collector setup with traces and metrics via OTLP."
+      },
+      "isVisible": true
     }
   ]
 }
