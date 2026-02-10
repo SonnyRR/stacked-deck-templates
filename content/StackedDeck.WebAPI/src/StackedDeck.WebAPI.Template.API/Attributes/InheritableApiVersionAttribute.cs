@@ -16,7 +16,7 @@ internal class InheritableApiVersionAttribute : ApiVersionsBaseAttribute, IApiVe
     /// <summary>
     /// Initializes a new instance of the <see cref="InheritableApiVersionAttribute"/> class.
     /// </summary>
-    /// <param name="version">The API version string.</param>
+    /// <param name="version">The numeric API version.</param>
     public InheritableApiVersionAttribute(double version) : base(version)
     {
     }
@@ -24,7 +24,7 @@ internal class InheritableApiVersionAttribute : ApiVersionsBaseAttribute, IApiVe
     /// <summary>
     /// Initializes a new instance of the <see cref="InheritableApiVersionAttribute"/> class.
     /// </summary>
-    /// <param name="version">A numeric API version.</param>
+    /// <param name="version">The numeric API version.</param>
     /// <param name="status">The status associated with the API version, if any.</param>
     public InheritableApiVersionAttribute(double version, string status)
         : base(new ApiVersion(version, status))
