@@ -19,7 +19,7 @@
     <!--#endif-->
     <!--#if (UseAzureCloudProvider)-->
     <PackageReference Include="Azure.Identity" Version="1.17.1" />
-    <PackageReference Include="Microsoft.Azure.AppConfiguration.AspNetCore" Version="8.4.0" />
+    <PackageReference Include="Microsoft.Azure.AppConfiguration.AspNetCore" Version="8.5.0" />
     <!--#endif-->
     <PackageReference Include="Destructurama.Attributed" Version="5.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="10.0.3" />
