@@ -1,0 +1,220 @@
+{
+  "$schema": "http://json.schemastore.org/template",
+  "author": "Vasil Kotsev",
+  "name": "Stacked Deck Persistence",
+  "description": "Creates a Persistence layer with EF Core.",
+  "classifications": [
+    "Persistence",
+    "DAL",
+    "Entity Framework Core",
+    "Data Access",
+    "Project",
+    "Stacked Deck"
+  ],
+  "precedence": 1337,
+  "identity": "StackedDeck.Persistence",
+  "groupIdentity": "StackedDeck.Persistence",
+  "shortName": "sd-persistence",
+  "defaultName": "StackedDeckWebApi",
+  "sourceName": "StackedDeck.WebAPI.Template",
+  "tags": {
+    "language": "C#",
+    "type": "project"
+  },
+  "symbols": {
+    "Title": {
+      "type": "parameter",
+      "datatype": "text",
+      "description": "The API's title, used primarily for the Open API specification.",
+      "defaultValue": "StackedDeck Web Service",
+      "replaces": "sd-api-title"
+    },
+    "SkipRestore": {
+      "type": "parameter",
+      "datatype": "bool",
+      "description": "If specified, skips the automatic restore of the project on create.",
+      "defaultValue": "false"
+    },
+    "UseAzureCloudProvider": {
+      "type": "computed",
+      "value": "CloudProvider == \"Azure\""
+    },
+    "UseGitHubActions": {
+      "type": "computed",
+      "value": "PipelineProvider == \"GitHub\""
+    },
+    "ApiStyle": {
+      "type": "parameter",
+      "datatype": "choice",
+      "enableQuotelessLiterals": true,
+      "choices": [
+        {
+          "choice": "MinimalAPI",
+          "description": "Use modern Minimal APIs."
+        },
+        {
+          "choice": "Controllers",
+          "description": "Use traditional ASP.NET Core controllers."
+        },
+        {
+          "choice": "FastEndpoints",
+          "description": "Use FastEndpoints with REPR pattern."
+        }
+      ],
+      "defaultValue": "MinimalAPI",
+      "description": "The API implementation style. Minimal APIs use modern endpoint definitions; Controllers use traditional MVC-style controllers; FastEndpoints uses the REPR pattern."
+    }
+  },
+  "sources": [
+    {
+      "source": "./",
+      "target": "./",
+      "exclude": [
+        ".git/**/*",
+        ".azure/**/*",
+        ".template.config/**/*",
+        "**/*.user",
+        "**/*.lock.json",
+        "*.nuspec",
+        ".vs/**/*",
+        "**/publish/**/*",
+        "README.md",
+        "**/.DS_Store",
+        ".idea/**/*",
+        "logs/**/*",
+        "infra/local/docker-compose.yml"
+      ],
+      "modifiers": [
+        {
+          "condition": "!UseAzureCloudProvider",
+          "exclude": [
+            "src/StackedDeck.WebAPI.Template.API/Extensions/AzureAppConfigurationExtensions.cs",
+            "src/StackedDeck.WebAPI.Template.API/Configuration/ManagedIdentityOptions.cs"
+          ]
+        },
+        {
+          "condition": "!UseGitHubActions",
+          "exclude": [".github/**/*"]
+        },
+        {
+          "condition": "UseMinimalApis",
+          "exclude": [
+            "src/StackedDeck.WebAPI.Template.API/Controllers/**/*",
+            "test/StackedDeck.WebAPI.Template.Integration.Tests/Controllers/**/*",
+            "src/StackedDeck.WebAPI.Template.API/Endpoints/**/*"
+          ]
+        },
+        {
+          "condition": "UseFastEndpoints",
+          "exclude": [
+            "src/StackedDeck.WebAPI.Template.API/Controllers/**/*",
+            "test/StackedDeck.WebAPI.Template.Integration.Tests/Controllers/**/*"
+          ]
+        },
+        {
+          "condition": "UseControllers",
+          "exclude": [
+            "test/StackedDeck.WebAPI.Template.Integration.Tests/Endpoints/**/*",
+            "src/StackedDeck.WebAPI.Template.API/Endpoints/**/*"
+          ]
+        },
+        {
+          "condition": "UsePrometheusScrape",
+          "exclude": [
+            "infra/local/otel-collector-config.yml",
+            "infra/local/tempo-config.yml",
+            "infra/local/grafana-datasources.yml",
+            "infra/local/prometheus-otel.yml",
+            "infra/local/docker-compose-otel.yml",
+            "src/StackedDeck.WebAPI.Template.API/Configuration/OpenTelemetryOptions.cs"
+          ]
+        },
+        {
+          "condition": "UseOTELCollector",
+          "exclude": [
+            "infra/local/prometheus-scrape.yml",
+            "infra/local/docker-compose-scrape.yml"
+          ]
+        }
+      ]
+    }
+  ],
+  "postActions": [
+    {
+      "id": "repository-init",
+      "actionId": "3A7C4B45-1F5D-4A30-959A-51B88E82B5D2",
+      "condition": "(SetupRepo)",
+      "description": "Setup git repository.",
+      "args": {
+        "executable": "git",
+        "args": "init --initial-branch master"
+      },
+      "manualInstructions": [
+        {
+          "text": "Init git repository"
+        }
+      ],
+      "continueOnError": true
+    },
+    {
+      "id": "restore",
+      "actionId": "210D431B-A78B-4D2F-B762-4ED3E3EA9025",
+      "condition": "(!SkipRestore)",
+      "description": "Restore NuGet packages required by this project.",
+      "args": {
+        "files": ["./StackedDeck.WebAPI.Template.slnx"]
+      },
+      "manualInstructions": [
+        {
+          "text": "Run 'dotnet restore'"
+        }
+      ],
+      "continueOnError": true
+    },
+    {
+      "id": "format",
+      "actionId": "3A7C4B45-1F5D-4A30-959A-51B88E82B5D2",
+      "description": "Format source code documents",
+      "args": {
+        "executable": "dotnet",
+        "args": "format"
+      },
+      "manualInstructions": [
+        {
+          "text": "Run 'dotnet format' for this solution from your terminal."
+        }
+      ],
+      "continueOnError": true
+    },
+    {
+      "id": "build-script-permissions-unix",
+      "actionId": "CB9A6CF3-4F5C-4860-B9D2-03A574959774",
+      "description": "Make build script executable",
+      "condition": "(OS != \"Windows_NT\")",
+      "args": {
+        "+x": "build.sh"
+      },
+      "manualInstructions": [
+        {
+          "text": "Run 'chmod +x build.sh' to make the build shell script executable."
+        }
+      ],
+      "continueOnError": true
+    },
+    {
+      "id": "gitversion-warning",
+      "actionId": "AC1156F7-BB77-4DB8-B28F-24EEBCCA1E5C",
+      "description": "Create an initial git commit if it's missing.",
+      "args": {
+        "executable": "git",
+        "args": "commit -am 'Initial commit'"
+      },
+      "manualInstructions": [
+        {
+          "text": "Before running the NUKE build target, ensure that at least 1 git commit is present.\nSemantic versioning is determined by the git history, so if 0 commits are present - you're going to get an error."
+        }
+      ],
+      "continueOnError": true
+    }
+  ]
+}
