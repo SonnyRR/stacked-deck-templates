@@ -1,0 +1,88 @@
+{
+  "$schema": "http://json.schemastore.org/vs-2017.3.host",
+  "order": 15,
+  "supportsDocker": false,
+  "icon": "sd-logo-7.png",
+  "symbolInfo": [
+    {
+      "id": "Title",
+      "name": {
+        "text": "API Title"
+      },
+      "description": {
+        "text": "The API's title, which will be used in the OpenAPI specification."
+      },
+      "isVisible": true
+    },
+    {
+      "id": "RoutePrefix",
+      "name": {
+        "text": "Route Prefix"
+      },
+      "description": {
+        "text": "The base route for V1 of this API. Usually, it's the name of the service."
+      },
+      "isVisible": true
+    },
+    {
+      "id": "DockerImageName",
+      "name": {
+        "text": "The docker image name for the API."
+      },
+      "description": {
+        "text": "Docker image name which will be used during Docker build."
+      },
+      "isVisible": true
+    },
+    {
+      "id": "SetupRepo",
+      "name": {
+        "text": "Set-up git repository"
+      },
+      "description": {
+        "text": "Flag, indicating if a git repository should be initialized."
+      },
+      "isVisible": true
+    },
+    {
+      "id": "CloudProvider",
+      "name": {
+        "text": "The cloud provider which this API will use."
+      },
+      "description": {
+        "text": "The cloud provider, whose services will be utilized in this API."
+      },
+      "isVisible": true
+    },
+    {
+      "id": "PipelineProvider",
+      "name": {
+        "text": "The CI/CD pipeline provider."
+      },
+      "description": {
+        "text": "The CI/CD pipeline provider, used for building, testing, publishing & deploying artifacts."
+      },
+      "isVisible": true
+    },
+    {
+      "id": "ApiStyle",
+      "name": {
+        "text": "The API's style."
+      },
+      "description": {
+        "text": "The API implementation style. Minimal APIs, Controllers, or FastEndpoints with REPR pattern"
+      },
+      "isVisible": true
+    },
+    {
+      "id": "TelemetryCollectionMode",
+      "name": {
+        "text": "Telemetry collection mode"
+      },
+      "description": {
+        "text": "Choose between Prometheus scraping endpoint for metrics only, or full OTEL Collector setup with traces and metrics via OTLP."
+      },
+      "isVisible": true
+    }
+  ]
+}
