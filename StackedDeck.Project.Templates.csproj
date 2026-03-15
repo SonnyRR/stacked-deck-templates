@@ -2,7 +2,7 @@
 
     <PropertyGroup>
         <PackageId>StackedDeck.Project.Templates</PackageId>
-        <PackageVersion>0.0.5</PackageVersion>
+        <PackageVersion>0.0.7</PackageVersion>
         <Title>Stacked Deck Project Templates</Title>
         <Authors>Vasil Kotsev</Authors>
         <Description>.NET Project templates, composed to give you advantage akin to a "stacked card deck".</Description>
@@ -21,12 +21,19 @@
         <NoWarn>$(NoWarn);NU5128</NoWarn>
         <NoDefaultExcludes>true</NoDefaultExcludes>
         <PackageReleaseNotes>
-✨ Features
-- 🏗️ Introduce OTEL infrastructure &amp; configurable telemetry collection modes (d28112d)
+🐛 Fixes
+- Address incorrect param desc. in XML docs (e537e49)
 
-🚀 Improvements
-- ⬆️ Bump Scalar.AspNetCore to v2.12.36 (58f4843, b05eecc)
-- ⬆️ Bump SonarAnalyzer.CSharp from 10.18.0.131500 to 10.19.0.132793 (57a06ea)
+🔧 Chores
+- Bump template version to v0.0.6 (7c3b57e)
+- Bump OpenTelemetry.Instrumentation.AspNetCore from 1.15.0 to 1.15.1 (f8738cc)
+- Bump Microsoft.AspNetCore.Mvc.Testing from 10.0.3 to 10.0.4 (70fd401)
+- Bump Microsoft.AspNetCore.OpenApi from 10.0.3 to 10.0.4 (8a9a8fa)
+- Bump Microsoft.Extensions.DependencyInjection.Abstractions and Microsoft.Extensions.Hosting.Abstractions (b34b7d2)
+- Bump Scalar.AspNetCore from 2.13.0 to 2.13.6 (f9f11c4)
+- Bump Scalar.AspNetCore from 2.12.54 to 2.13.0 (eee9d3a)
+- Bump Polly from 8.6.5 to 8.6.6 (d93e598)
+- Bump 3rd party NuGet dependencies (c3c6c61, e8ea6f3, f2467aa)
         </PackageReleaseNotes>
     </PropertyGroup>
 
