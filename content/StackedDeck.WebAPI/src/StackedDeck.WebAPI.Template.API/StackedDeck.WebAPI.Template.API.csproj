@@ -34,7 +34,7 @@
     <!--#if (UseOTELCollector)-->
     <PackageReference Include="OpenTelemetry.Exporter.OpenTelemetryProtocol" Version="1.15.0" />
     <!--#endif-->
-    <PackageReference Include="Scalar.AspNetCore" Version="2.13.8" />
+    <PackageReference Include="Scalar.AspNetCore" Version="2.13.11" />
     <!--#if (UseFastEndpoints)-->
     <PackageReference Include="FastEndpoints" Version="8.0.1" />
     <PackageReference Include="FastEndpoints.AspVersioning" Version="8.0.1" />
