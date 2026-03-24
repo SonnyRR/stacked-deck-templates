@@ -153,6 +153,9 @@ coverage*.info
 *.coverage
 *.coveragexml
 
+# Custom code coverage artifacts
+coverage/
+
 # NCrunch
 _NCrunch_*
 .*crunch*.local.xml
