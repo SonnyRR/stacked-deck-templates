@@ -10,6 +10,7 @@ namespace StackedDeck.WebAPI.Template.Build;
 public class Build :
     NukeBuild,
     IDotNet,
+    ICodeCoverage,
     IDocker,
     IVersionArtifacts
 {

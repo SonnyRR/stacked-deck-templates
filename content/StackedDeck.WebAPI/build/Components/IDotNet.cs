@@ -9,7 +9,7 @@ using Serilog;
 
 namespace Components;
 
-internal interface IDotNet : IHasProjects, IHasConfiguration, IHasGitVersion
+internal interface IDotNet : IHasProjects, IHasConfiguration, IHasGitVersion, IHasCodeCoverageArtifacts
 {
     AbsolutePath PublicationDirectory => WebApiProject.Directory / "publish";
 
@@ -18,7 +18,7 @@ internal interface IDotNet : IHasProjects, IHasConfiguration, IHasGitVersion
         .Executes(() =>
         {
             var artifactDirectoriesToDelete = RootDirectory
-                .GlobDirectories($"**/{{obj,bin,{Path.GetFileName(PublicationDirectory)}}}")
+                .GlobDirectories($"**/{{obj,bin,{Path.GetFileName(PublicationDirectory)},{Path.GetFileName(CoverageDirectory)}}}")
                 .Where(ap => ap.Parent != BuildProjectDirectory)
                 .ToArray();
 
@@ -80,7 +80,9 @@ internal interface IDotNet : IHasProjects, IHasConfiguration, IHasGitVersion
             DotNetTasks.DotNetTest(s => s
                 .SetProjectFile(Solution)
                 .SetConfiguration(Configuration)
-                .EnableNoBuild());
+                .EnableNoBuild()
+                .SetResultsDirectory(CoverageDirectory)
+                .SetDataCollector("XPlat Code Coverage"));
         });
 
     Target Restore => _ => _
