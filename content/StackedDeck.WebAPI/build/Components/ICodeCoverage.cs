@@ -47,12 +47,18 @@ internal interface ICodeCoverage : IHasCodeCoverageArtifacts
 
             var summaryContent = await File.ReadAllTextAsync(summaryFile);
 
-#if(UseGitHubActions)
-            using var process = ProcessTasks.StartShell(
-                    $"echo \"{summaryContent}\" >> $GITHUB_STEP_SUMMARY",
-                    timeout: 20_000);
+#if (UseGitHubActions)
+            var stepSummaryPath = EnvironmentInfo.GetVariable<string>("GITHUB_STEP_SUMMARY");
 
-            process.AssertZeroExitCode();
+            if (string.IsNullOrWhiteSpace(stepSummaryPath))
+            {
+                Log.Warning("GITHUB_STEP_SUMMARY environment variable is not set. Skipping summary publication.");
+                return;
+            }
+
+            var processedSummaryContent = summaryContent.Replace("# Summary", "## 📊 Test Coverage Summary");
+
+            await File.AppendAllTextAsync(stepSummaryPath, processedSummaryContent);
 #else
             // TODO: Add your own logic to publish the code coverage summary,
             // according to your provider of choice.
