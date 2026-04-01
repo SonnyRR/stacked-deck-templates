@@ -1,3 +1,6 @@
+#if (UseGitHubActions)
+using System;
+#endif
 using System.IO;
 
 using Nuke.Common;
@@ -58,7 +61,7 @@ internal interface ICodeCoverage : IHasCodeCoverageArtifacts
 
             var processedSummaryContent = summaryContent.Replace("# Summary", "## 📊 Test Coverage Summary");
 
-            await File.AppendAllTextAsync(stepSummaryPath, processedSummaryContent);
+            await File.AppendAllTextAsync(stepSummaryPath, Environment.NewLine + processedSummaryContent);
 #else
             // TODO: Add your own logic to publish the code coverage summary,
             // according to your provider of choice.
