@@ -2,10 +2,10 @@
 
 # ♠️ Stacked Deck Project Templates
 
-A curated collection of C#/.NET project templates, that I've composed for
+A curated collection of opinionated C#/.NET project templates, that I've composed for
 personal, for rapid, batteries-included, performant enterprise solutions for
-green-field projects. Focusing on sensible defaults, new technologies,
-enforcable conventions and low-friction experience OOB.
+green-field projects. Focusing on sensible defaults, new technologies, enforcable
+conventions and low-friction experience OOB.
 
 Their concept is to give advantage, akin to a "stacked card deck".
 
@@ -78,3 +78,4 @@ with sensible defaults. For detailed information, see the section below.
 - Infrastructure as Code (`IaC`) directory structure
   - Local development observability stack (`Docker Compose`)
   - `Prometheus`, `Grafana`, `Tempo`, and `OTEL Collector` for local development
+- Code coverage collection with `coverlet` & report generation
