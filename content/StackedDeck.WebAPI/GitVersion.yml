@@ -1,2 +1,2 @@
-workflow: GitFlow/v1
-mode: ContinuousDelivery
+workflow: GitHubFlow/v1
+mode: ContinuousDeployment
