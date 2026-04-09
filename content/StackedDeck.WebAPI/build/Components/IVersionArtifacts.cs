@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -20,16 +21,17 @@ internal interface IVersionArtifacts : IHasGitVersion, IHasGitRepository
     [Parameter("The git author username, used for tagging release commits.")]
     string GitAuthorUsername => TryGetValue(() => GitAuthorUsername);
 
+    bool IsPullRequest => SemanticVersion.Contains("PullRequest");
+
     Target TagCommitWithVersion => _ => _
         .Description("Tags the latest commit with a semantic version.")
-        .OnlyWhenStatic(() => IsServerBuild)
+        .OnlyWhenStatic(() => IsServerBuild && !IsPullRequest)
         .Requires(
             () => GitAuthorEmail,
             () => GitAuthorUsername)
         .TriggeredBy<IDocker>(t => t.PublishImage)
         .Executes(() =>
         {
-
             Git($"config user.email \"{GitAuthorEmail}\"");
             Git($"config user.name \"{GitAuthorUsername}\"");
             Git($"tag -f -a {SemanticVersion} -m \"Release: '{SemanticVersion}'\"");
@@ -38,15 +40,15 @@ internal interface IVersionArtifacts : IHasGitVersion, IHasGitRepository
 
     Target CleanupOrphanedGitTags => _ => _
         .Description("Cleans orphaned semantic version git tags.")
-        .OnlyWhenStatic(() => IsServerBuild)
+        .OnlyWhenStatic(() => IsServerBuild && !IsPullRequest)
         .TriggeredBy(TagCommitWithVersion)
         .Executes(() =>
         {
             var orphanedGitTags = Git(
-                    "log --tags='[0-9]*.[0-9]*.[0-9]*-*' --not --remotes=origin --simplify-by-decoration --pretty=format:%D --decorate-refs=refs/tags/[0-9]*.[0-9]*.[0-9]*-*")
+                    "log --tags=[0-9]*.[0-9]*.[0-9]*-* --not --remotes=origin --simplify-by-decoration --pretty=format:%D --decorate-refs=refs/tags/[0-9]*.[0-9]*.[0-9]*-*")
                 .Select(o => o.Text.Trim())
                 .Where(t => !string.IsNullOrWhiteSpace(t))
-                .SelectMany(t => t.Split(", ", System.StringSplitOptions.RemoveEmptyEntries))
+                .SelectMany(t => t.Split(", ", StringSplitOptions.RemoveEmptyEntries))
                 .Select(t => t.Replace("tag: ", string.Empty))
                 .Distinct()
                 .ToList();
@@ -60,8 +62,15 @@ internal interface IVersionArtifacts : IHasGitVersion, IHasGitRepository
             Log.Information("🗑️ Removing {Count} orphaned git tag(s).", orphanedGitTags.Count);
             foreach (var tag in orphanedGitTags)
             {
-                Log.Information("🧹 Deleting: {Tag}", tag);
-                GitTasks.Git($"push origin --delete refs/tags/{tag}");
+                try
+                {
+                    Log.Information("🧹 Deleting: {Tag}", tag);
+                    GitTasks.Git($"push origin --delete refs/tags/{tag}");
+                }
+                catch (Exception ex)
+                {
+                    Log.Error(ex, "❌ Failed to delete tag: '{Tag}'. It may have already been removed by a concurrent build.");
+                }
             }
         });
 }

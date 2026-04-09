@@ -27,6 +27,7 @@
         "Build",
         "BuildImage",
         "Clean",
+        "CleanupOrphanedGitTags",
         "GenerateCoverageReport",
         "Publish",
         "PublishCoverageSummary",
