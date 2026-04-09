@@ -1,10 +1,12 @@
 using System;
+using System.Linq;
 
 using Nuke.Common;
 using Nuke.Common.Git;
 using Nuke.Common.IO;
 using Nuke.Common.Tooling;
 using Nuke.Common.Tools.Docker;
+using Nuke.Common.Utilities;
 
 using Polly;
 
@@ -35,6 +37,10 @@ internal interface IDocker : IHasProjects, IHasGitVersion, IHasGitRepository
     private string LatestImageTag => IMAGE_NAME + IMAGE_TAG_DELIMITER + LATEST_IMAGE_TAG;
     private string SemVerImageTag => IMAGE_NAME + IMAGE_TAG_DELIMITER + SemanticVersion;
 
+    private bool ContainsPlaceholderCredentials
+        => new[] { ContainerRegistryPAT, ContainerRegistryUrl, ContainerRegistryUsername }
+            .Any(x => x == "placeholder");
+
     Target BuildImage => _ => _
         .Description("Builds an OCI compatible image of the API.")
         .DependsOn<IDotNet>(t => t.Publish)
@@ -49,6 +55,9 @@ internal interface IDocker : IHasProjects, IHasGitVersion, IHasGitRepository
 
     Target PublishImage => _ => _
         .Description("Publishes an OCI compatible image to a provided container registry.")
+        .OnlyWhenDynamic(() => !ContainsPlaceholderCredentials)
+        .WhenSkipped(DependencyBehavior.Execute)
+        .When(ContainsPlaceholderCredentials, t => t.WhenSkipped(DependencyBehavior.Skip))
         .DependsOn(BuildImage)
         .Requires(
             () => ContainerRegistryUrl,

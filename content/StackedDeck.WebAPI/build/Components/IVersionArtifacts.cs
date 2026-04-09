@@ -21,8 +21,6 @@ internal interface IVersionArtifacts : IHasGitVersion, IHasGitRepository
     [Parameter("The git author username, used for tagging release commits.")]
     string GitAuthorUsername => TryGetValue(() => GitAuthorUsername);
 
-    bool IsPullRequest => SemanticVersion.Contains("PullRequest");
-
     Target TagCommitWithVersion => _ => _
         .Description("Tags the latest commit with a semantic version.")
         .OnlyWhenStatic(() => IsServerBuild && !IsPullRequest)

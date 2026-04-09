@@ -46,9 +46,9 @@ jobs:
           # or variables defined on a GitHub repository. If this repo is
           # hosted on another provider != GitHub, then feel free to remove
           # them, alongside with the 'Dependabot' yaml configuration.
-          ContainerRegistryPAT: ${{ secrets.PAT || 'dependabot_placeholder' }}
-          ContainerRegistryUsername: ${{ vars.USERNAME || 'dependabot_placeholder' }}
-          ContainerRegistryUrl: ${{ vars.CR_URL || 'dependabot_placeholder' }}
+          ContainerRegistryPAT: ${{ secrets.PAT || 'placeholder' }}
+          ContainerRegistryUsername: ${{ vars.USERNAME || 'placeholder' }}
+          ContainerRegistryUrl: ${{ vars.CR_URL || 'placeholder' }}
           # Below you should change the 'git' author info, so that the
           # semantic version tags are pushed with the correct author.
           GitAuthorUsername: 'Vasil Kotsev'

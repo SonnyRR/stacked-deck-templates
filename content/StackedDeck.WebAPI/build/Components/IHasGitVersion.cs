@@ -9,4 +9,6 @@ internal interface IHasGitVersion : INukeBuild
     GitVersion GitVersion => TryGetValue(() => GitVersion);
 
     string SemanticVersion => GitVersion.SemVer;
+
+    bool IsPullRequest => SemanticVersion.Contains("PullRequest");
 }
