@@ -51,7 +51,7 @@ jobs:
           ContainerRegistryUrl: ${{ vars.CR_URL || 'placeholder' }}
           # Below you should change the 'git' author info, so that the
           # semantic version tags are pushed with the correct author.
-          GitAuthorUsername: 'Vasil Kotsev'
-          GitAuthorEmail: 'vasil.kotsev@stackeddeck.localhost'
+          GitAuthorUsername: 'github-actions[bot]'
+          GitAuthorEmail: '41898282+github-actions[bot]@users.noreply.github.com'
         shell: bash
         run: ./build.sh PublishImage
