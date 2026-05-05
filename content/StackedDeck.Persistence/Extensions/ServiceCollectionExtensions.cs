@@ -1,5 +1,8 @@
 using System;
 
+#if (UseAuditNet)
+using Audit.Core;
+#endif
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -29,6 +32,21 @@ public static class ServiceCollectionExtensions
                 .UseSnakeCaseNamingConvention());
 #elif (UseSqliteProvider)
         services.AddDbContext<ApplicationDbContext>(opt => opt.UseSqlite(connectionString));
+#endif
+
+#if (UseAuditNet)
+        Audit.Core.Configuration.Setup()
+            .UseEntityFramework(config => config
+                .AuditTypeMapper(_ => typeof(AuditLog))
+                .AuditEntityAction<AuditLog>((eventEntry, auditEntry) =>
+                {
+                    auditEntry.EntityId = eventEntry.PrimaryKey.FirstOrDefault()?.Value?.ToString();
+                    auditEntry.EntityName = eventEntry.EntityType.Name;
+                    auditEntry.Action = eventEntry.Action;
+                    auditEntry.Changes = System.Text.Json.JsonSerializer.Serialize(eventEntry.ColumnValues);
+                    auditEntry.Timestamp = DateTimeOffset.UtcNow;
+                })
+                .IgnoreMatchedProperties(false));
 #endif
 
         return services;

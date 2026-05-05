@@ -1,40 +1,16 @@
 {
   "symbolInfo": {
-    "RoutePrefix": {
-      "longName": "route-prefix",
-      "shortName": "rp"
+    "Provider": {
+      "longName": "provider",
+      "shortName": ""
     },
-    "SetupRepo": {
-      "longName": "setup-repo",
-      "shortName": "sr"
-    },
-    "Title": {
-      "longName": "title",
-      "shortName": "t"
+    "Auditing": {
+      "longName": "auditing",
+      "shortName": ""
     },
     "SkipRestore": {
       "longName": "no-restore",
       "shortName": ""
-    },
-    "DockerImageName": {
-      "longName": "image-name",
-      "shortName": "in"
-    },
-    "CloudProvider": {
-      "longName": "cloud-provider",
-      "shortName": "cp"
-    },
-    "PipelineProvider": {
-      "longName": "pipeline-provider",
-      "shortName": "pp"
-    },
-    "ApiStyle": {
-      "longName": "api-style",
-      "shortName": ""
-    },
-    "TelemetryCollectionMode": {
-      "longName": "telemetry-mode",
-      "shortName": "tm"
     }
   }
 }

@@ -21,6 +21,9 @@
     <!--#if (UseSqliteProvider)-->
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="10.0.7" />
     <!--#endif-->
+    <!--#if (UseAuditNet)-->
+    <PackageReference Include="Audit.EntityFramework.Core" Version="32.0.0" />
+    <!--#endif-->
   </ItemGroup>
 
 </Project>

@@ -67,6 +67,35 @@
     "UseSqliteProvider": {
       "type": "computed",
       "value": "Provider == \"SQLite\""
+    },
+    "Auditing": {
+      "type": "parameter",
+      "datatype": "choice",
+      "enableQuotelessLiterals": true,
+      "choices": [
+        {
+          "choice": "None",
+          "description": "No auditing support."
+        },
+        {
+          "choice": "Temporal",
+          "description": "Use temporal tables for full audit trail (MSSQL only)."
+        },
+        {
+          "choice": "AuditNet",
+          "description": "Use Audit.NET library for full audit trail."
+        }
+      ],
+      "defaultValue": "None",
+      "description": "The auditing approach to use."
+    },
+    "UseTemporal": {
+      "type": "computed",
+      "value": "Auditing == \"Temporal\""
+    },
+    "UseAuditNet": {
+      "type": "computed",
+      "value": "Auditing == \"AuditNet\""
     }
   },
   "sources": [
@@ -85,9 +114,24 @@
         "README.md",
         "**/.DS_Store",
         ".idea/**/*",
-        "logs/**/*"
+        "logs/**/*",
+        "Configuration/TemporalEntityTypeConfiguration.cs",
+        "Entities/AuditLog.cs"
       ],
-      "modifiers": []
+      "modifiers": [
+        {
+          "condition": "(UseTemporal && UseMssqlProvider)",
+          "include": [
+            "Configuration/TemporalEntityTypeConfiguration.cs"
+          ]
+        },
+        {
+          "condition": "UseAuditNet",
+          "include": [
+            "Entities/AuditLog.cs"
+          ]
+        }
+      ]
     }
   ],
   "postActions": [
@@ -117,6 +161,20 @@
       "manualInstructions": [
         {
           "text": "Run 'dotnet format' for this solution from your terminal."
+        }
+      ],
+      "continueOnError": true
+    },
+    {
+      "id": "temporal-warning",
+      "actionId": "B8E4C9A1-2F3D-4E5A-9B6C-7D8E9F0A1B2C",
+      "condition": "(Auditing == \"Temporal\") && (Provider != \"MSSQL\")",
+      "description": "WARN: Temporal tables are not supported with PostgreSQL or SQLite. Use AuditNet instead.",
+      "manualInstructions": [
+        {
+          "text": "Temporal tables are only supported with MSSQL. Either:
+  - Use --provider MSSQL with --auditing Temporal, or
+  - Use --auditing AuditNet for cross-provider support."
         }
       ],
       "continueOnError": true
