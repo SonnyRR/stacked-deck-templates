@@ -14,14 +14,22 @@ public static class ServiceCollectionExtensions
     /// Adds persistence services to the service collection.
     /// </summary>
     /// <param name="services">The service collection to add services to.</param>
-    /// <param name="connectionString">The SQL Server connection string.</param>
+    /// <param name="connectionString">The database connection string.</param>
     /// <returns>The service collection for chaining.</returns>
-    public static IServiceCollection AddPersistenceService(this IServiceCollection services, string connectionString)
+    public static IServiceCollection AddPersistenceServices(this IServiceCollection services, string connectionString)
     {
         ArgumentNullException.ThrowIfNull(services);
         ArgumentException.ThrowIfNullOrWhiteSpace(connectionString);
 
+#if (UseMssqlProvider)
         services.AddDbContext<ApplicationDbContext>(opt => opt.UseSqlServer(connectionString));
+#elif (UsePostgresProvider)
+        services.AddDbContext<ApplicationDbContext>(opt => opt
+                .UseNpgsql(connectionString)
+                .UseSnakeCaseNamingConvention());
+#elif (UseSqliteProvider)
+        services.AddDbContext<ApplicationDbContext>(opt => opt.UseSqlite(connectionString));
+#endif
 
         return services;
     }

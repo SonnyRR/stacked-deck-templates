@@ -1,4 +1,5 @@
 <Project Sdk="Microsoft.NET.Sdk">
+
   <PropertyGroup>
     <TargetFramework>net10.0</TargetFramework>
   </PropertyGroup>
@@ -10,7 +11,16 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
+    <!--#if (UseMssqlProvider)-->
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="10.0.7" />
+    <!--#endif-->
+    <!--#if (UsePostgresProvider)-->
+    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="10.0.1" />
+    <PackageReference Include="EFCore.NamingConventions" Version="10.0.1" />
+    <!--#endif-->
+    <!--#if (UseSqliteProvider)-->
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="10.0.7" />
+    <!--#endif-->
   </ItemGroup>
 
 </Project>

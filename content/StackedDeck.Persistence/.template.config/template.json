@@ -34,6 +34,39 @@
       "datatype": "bool",
       "description": "If specified, skips the automatic restore of the project on create.",
       "defaultValue": "false"
+    },
+    "Provider": {
+      "type": "parameter",
+      "datatype": "choice",
+      "enableQuotelessLiterals": true,
+      "choices": [
+        {
+          "choice": "MSSQL",
+          "description": "Use MS SQL Server or Azure SQL Database provider."
+        },
+        {
+          "choice": "PostgreSQL",
+          "description": "Use PostgreSQL provider."
+        },
+        {
+          "choice": "SQLite",
+          "description": "Use SQLite provider."
+        }
+      ],
+      "defaultValue": "MSSQL",
+      "description": "The Database engine provider."
+    },
+    "UseMssqlProvider": {
+      "type": "computed",
+      "value": "Provider == \"MSSQL\""
+    },
+    "UsePostgresProvider": {
+      "type": "computed",
+      "value": "Provider == \"PostgreSQL\""
+    },
+    "UseSqliteProvider": {
+      "type": "computed",
+      "value": "Provider == \"SQLite\""
     }
   },
   "sources": [
