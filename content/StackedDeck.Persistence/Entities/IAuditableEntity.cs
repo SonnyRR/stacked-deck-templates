@@ -1,4 +1,6 @@
-namespace StackedDeck.Persistence.Entities;
+using System;
+
+namespace StackedDeck.Persistence.Template.Entities;
 
 public interface IAuditableEntity
 {

@@ -1,12 +1,23 @@
 using Microsoft.EntityFrameworkCore;
 
-namespace StackedDeck.Persistence;
+#if (UseAuditNet)
+using Audit.EntityFramework;
+#endif
+
+#if (UseAuditNet && !UseSeparateAuditTables)
+using StackedDeck.Persistence.Template.Entities;
+#endif
+
+namespace StackedDeck.Persistence.Template;
 
 /// <summary>
 /// The database context for the StackedDeck application.
 /// </summary>
 public class ApplicationDbContext : DbContext
 {
+#if (UseAuditNet && !UseSeparateAuditTables)
+    public DbSet<AuditLog> AuditLogs { get; set; }
+#endif
 
     /// <summary>
     /// Initializes a new instance of the ApplicationDbContext.
@@ -16,6 +27,13 @@ public class ApplicationDbContext : DbContext
         : base(options)
     {
     }
+
+#if (UseAuditNet)
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    {
+        optionsBuilder.AddInterceptors(new AuditSaveChangesInterceptor());
+    }
+#endif
 
     /// <inheritdoc />
     protected override void OnModelCreating(ModelBuilder modelBuilder)

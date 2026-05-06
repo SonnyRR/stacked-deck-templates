@@ -22,13 +22,6 @@
     "type": "project"
   },
   "symbols": {
-    "Title": {
-      "type": "parameter",
-      "datatype": "text",
-      "description": "The API's title, used primarily for the Open API specification.",
-      "defaultValue": "StackedDeck Web Service",
-      "replaces": "sd-api-title"
-    },
     "SkipRestore": {
       "type": "parameter",
       "datatype": "bool",
@@ -86,7 +79,7 @@
           "description": "Use Audit.NET library for full audit trail."
         }
       ],
-      "defaultValue": "None",
+      "defaultValue": "AuditNet",
       "description": "The auditing approach to use."
     },
     "UseTemporal": {
@@ -96,6 +89,12 @@
     "UseAuditNet": {
       "type": "computed",
       "value": "Auditing == \"AuditNet\""
+    },
+    "UseSeparateAuditTables": {
+      "type": "parameter",
+      "datatype": "bool",
+      "defaultValue": "false",
+      "description": "Use per-entity audit tables (true) vs single AuditLog table (false). Only applies when AuditNet is enabled."
     }
   },
   "sources": [
@@ -116,6 +115,7 @@
         ".idea/**/*",
         "logs/**/*",
         "Configuration/TemporalEntityTypeConfiguration.cs",
+        "Configuration/AuditLogEntityTypeConfiguration.cs",
         "Entities/AuditLog.cs"
       ],
       "modifiers": [
@@ -129,6 +129,12 @@
           "condition": "UseAuditNet",
           "include": [
             "Entities/AuditLog.cs"
+          ]
+        },
+        {
+          "condition": "(UseAuditNet && !UseSeparateAuditTables)",
+          "include": [
+            "Configuration/AuditLogEntityTypeConfiguration.cs"
           ]
         }
       ]

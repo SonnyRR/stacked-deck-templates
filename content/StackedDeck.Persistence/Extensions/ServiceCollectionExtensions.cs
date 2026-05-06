@@ -2,11 +2,16 @@ using System;
 
 #if (UseAuditNet)
 using Audit.Core;
+using System.Linq;
+using System.Text.Json;
+
+using StackedDeck.Persistence.Template.Entities;
+
 #endif
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace StackedDeck.Persistence.Extensions;
+namespace StackedDeck.Persistence.Template.Extensions;
 
 /// <summary>
 /// Extension methods for configuring persistence services.
@@ -36,17 +41,31 @@ public static class ServiceCollectionExtensions
 
 #if (UseAuditNet)
         Audit.Core.Configuration.Setup()
-            .UseEntityFramework(config => config
-                .AuditTypeMapper(_ => typeof(AuditLog))
-                .AuditEntityAction<AuditLog>((eventEntry, auditEntry) =>
-                {
-                    auditEntry.EntityId = eventEntry.PrimaryKey.FirstOrDefault()?.Value?.ToString();
-                    auditEntry.EntityName = eventEntry.EntityType.Name;
-                    auditEntry.Action = eventEntry.Action;
-                    auditEntry.Changes = System.Text.Json.JsonSerializer.Serialize(eventEntry.ColumnValues);
-                    auditEntry.Timestamp = DateTimeOffset.UtcNow;
-                })
-                .IgnoreMatchedProperties(false));
+            .UseEntityFramework(config =>
+            {
+#if (UseSeparateAuditTables)
+                config
+                    .AuditTypeNameMapper(typeName => "Audit_" + typeName)
+                    .AuditEntityAction((ev, entry, auditEntity) =>
+                    {
+                        ((dynamic)auditEntity).AuditDate = DateTime.UtcNow;
+                    })
+                    .IgnoreMatchedProperties(true);
+#else
+                config
+                    .AuditTypeMapper(_ => typeof(AuditLog))
+                    .AuditEntityAction<AuditLog>((_, eventEntry, auditLog) =>
+                    {
+                        var pk = eventEntry.PrimaryKey.Values.FirstOrDefault();
+                        auditLog.EntityId = pk?.ToString();
+                        auditLog.EntityName = eventEntry.EntityType.Name;
+                        auditLog.Action = eventEntry.Action;
+                        auditLog.Changes = JsonSerializer.Serialize(eventEntry.ColumnValues);
+                        auditLog.Timestamp = DateTimeOffset.UtcNow;
+                    })
+                    .IgnoreMatchedProperties(true);
+#endif
+            });
 #endif
 
         return services;
