@@ -1,15 +1,16 @@
 using System;
-
-#if (UseAuditNet)
-using Audit.Core;
 using System.Linq;
 using System.Text.Json;
 
-using StackedDeck.Persistence.Template.Entities;
+#if (UseAuditNet)
+using Audit.Core;
+using Audit.EntityFramework;
 
 #endif
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+
+using StackedDeck.Persistence.Template.Entities;
 
 namespace StackedDeck.Persistence.Template.Extensions;
 
@@ -29,29 +30,27 @@ public static class ServiceCollectionExtensions
         ArgumentNullException.ThrowIfNull(services);
         ArgumentException.ThrowIfNullOrWhiteSpace(connectionString);
 
+        services.AddDbContext<ApplicationDbContext>(opt =>
 #if (UseMssqlProvider)
-        services.AddDbContext<ApplicationDbContext>(opt => opt.UseSqlServer(connectionString));
+            opt.UseSqlServer(connectionString)
 #elif (UsePostgresProvider)
-        services.AddDbContext<ApplicationDbContext>(opt => opt
-                .UseNpgsql(connectionString)
-                .UseSnakeCaseNamingConvention());
+            opt.UseNpgsql(connectionString).UseSnakeCaseNamingConvention()
 #elif (UseSqliteProvider)
-        services.AddDbContext<ApplicationDbContext>(opt => opt.UseSqlite(connectionString));
+            opt.UseSqlite(connectionString)
+#else
+            opt.UseSqlite(connectionString)
 #endif
+#if (UseAuditNet)
+                .AddInterceptors(new AuditSaveChangesInterceptor())
+#endif
+        );
 
 #if (UseAuditNet)
+        // Single AuditLog table configuration for all entity types.
+        // For per-entity configuration options, see: https://github.com/thepirat000/Audit.NET/tree/master/src/Audit.EntityFramework
         Audit.Core.Configuration.Setup()
             .UseEntityFramework(config =>
             {
-#if (UseSeparateAuditTables)
-                config
-                    .AuditTypeNameMapper(typeName => "Audit_" + typeName)
-                    .AuditEntityAction((ev, entry, auditEntity) =>
-                    {
-                        ((dynamic)auditEntity).AuditDate = DateTime.UtcNow;
-                    })
-                    .IgnoreMatchedProperties(true);
-#else
                 config
                     .AuditTypeMapper(_ => typeof(AuditLog))
                     .AuditEntityAction<AuditLog>((_, eventEntry, auditLog) =>
@@ -60,11 +59,16 @@ public static class ServiceCollectionExtensions
                         auditLog.EntityId = pk?.ToString();
                         auditLog.EntityName = eventEntry.EntityType.Name;
                         auditLog.Action = eventEntry.Action;
-                        auditLog.Changes = JsonSerializer.Serialize(eventEntry.ColumnValues);
+                        auditLog.Value = JsonSerializer.Serialize(eventEntry.ColumnValues);
+
+                        if (eventEntry.Action == "Update")
+                        {
+                            auditLog.Delta = JsonSerializer.Serialize(eventEntry.Changes);
+                        }
+
                         auditLog.Timestamp = DateTimeOffset.UtcNow;
                     })
                     .IgnoreMatchedProperties(true);
-#endif
             });
 #endif
 

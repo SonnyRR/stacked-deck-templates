@@ -89,12 +89,6 @@
     "UseAuditNet": {
       "type": "computed",
       "value": "Auditing == \"AuditNet\""
-    },
-    "UseSeparateAuditTables": {
-      "type": "parameter",
-      "datatype": "bool",
-      "defaultValue": "false",
-      "description": "Use per-entity audit tables (true) vs single AuditLog table (false). Only applies when AuditNet is enabled."
     }
   },
   "sources": [
@@ -132,7 +126,7 @@
           ]
         },
         {
-          "condition": "(UseAuditNet && !UseSeparateAuditTables)",
+          "condition": "UseAuditNet",
           "include": [
             "Configuration/AuditLogEntityTypeConfiguration.cs"
           ]
