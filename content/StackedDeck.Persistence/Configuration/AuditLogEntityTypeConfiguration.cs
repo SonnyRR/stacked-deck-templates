@@ -5,8 +5,12 @@ using StackedDeck.Persistence.Template.Entities;
 
 namespace StackedDeck.Persistence.Template.Configuration;
 
+/// <summary>
+/// Configures the entity type mapping for <see cref="Entities.AuditLog"/>.
+/// </summary>
 public class AuditLogEntityTypeConfiguration : IEntityTypeConfiguration<AuditLog>
 {
+    /// <inheritdoc />
     public void Configure(EntityTypeBuilder<AuditLog> builder)
     {
         builder.HasKey(e => e.Id);
