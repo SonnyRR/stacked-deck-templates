@@ -33,6 +33,7 @@ public static class ServiceCollectionExtensions
         ArgumentException.ThrowIfNullOrWhiteSpace(connectionString);
 
         services.AddScoped<AuditInterceptor>();
+        services.AddScoped<SoftDeleteInterceptor>();
 
         services.AddDbContext<ApplicationDbContext>((sp, opt) =>
 #if (UseMssqlProvider)
@@ -46,9 +47,12 @@ public static class ServiceCollectionExtensions
             opt.UseSqlite(connectionString)
 #endif
 #if (UseAuditNet)
-                .AddInterceptors(sp.GetRequiredService<AuditInterceptor>());
+                .AddInterceptors(
+                    sp.GetRequiredService<SoftDeleteInterceptor>(),
+                    sp.GetRequiredService<AuditInterceptor>()));
+#else
+                .AddInterceptors(sp.GetRequiredService<SoftDeleteInterceptor>()));
 #endif
-        );
 
 #if (UseAuditNet)
         // Single AuditLog table configuration for all entity types.
@@ -57,7 +61,9 @@ public static class ServiceCollectionExtensions
             .UseEntityFramework(config =>
             {
                 config
-                    .AuditTypeMapper(eventType => typeof(IAuditableEntity).IsAssignableFrom(eventType) ? typeof(AuditLog) : null)
+                    .AuditTypeMapper(eventType => typeof(IAuditableEntity).IsAssignableFrom(eventType)
+                        ? typeof(AuditLog)
+                        : null)
                     .AuditEntityAction<AuditLog>((_, eventEntry, auditLog) =>
                     {
                         var pk = eventEntry.PrimaryKey.Values.FirstOrDefault();
