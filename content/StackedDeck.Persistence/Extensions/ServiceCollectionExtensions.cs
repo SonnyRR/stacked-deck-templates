@@ -1,16 +1,18 @@
 using System;
+
+#if (UseAuditNet)
 using System.Linq;
 using System.Text.Json;
 
-#if (UseAuditNet)
 using Audit.Core;
 using Audit.EntityFramework;
 
+using StackedDeck.Persistence.Template.Entities;
 #endif
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
-using StackedDeck.Persistence.Template.Entities;
+using StackedDeck.Persistence.Template.Interceptors;
 
 namespace StackedDeck.Persistence.Template.Extensions;
 
@@ -30,18 +32,21 @@ public static class ServiceCollectionExtensions
         ArgumentNullException.ThrowIfNull(services);
         ArgumentException.ThrowIfNullOrWhiteSpace(connectionString);
 
-        services.AddDbContext<ApplicationDbContext>(opt =>
+        services.AddScoped<AuditInterceptor>();
+
+        services.AddDbContext<ApplicationDbContext>((sp, opt) =>
 #if (UseMssqlProvider)
             opt.UseSqlServer(connectionString)
 #elif (UsePostgresProvider)
-            opt.UseNpgsql(connectionString).UseSnakeCaseNamingConvention()
+            opt.UseNpgsql(connectionString)
+                .UseSnakeCaseNamingConvention()
 #elif (UseSqliteProvider)
             opt.UseSqlite(connectionString)
 #else
             opt.UseSqlite(connectionString)
 #endif
 #if (UseAuditNet)
-                .AddInterceptors(new AuditSaveChangesInterceptor())
+                .AddInterceptors(sp.GetRequiredService<AuditInterceptor>());
 #endif
         );
 
@@ -52,7 +57,7 @@ public static class ServiceCollectionExtensions
             .UseEntityFramework(config =>
             {
                 config
-                    .AuditTypeMapper(_ => typeof(AuditLog))
+                    .AuditTypeMapper(eventType => typeof(IAuditableEntity).IsAssignableFrom(eventType) ? typeof(AuditLog) : null)
                     .AuditEntityAction<AuditLog>((_, eventEntry, auditLog) =>
                     {
                         var pk = eventEntry.PrimaryKey.Values.FirstOrDefault();
