@@ -6,7 +6,7 @@ using StackedDeck.Persistence.Template.Entities;
 namespace StackedDeck.Persistence.Template.Configuration;
 
 /// <summary>
-/// Configures the entity type mapping for <see cref="Entities.AuditLog"/>.
+/// Configures the entity type mapping for <see cref="AuditLog"/>.
 /// </summary>
 public class AuditLogEntityTypeConfiguration : IEntityTypeConfiguration<AuditLog>
 {

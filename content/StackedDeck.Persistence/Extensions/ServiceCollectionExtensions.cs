@@ -1,14 +1,5 @@
 using System;
 
-#if (UseAuditNet)
-using System.Linq;
-using System.Text.Json;
-
-using Audit.Core;
-using Audit.EntityFramework;
-
-using StackedDeck.Persistence.Template.Entities;
-#endif
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -55,32 +46,9 @@ public static class ServiceCollectionExtensions
 #endif
 
 #if (UseAuditNet)
-        // Single AuditLog table configuration for all entity types.
-        // For per-entity configuration options, see: https://github.com/thepirat000/Audit.NET/tree/master/src/Audit.EntityFramework
-        Audit.Core.Configuration.Setup()
-            .UseEntityFramework(config =>
-            {
-                config
-                    .AuditTypeMapper(eventType => typeof(IAuditableEntity).IsAssignableFrom(eventType)
-                        ? typeof(AuditLog)
-                        : null)
-                    .AuditEntityAction<AuditLog>((_, eventEntry, auditLog) =>
-                    {
-                        var pk = eventEntry.PrimaryKey.Values.FirstOrDefault();
-                        auditLog.EntityId = pk?.ToString();
-                        auditLog.EntityName = eventEntry.EntityType.Name;
-                        auditLog.Action = eventEntry.Action;
-                        auditLog.Value = JsonSerializer.Serialize(eventEntry.ColumnValues);
-
-                        if (eventEntry.Action == "Update")
-                        {
-                            auditLog.Delta = JsonSerializer.Serialize(eventEntry.Changes);
-                        }
-
-                        auditLog.Timestamp = DateTimeOffset.UtcNow;
-                    })
-                    .IgnoreMatchedProperties(true);
-            });
+        Audit.Core.Configuration
+            .Setup()
+            .UseStackedDeckAuditing();
 #endif
 
         return services;
