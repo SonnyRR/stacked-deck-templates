@@ -24,7 +24,7 @@ public static class AuditConfiguratorExtensions
     /// </summary>
     /// <param name="configurator">The Audit.NET configurator.</param>
     /// <remarks>
-    /// Supports soft-deletion & regular deletion events.
+    /// Supports soft-deletion &amp; regular deletion events.
     /// </remarks>
     /// <returns>
     /// A pre-configured instance of <see cref="ICreationPolicyConfigurator"/> with sensible defaults

@@ -22,7 +22,7 @@ namespace StackedDeck.Persistence.Template.Interceptors;
 /// </summary>
 /// <remarks>
 /// This interceptor extends the audit interceptor from Audit.NET, which will store snapshots
-/// of the entities & their deltas in a dedicated audit log table. This behavior will be retained,
+/// of the entities &amp; their deltas in a dedicated audit log table. This behavior will be retained,
 /// but the sole purpose of this interceptor is to attach the custom auditable metadata, part of the
 /// <see cref="IAuditableEntity"/> interface to the current active record.
 /// </remarks>
