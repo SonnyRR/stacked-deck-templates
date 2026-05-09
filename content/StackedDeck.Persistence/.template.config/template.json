@@ -68,7 +68,7 @@
       "choices": [
         {
           "choice": "None",
-          "description": "No auditing support."
+          "description": "No audit trail support."
         },
         {
           "choice": "Temporal",
