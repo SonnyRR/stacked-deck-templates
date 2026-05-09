@@ -63,6 +63,7 @@ public class AuditInterceptor : SaveChangesInterceptor
     /// <summary>
     /// Sets audit metadata for all entities that implement <see cref="IAuditableEntity"/>.
     /// </summary>
+    /// <param name="dbContext">The database context.</param>
     private static void SetAuditMetadata(DbContext dbContext)
     {
         var entries = dbContext

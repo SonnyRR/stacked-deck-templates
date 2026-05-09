@@ -13,6 +13,9 @@ using StackedDeck.Persistence.Template.Enums;
 
 namespace StackedDeck.Persistence.Template.Extensions;
 
+/// <summary>
+/// Extension methods for configuring Audit.NET infrastructure.
+/// </summary>
 public static class AuditConfiguratorExtensions
 {
     /// <summary>
