@@ -1,4 +1,4 @@
-namespace StackedDeck.Persistence.Template;
+namespace StackedDeck.Persistence.Template.Enums;
 
 /// <summary>
 /// The actions for an audit log.

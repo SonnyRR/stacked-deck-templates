@@ -9,6 +9,7 @@ using Audit.EntityFramework;
 using Microsoft.EntityFrameworkCore;
 
 using StackedDeck.Persistence.Template.Entities;
+using StackedDeck.Persistence.Template.Enums;
 
 namespace StackedDeck.Persistence.Template.Extensions;
 
@@ -22,6 +23,10 @@ public static class AuditConfiguratorExtensions
     /// <remarks>
     /// Supports soft-deletion & regular deletion events.
     /// </remarks>
+    /// <returns>
+    /// A pre-configured instance of <see cref="ICreationPolicyConfigurator"/> with sensible defaults
+    /// from the 'StackedDeck.Persistence' project template.
+    /// </returns>
     public static ICreationPolicyConfigurator UseStackedDeckAuditing(this IConfigurator configurator)
     {
         return configurator
@@ -33,8 +38,8 @@ public static class AuditConfiguratorExtensions
                          : null)
                      .AuditEntityAction<AuditLog>((_, eventEntry, auditLog) =>
                      {
-                         var pk = eventEntry.PrimaryKey.Values.FirstOrDefault();
-                         auditLog.EntityId = pk?.ToString();
+                         var primaryKey = eventEntry.PrimaryKey.Values.FirstOrDefault();
+                         auditLog.EntityId = primaryKey?.ToString();
                          auditLog.EntityName = eventEntry.EntityType.Name;
                          auditLog.Action = DetermineAuditLogAction(eventEntry);
                          auditLog.Value = JsonSerializer.Serialize(eventEntry.ColumnValues);
@@ -54,11 +59,14 @@ public static class AuditConfiguratorExtensions
     /// Determines the Audit log action based on the event entry metadata.
     /// </summary>
     /// <param name="eventEntry">The Audit.NET event entry.</param>
-    private static string DetermineAuditLogAction(EventEntry eventEntry)
+    /// <returns>
+    /// An <see cref="AuditAction"/> value.
+    /// </returns>
+    private static AuditAction DetermineAuditLogAction(EventEntry eventEntry)
     {
         if (eventEntry.Action != nameof(AuditAction.Update) || eventEntry.Changes is not { } changes)
         {
-            return eventEntry.Action;
+            return Enum.Parse<AuditAction>(eventEntry.Action);
         }
 
         var isDeletedColumnName = eventEntry
@@ -70,7 +78,7 @@ public static class AuditConfiguratorExtensions
         return !string.IsNullOrWhiteSpace(isDeletedColumnName) &&
             changes.Any(c => c.ColumnName.Equals(isDeletedColumnName, StringComparison.OrdinalIgnoreCase)
                     && c.NewValue is true)
-            ? nameof(AuditAction.SoftDelete)
-            : eventEntry.Action;
+            ? AuditAction.SoftDelete
+            : Enum.Parse<AuditAction>(eventEntry.Action);
     }
 }

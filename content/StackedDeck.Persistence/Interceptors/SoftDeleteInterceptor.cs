@@ -46,6 +46,7 @@ public class SoftDeleteInterceptor : SaveChangesInterceptor
     /// Sets the <see cref="ISoftDeletableEntity.IsDeleted"/> flag to <c>true</c>
     /// for any entities that have the <see cref="EntityState.Deleted"/> state.
     /// </summary>
+    /// <param name="dbContext">The database context.</param>
     private static void SetSoftDeletedMetadata(DbContext dbContext)
     {
         var deletedEntries = dbContext

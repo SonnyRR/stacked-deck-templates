@@ -2,6 +2,8 @@ using System;
 
 using Audit.EntityFramework;
 
+using StackedDeck.Persistence.Template.Enums;
+
 namespace StackedDeck.Persistence.Template.Entities;
 
 /// <summary>
@@ -26,9 +28,9 @@ public class AuditLog
     public string EntityName { get; set; }
 
     /// <summary>
-    /// Gets or sets the action performed (Insert, Update, Delete).
+    /// Gets or sets the action performed (Insert, Update, Delete, SoftDelete).
     /// </summary>
-    public string Action { get; set; }
+    public AuditAction Action { get; set; }
 
     /// <summary>
     /// Gets or sets the serialized column values after the action.

@@ -110,7 +110,9 @@
         "logs/**/*",
         "Configuration/TemporalEntityTypeConfiguration.cs",
         "Configuration/AuditLogEntityTypeConfiguration.cs",
-        "Entities/AuditLog.cs"
+        "Extensions/AuditConfigurationExtensions.cs",
+        "Entities/AuditLog.cs",
+        "Enums/AuditAction.cs"
       ],
       "modifiers": [
         {
@@ -122,13 +124,10 @@
         {
           "condition": "UseAuditNet",
           "include": [
-            "Entities/AuditLog.cs"
-          ]
-        },
-        {
-          "condition": "UseAuditNet",
-          "include": [
-            "Configuration/AuditLogEntityTypeConfiguration.cs"
+            "Entities/AuditLog.cs",
+            "Configuration/AuditLogEntityTypeConfiguration.cs",
+            "Extensions/AuditConfigurationExtensions.cs",
+            "Enums/AuditAction.cs"
           ]
         }
       ]
