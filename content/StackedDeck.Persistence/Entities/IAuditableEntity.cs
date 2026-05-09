@@ -20,10 +20,10 @@ public interface IAuditableEntity
     /// <summary>
     /// Gets or sets the identifier of the user who last modified the entity.
     /// </summary>
-    Guid UpdatedBy { get; set; }
+    Guid? UpdatedBy { get; set; }
 
     /// <summary>
     /// Gets or sets the timestamp when the entity was last modified.
     /// </summary>
-    DateTimeOffset UpdatedAt { get; set; }
+    DateTimeOffset? UpdatedAt { get; set; }
 }
