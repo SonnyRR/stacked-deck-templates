@@ -37,13 +37,9 @@ public static class ServiceCollectionExtensions
 #else
             opt.UseSqlite(connectionString)
 #endif
-#if (UseAuditNet)
                 .AddInterceptors(
                     sp.GetRequiredService<SoftDeleteInterceptor>(),
                     sp.GetRequiredService<AuditInterceptor>()));
-#else
-                .AddInterceptors(sp.GetRequiredService<SoftDeleteInterceptor>()));
-#endif
 #if (UseAuditNet)
 
         Audit.Core.Configuration
