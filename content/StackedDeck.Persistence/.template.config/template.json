@@ -140,7 +140,7 @@
       "condition": "(!SkipRestore)",
       "description": "Restore NuGet packages required by this project.",
       "args": {
-        "files": ["./StackedDeck.WebAPI.Template.slnx"]
+        "files": ["./StackedDeck.Persistence.Template.csproj"]
       },
       "manualInstructions": [
         {
