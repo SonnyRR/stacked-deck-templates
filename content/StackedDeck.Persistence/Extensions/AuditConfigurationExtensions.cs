@@ -47,7 +47,7 @@ public static class AuditConfiguratorExtensions
                          auditLog.Action = DetermineAuditLogAction(eventEntry);
                          auditLog.Value = JsonSerializer.Serialize(eventEntry.ColumnValues);
 
-                         if (eventEntry.Action == nameof(AuditAction.Update))
+                         if (auditLog.Action == AuditAction.Update)
                          {
                              auditLog.Delta = JsonSerializer.Serialize(eventEntry.Changes);
                          }
