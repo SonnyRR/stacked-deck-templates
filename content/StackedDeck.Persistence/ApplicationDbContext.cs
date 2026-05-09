@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore;
-
 #if (UseAuditNet)
+
 using StackedDeck.Persistence.Template.Entities;
 #endif
 

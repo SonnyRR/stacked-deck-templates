@@ -2,11 +2,11 @@ using System;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-
 #if (UseAuditNet)
-using Audit.EntityFramework;
 
+using Audit.EntityFramework;
 #endif
+
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 

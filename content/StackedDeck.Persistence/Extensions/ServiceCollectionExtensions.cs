@@ -44,8 +44,8 @@ public static class ServiceCollectionExtensions
 #else
                 .AddInterceptors(sp.GetRequiredService<SoftDeleteInterceptor>()));
 #endif
-
 #if (UseAuditNet)
+
         Audit.Core.Configuration
             .Setup()
             .UseStackedDeckAuditing();
