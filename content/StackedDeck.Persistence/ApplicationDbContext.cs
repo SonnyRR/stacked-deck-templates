@@ -42,17 +42,18 @@ public class ApplicationDbContext : DbContext
         var softDeletableEntityTypes = modelBuilder
             .Model
             .GetEntityTypes()
-            .Where(t => typeof(ISoftDeletableEntity).IsAssignableFrom(t.ClrType));
+            .Where(met => typeof(ISoftDeletableEntity).IsAssignableFrom(met.ClrType))
+            .Select(met => met.ClrType);
 
         foreach (var entityType in softDeletableEntityTypes)
         {
-            var parameter = Expression.Parameter(entityType.ClrType, "e");
+            var parameter = Expression.Parameter(entityType, "e");
             var property = Expression.Property(parameter, nameof(ISoftDeletableEntity.IsDeleted));
             var comparison = Expression.Equal(property, Expression.Constant(false));
             var lambda = Expression.Lambda(comparison, parameter);
 
             modelBuilder
-                .Entity(entityType.ClrType)
+                .Entity(entityType)
                 .HasQueryFilter(Constants.GlobalQueryFilters.SOFT_DELETE, lambda);
         }
     }
