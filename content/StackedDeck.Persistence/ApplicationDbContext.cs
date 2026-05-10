@@ -1,8 +1,9 @@
+using System.Linq;
+using System.Linq.Expressions;
+
 using Microsoft.EntityFrameworkCore;
-#if (UseAuditNet)
 
 using StackedDeck.Persistence.Template.Entities;
-#endif
 
 namespace StackedDeck.Persistence.Template;
 
@@ -29,5 +30,30 @@ public class ApplicationDbContext : DbContext
     {
         base.OnModelCreating(modelBuilder);
         modelBuilder.ApplyConfigurationsFromAssembly(typeof(ApplicationDbContext).Assembly);
+        ApplySoftDeleteQueryFilters(modelBuilder);
+    }
+
+    /// <summary>
+    /// Applies a global query filter to exclude soft-deleted entities from all queries.
+    /// </summary>
+    /// <param name="modelBuilder">The model builder.</param>
+    private static void ApplySoftDeleteQueryFilters(ModelBuilder modelBuilder)
+    {
+        var softDeletableEntityTypes = modelBuilder
+            .Model
+            .GetEntityTypes()
+            .Where(t => typeof(ISoftDeletableEntity).IsAssignableFrom(t.ClrType));
+
+        foreach (var entityType in softDeletableEntityTypes)
+        {
+            var parameter = Expression.Parameter(entityType.ClrType, "e");
+            var property = Expression.Property(parameter, nameof(ISoftDeletableEntity.IsDeleted));
+            var comparison = Expression.Equal(property, Expression.Constant(false));
+            var lambda = Expression.Lambda(comparison, parameter);
+
+            modelBuilder
+                .Entity(entityType.ClrType)
+                .HasQueryFilter(Constants.GlobalQueryFilters.SOFT_DELETE, lambda);
+        }
     }
 }
