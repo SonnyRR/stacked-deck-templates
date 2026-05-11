@@ -1,0 +1,38 @@
+{
+  "$schema": "http://json.schemastore.org/vs-2017.3.host",
+  "order": 15,
+  "supportsDocker": false,
+  "icon": "sd-logo-7.png",
+  "symbolInfo": [
+    {
+      "id": "Provider",
+      "name": {
+        "text": "Database Provider"
+      },
+      "description": {
+        "text": "The database provider to use (MSSQL, PostgreSQL, or SQLite)."
+      },
+      "isVisible": true
+    },
+    {
+      "id": "Auditing",
+      "name": {
+        "text": "Auditing Approach"
+      },
+      "description": {
+        "text": "The auditing approach: None, Temporal tables (MSSQL only), or Audit.NET."
+      },
+      "isVisible": true
+    },
+    {
+      "id": "SkipRestore",
+      "name": {
+        "text": "Skip Restore"
+      },
+      "description": {
+        "text": "If specified, skips the automatic restore of NuGet packages on create."
+      },
+      "isVisible": true
+    }
+  ]
+}

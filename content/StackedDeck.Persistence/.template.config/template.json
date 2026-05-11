@@ -1,0 +1,182 @@
+{
+  "$schema": "http://json.schemastore.org/template",
+  "author": "Vasil Kotsev",
+  "name": "Stacked Deck Persistence",
+  "description": "Creates a Persistence layer with EF Core.",
+  "classifications": [
+    "Persistence",
+    "DAL",
+    "Entity Framework Core",
+    "Data Access",
+    "Project",
+    "Stacked Deck"
+  ],
+  "precedence": 1338,
+  "identity": "StackedDeck.Persistence",
+  "groupIdentity": "StackedDeck.Persistence",
+  "shortName": "sd-persistence",
+  "defaultName": "StackedDeckPersistence",
+  "sourceName": "StackedDeck.Persistence.Template",
+  "tags": {
+    "language": "C#",
+    "type": "project"
+  },
+  "symbols": {
+    "SkipRestore": {
+      "type": "parameter",
+      "datatype": "bool",
+      "description": "If specified, skips the automatic restore of the project on create.",
+      "defaultValue": "false"
+    },
+    "Provider": {
+      "type": "parameter",
+      "datatype": "choice",
+      "enableQuotelessLiterals": true,
+      "choices": [
+        {
+          "choice": "MSSQL",
+          "description": "Use MS SQL Server or Azure SQL Database provider."
+        },
+        {
+          "choice": "PostgreSQL",
+          "description": "Use PostgreSQL provider."
+        },
+        {
+          "choice": "SQLite",
+          "description": "Use SQLite provider."
+        }
+      ],
+      "defaultValue": "MSSQL",
+      "description": "The Database engine provider."
+    },
+    "UseMssqlProvider": {
+      "type": "computed",
+      "value": "Provider == \"MSSQL\""
+    },
+    "UsePostgresProvider": {
+      "type": "computed",
+      "value": "Provider == \"PostgreSQL\""
+    },
+    "UseSqliteProvider": {
+      "type": "computed",
+      "value": "Provider == \"SQLite\""
+    },
+    "Auditing": {
+      "type": "parameter",
+      "datatype": "choice",
+      "enableQuotelessLiterals": true,
+      "choices": [
+        {
+          "choice": "None",
+          "description": "No audit trail support."
+        },
+        {
+          "choice": "Temporal",
+          "description": "Use temporal tables for full audit trail (MSSQL only)."
+        },
+        {
+          "choice": "AuditNet",
+          "description": "Use Audit.NET library for full audit trail."
+        }
+      ],
+      "defaultValue": "AuditNet",
+      "description": "The auditing approach to use."
+    },
+    "UseTemporal": {
+      "type": "computed",
+      "value": "Auditing == \"Temporal\""
+    },
+    "UseAuditNet": {
+      "type": "computed",
+      "value": "Auditing == \"AuditNet\""
+    }
+  },
+  "sources": [
+    {
+      "source": "./",
+      "target": "./",
+      "exclude": [
+        ".git/**/*",
+        ".azure/**/*",
+        ".template.config/**/*",
+        "**/*.user",
+        "**/*.lock.json",
+        "*.nuspec",
+        ".vs/**/*",
+        "**/publish/**/*",
+        "README.md",
+        "**/.DS_Store",
+        ".idea/**/*",
+        "logs/**/*",
+        "Configuration/TemporalEntityTypeConfiguration.cs",
+        "Configuration/AuditLogEntityTypeConfiguration.cs",
+        "Extensions/AuditConfigurationExtensions.cs",
+        "Entities/AuditLog.cs",
+        "Enums/AuditAction.cs"
+      ],
+      "modifiers": [
+        {
+          "condition": "(UseTemporal && UseMssqlProvider)",
+          "include": [
+            "Configuration/TemporalEntityTypeConfiguration.cs"
+          ]
+        },
+        {
+          "condition": "UseAuditNet",
+          "include": [
+            "Entities/AuditLog.cs",
+            "Configuration/AuditLogEntityTypeConfiguration.cs",
+            "Extensions/AuditConfigurationExtensions.cs",
+            "Enums/AuditAction.cs"
+          ]
+        }
+      ]
+    }
+  ],
+  "postActions": [
+    {
+      "id": "restore",
+      "actionId": "210D431B-A78B-4D2F-B762-4ED3E3EA9025",
+      "condition": "(!SkipRestore)",
+      "description": "Restore NuGet packages required by this project.",
+      "args": {
+        "files": ["./StackedDeck.Persistence.Template.csproj"]
+      },
+      "manualInstructions": [
+        {
+          "text": "Run 'dotnet restore'"
+        }
+      ],
+      "continueOnError": true
+    },
+    {
+      "id": "format",
+      "actionId": "3A7C4B45-1F5D-4A30-959A-51B88E82B5D2",
+      "description": "Format source code documents",
+      "args": {
+        "executable": "dotnet",
+        "args": "format"
+      },
+      "manualInstructions": [
+        {
+          "text": "Run 'dotnet format' for this solution from your terminal."
+        }
+      ],
+      "continueOnError": true
+    },
+    {
+      "id": "temporal-warning",
+      "actionId": "B8E4C9A1-2F3D-4E5A-9B6C-7D8E9F0A1B2C",
+      "condition": "(Auditing == \"Temporal\") && (Provider != \"MSSQL\")",
+      "description": "WARN: Temporal tables are not supported with PostgreSQL or SQLite. Use AuditNet instead.",
+      "manualInstructions": [
+        {
+          "text": "Temporal tables are only supported with MSSQL. Either:
+  - Use --provider MSSQL with --auditing Temporal, or
+  - Use --auditing AuditNet for cross-provider support."
+        }
+      ],
+      "continueOnError": true
+    }
+  ]
+}

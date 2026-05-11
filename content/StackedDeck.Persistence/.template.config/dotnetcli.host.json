@@ -1,0 +1,16 @@
+{
+  "symbolInfo": {
+    "Provider": {
+      "longName": "provider",
+      "shortName": ""
+    },
+    "Auditing": {
+      "longName": "auditing",
+      "shortName": ""
+    },
+    "SkipRestore": {
+      "longName": "no-restore",
+      "shortName": ""
+    }
+  }
+}
