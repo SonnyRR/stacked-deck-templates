@@ -85,3 +85,29 @@ with sensible defaults. For detailed information, see the section below.
   - Local development observability stack (`Docker Compose`)
   - `Prometheus`, `Grafana`, `Tempo`, and `OTEL Collector` for local development
 - Code coverage collection with `coverlet` & report generation
+
+### 💾 Stacked Deck Persistence (C#)
+
+Provides a class library preconfigured with `Entity Framework Core` for data access
+layer implementations using a code-first approach. Supports multiple database providers
+with sensible defaults for enterprise applications. Includes built-in auditing and
+soft-deletion support out-of-the-box.
+
+#### ✨ Features
+
+- `Entity Framework Core 10` with design-time tooling
+- Pre-configured for code-first approach
+- Multiple database provider support
+  - `SQL Server` (default)
+  - `PostgreSQL` with snake_case naming conventions
+  - `SQLite` for local development
+- Comprehensive auditing support
+  - `Audit.NET` integration for cross-provider audit logging (default)
+  - Optional temporal tables as alternative for history tracking (MSSQL only)
+  - `IAuditableEntity` interface for CreatedBy/CreatedAt/UpdatedBy/UpdatedAt metadata
+  - `AuditInterceptor` for automatic audit metadata injection
+- Soft delete support via `ISoftDeletableEntity` interface
+  - `SoftDeleteInterceptor` converts delete operations to updates automatically
+  - Global query filters exclude soft-deleted entities from queries
+- Fluent API configuration via `ApplyConfigurationsFromAssembly`
+- Extension methods for streamlined service registration
