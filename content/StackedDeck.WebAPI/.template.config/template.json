@@ -28,7 +28,7 @@
       "generator": "constant",
       "replaces": "templateVersion",
       "parameters": {
-        "value": "0.0.9"
+        "value": "0.1.0"
       }
     },
     "TemplateUrl": {

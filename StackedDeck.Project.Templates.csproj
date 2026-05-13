@@ -2,7 +2,7 @@
 
     <PropertyGroup>
         <PackageId>StackedDeck.Project.Templates</PackageId>
-        <PackageVersion>0.0.9</PackageVersion>
+        <PackageVersion>0.1.0</PackageVersion>
         <Title>Stacked Deck Project Templates</Title>
         <Authors>Vasil Kotsev</Authors>
         <Description>.NET Project templates, composed to give you advantage akin to a "stacked card deck".</Description>
@@ -21,15 +21,18 @@
         <NoWarn>$(NoWarn);NU5128</NoWarn>
         <NoDefaultExcludes>true</NoDefaultExcludes>
         <PackageReleaseNotes>
+✨ Features
+- Introduce 'Persistence' project template (d49fec5)
+- Add .editorconfig to root of repository (c8ba428)
+
 🔧 Chores
-- Bump Microsoft.NET.Test.Sdk to v18.4.0 (f39322e)
-- Bump Azure Identity to v1.21.0 (7cf1336)
-- Bump Destructurama.Attributed to v5.3.0 (a1e9ca8)
-- Bump Microsoft.AspNetCore.Mvc.Testing to v10.0.6 (5dca4a7)
-- Bump Scalar.AspNetCore to v2.14.1 (7864029, 1ac6adb, 58d5d61)
-- Bump coverlet.collector to v10.0.0 (a23d90d)
-- Bump GHA workflow actions (68de2d0)
-- Multiple 3rd party dependency bumps (25a0d6a)
+- Bump Scalar.AspNetCore from 2.14.3 to 2.14.11 (d18a9bc, 5c36c58, 32c7ad9, 3675285, 8549b8c)
+- Bump Microsoft.NET.Test.Sdk from 18.4.0 to 18.5.1 (36108d5)
+- Bump SonarAnalyzer.CSharp from 10.24.0.138807 to 10.25.0.139117 (05979aa)
+- Update default git credentials for tagging commits (4419149)
+
+📝 Documentation
+- Extend README with a section for the Persistence template (c295891)
         </PackageReleaseNotes>
     </PropertyGroup>
 
