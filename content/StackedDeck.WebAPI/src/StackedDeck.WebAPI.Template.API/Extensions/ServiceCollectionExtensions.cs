@@ -154,46 +154,46 @@ public static class ServiceCollectionExtensions
         ArgumentNullException.ThrowIfNull(services);
         ArgumentNullException.ThrowIfNull(configuration);
 
-        var apiOptionsSection = configuration.GetSection(ApiOptions.CFG_SECTION_NAME);
-        services.Configure<ApiOptions>(apiOptionsSection)
-            .AddOptionsWithValidateOnStart<ApiOptions>()
-            .ValidateDataAnnotations();
-
-#if (UseAzureCloudProvider)
-        services.Configure<ManagedIdentityOptions>(configuration.GetSection(ManagedIdentityOptions.CFG_SECTION_NAME))
-            .AddOptionsWithValidateOnStart<ManagedIdentityOptions>()
-            .ValidateDataAnnotations()
-            .Validate(options => environment.IsLocal() || environment.IsE2E() ||
-                    (!string.IsNullOrWhiteSpace(options.AppConfigEndpoint) &&
-                     Uri.IsWellFormedUriString(options.AppConfigEndpoint, UriKind.Absolute)));
-
-        // Change the options configuration root based on the environment.
-        // Azure App Configuration keys will be prefixed with the API identifier,
-        // which is part of the 'ApiOptions' configuration section. The reminder of the
-        // configuration paths will follow the same convention as the ones in the
-        // 'appsettings.json' documents.
+        // NOTE: The strongly typed configuration options below are bound from the 'IConfiguration' instance,
+        // which supports multiple providers such as: 'appsettings.{env}.json', 'Azure App Configuration',
+        // environment variables, user secrets, etc. The configuration keys are expected to follow the patterns
+        // mentioned in the example below, where the delimiter is the ':' character. This is mandatory to support
+        // backwards compatibility between all configuration providers. It also reduces the amount of boilerplate
+        // code for registering the options, since the registration statements & validations will be the same
+        // for all environments.
         //
         // Example:
         //
         // appsettings.json -> ConnectionStrings:Database
         // Azure App Configuration -> {ApiIdentifier}:ConnectionStrings:Database
         //
-        // This allows for backwards compatibility with the normal appsettings.json configuration
-        // schema. Also reduces the amount of boilerplate code for registering the options, since
-        // the registration statements & validations will be the same for all environments.
-        var optionsConfigurationRoot = environment.IsLocal() || environment.IsE2E()
-            ? configuration
-            : configuration.GetSection(apiOptionsSection.GetSection(nameof(ApiOptions.Identifier)).Value);
-#else
-        var optionsConfigurationRoot = configuration;
+        // It's important to know that there is also precedence between the configuration providers.
+        // For instance, if you have a key 'ConnectionStrings:Database' defined both in 'appsettings.json' and
+        // in Azure App Configuration, the value from 'Azure App Configuration' will take precedence and be the one
+        // that gets bound to the strongly typed options. This allows you to override configuration values in
+        // different environments without changing the underlying code or configuration files.
+        // It also acts as a fallback mechanism, in case some configuration values are missing from one provider,
+        // they can be supplied by another provider that has them defined.
+
+        var apiOptionsSection = configuration.GetSection(ApiOptions.CFG_SECTION_NAME);
+        services.Configure<ApiOptions>(apiOptionsSection)
+            .AddOptionsWithValidateOnStart<ApiOptions>()
+            .ValidateDataAnnotations();
+
+#if (UseAzureCloudProvider)
+        services.Configure<AzureAppConfigOptions>(configuration.GetSection(AzureAppConfigOptions.CFG_SECTION_NAME))
+            .AddOptionsWithValidateOnStart<AzureAppConfigOptions>()
+            .ValidateDataAnnotations()
+            .Validate(options => environment.IsLocal() || (!string.IsNullOrWhiteSpace(options.Endpoint.OriginalString) &&
+                     Uri.IsWellFormedUriString(options.Endpoint.OriginalString, UriKind.Absolute)));
 #endif
 
-        services.Configure<ConnectionStrings>(optionsConfigurationRoot.GetSection(ConnectionStrings.CFG_SECTION_NAME))
+        services.Configure<ConnectionStrings>(configuration.GetSection(ConnectionStrings.CFG_SECTION_NAME))
             .AddOptionsWithValidateOnStart<ConnectionStrings>()
             .ValidateDataAnnotations();
 
 #if (UseOTELCollector)
-        services.Configure<OpenTelemetryOptions>(optionsConfigurationRoot.GetSection(OpenTelemetryOptions.CFG_SECTION_NAME))
+        services.Configure<OpenTelemetryOptions>(configuration.GetSection(OpenTelemetryOptions.CFG_SECTION_NAME))
             .AddOptionsWithValidateOnStart<OpenTelemetryOptions>()
             .ValidateDataAnnotations();
 

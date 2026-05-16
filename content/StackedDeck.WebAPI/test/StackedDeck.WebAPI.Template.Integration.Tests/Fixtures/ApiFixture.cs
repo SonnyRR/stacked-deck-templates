@@ -1,6 +1,8 @@
 using System;
 using System.Net.Http;
 
+using Microsoft.Extensions.DependencyInjection;
+
 using StackedDeck.WebAPI.Template.API;
 using StackedDeck.WebAPI.Template.Integration.Tests.Factories;
 
@@ -26,6 +28,11 @@ public class ApiFixture : IDisposable
     /// The HTTP client used to interact with the SUT.
     /// </summary>
     public HttpClient Client { get; }
+
+    /// <summary>
+    /// Creates a new service provider scope for resolving services from DI.
+    /// </summary>
+    public IServiceScope ServiceScope => ApiFactory.Services.CreateScope();
 
     /// <summary>
     /// Creates a new instance of <see cref="ApiFixture"/>

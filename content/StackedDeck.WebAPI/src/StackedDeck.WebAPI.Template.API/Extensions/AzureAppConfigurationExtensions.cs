@@ -31,7 +31,7 @@ public static class AzureAppConfigurationExtensions
 
         builder.ConfigureAppConfiguration((context, config) =>
         {
-            if (context.HostingEnvironment.IsLocal() || context.HostingEnvironment.IsE2E())
+            if (context.HostingEnvironment.IsLocal())
             {
                 // If the environment is 'Local', we do not want to use Azure App Configuration.
                 // We're going to rely on the appsettings.Local.json document instead.
@@ -46,11 +46,11 @@ public static class AzureAppConfigurationExtensions
             // and let the bootstrap process fail if the configuration is not valid.
             var configurationRoot = config.Build();
 
-            var managedIdentityOptions = configurationRoot
-                .GetSection(ManagedIdentityOptions.CFG_SECTION_NAME)
-                .Get<ManagedIdentityOptions>();
+            var appConfigOptions = configurationRoot
+                .GetSection(AzureAppConfigOptions.CFG_SECTION_NAME)
+                .Get<AzureAppConfigOptions>();
 
-            if (string.IsNullOrWhiteSpace(managedIdentityOptions?.AppConfigEndpoint))
+            if (string.IsNullOrWhiteSpace(appConfigOptions?.Endpoint.OriginalString))
             {
                 throw new InvalidOperationException("Azure App Configuration endpoint is not configured. " +
                     "Please set the 'ManagedIdentity:AppConfigEndpoint' value in your configuration.");
@@ -68,12 +68,28 @@ public static class AzureAppConfigurationExtensions
 
             config.AddAzureAppConfiguration(options =>
             {
-                var credential = new DefaultAzureCredential();
+                var keyPrefix = apiOptions.Identifier + ':';
+                var keyFilter = keyPrefix + '*';
 
-                options.Connect(new Uri(managedIdentityOptions?.AppConfigEndpoint), credential)
-                    .Select(KeyFilter.Any, LabelFilter.Null)
-                    .Select(KeyFilter.Any, $"{apiOptions.Identifier}-{context.HostingEnvironment.EnvironmentName}")
-                    .ConfigureKeyVault(kvo => kvo.SetCredential(credential));
+                if (context.HostingEnvironment.IsE2E())
+                {
+                    options = options.Connect(appConfigOptions?.Endpoint.OriginalString);
+                }
+                else
+                {
+                    var credential = new DefaultAzureCredential();
+                    options = options
+                        .Connect(appConfigOptions?.Endpoint, credential)
+                        .ConfigureKeyVault(kvo => kvo.SetCredential(credential));
+                }
+
+                // NOTE: This will get all configuration keys that match the API identifier.
+                // If you need other kind of keys, that have different prefixes - you will have
+                // to introduce additional filters below.
+                options
+                    .Select(keyFilter, LabelFilter.Null)
+                    .Select(keyFilter, $"{apiOptions.Identifier}-{context.HostingEnvironment.EnvironmentName}")
+                    .TrimKeyPrefix(keyPrefix);
             });
         });
 
