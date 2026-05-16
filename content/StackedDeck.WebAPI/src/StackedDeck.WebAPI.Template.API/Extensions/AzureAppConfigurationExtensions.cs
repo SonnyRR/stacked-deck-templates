@@ -46,11 +46,11 @@ public static class AzureAppConfigurationExtensions
             // and let the bootstrap process fail if the configuration is not valid.
             var configurationRoot = config.Build();
 
-            var managedIdentityOptions = configurationRoot
-                .GetSection(AzureAppConfigurationOptions.CFG_SECTION_NAME)
-                .Get<AzureAppConfigurationOptions>();
+            var appConfigOptions = configurationRoot
+                .GetSection(AzureAppConfigOptions.CFG_SECTION_NAME)
+                .Get<AzureAppConfigOptions>();
 
-            if (string.IsNullOrWhiteSpace(managedIdentityOptions?.AppConfigEndpoint))
+            if (string.IsNullOrWhiteSpace(appConfigOptions?.Endpoint.OriginalString))
             {
                 throw new InvalidOperationException("Azure App Configuration endpoint is not configured. " +
                     "Please set the 'ManagedIdentity:AppConfigEndpoint' value in your configuration.");
@@ -73,13 +73,13 @@ public static class AzureAppConfigurationExtensions
 
                 if (context.HostingEnvironment.IsE2E())
                 {
-                    options = options.Connect(managedIdentityOptions?.AppConfigEndpoint);
+                    options = options.Connect(appConfigOptions?.Endpoint.OriginalString);
                 }
                 else
                 {
                     var credential = new DefaultAzureCredential();
                     options = options
-                        .Connect(new Uri(managedIdentityOptions?.AppConfigEndpoint), credential)
+                        .Connect(appConfigOptions?.Endpoint, credential)
                         .ConfigureKeyVault(kvo => kvo.SetCredential(credential));
                 }
 

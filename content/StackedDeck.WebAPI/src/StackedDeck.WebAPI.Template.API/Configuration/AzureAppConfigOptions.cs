@@ -5,7 +5,7 @@ namespace StackedDeck.WebAPI.Template.API.Configuration;
 /// <summary>
 /// Options related to Azure Managed Identity.
 /// </summary>
-public class AzureAppConfigurationOptions
+public class AzureAppConfigOptions
 {
     /// <summary>
     /// The configuration section name for Managed Identity options.
