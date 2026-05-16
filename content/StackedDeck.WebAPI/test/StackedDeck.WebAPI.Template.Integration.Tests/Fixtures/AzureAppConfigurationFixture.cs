@@ -1,5 +1,9 @@
 using System;
+using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
+
+using Azure.Data.AppConfiguration;
 
 using DotNet.Testcontainers.Builders;
 using DotNet.Testcontainers.Containers;
@@ -53,6 +57,11 @@ public sealed class AzureAppConfigurationFixture : IAsyncLifetime
     /// </summary>
     public IContainer Container { get; }
 
+    /// <summary>
+    /// The client for interacting with the Azure App Configuration emulator.
+    /// </summary>
+    public ConfigurationClient Client { get; private set; }
+
     /// <inheritdoc />
     public async ValueTask InitializeAsync()
     {
@@ -62,7 +71,32 @@ public sealed class AzureAppConfigurationFixture : IAsyncLifetime
         PortNumber = mappedPort;
         Endpoint = $"http://localhost:{mappedPort}";
         ConnectionString = $"Endpoint={Endpoint};Id={ACCESS_KEY_ID};Secret={ACCESS_KEY_SECRET}";
+
+        Client = new ConfigurationClient(ConnectionString);
     }
+
+    /// <summary>
+    /// Seeds configuration settings into the emulator.
+    /// </summary>
+    /// <param name="settings">The configuration settings to seed.</param>
+    /// <param name="cancellationToken">The cancellation token.</param>
+    public async Task SeedAsync(IEnumerable<ConfigurationSetting> settings, CancellationToken cancellationToken = default)
+    {
+        foreach (var setting in settings)
+        {
+            await Client.AddConfigurationSettingAsync(setting, cancellationToken);
+        }
+    }
+
+    /// <summary>
+    /// Seeds a key-value setting into the emulator.
+    /// </summary>
+    /// <param name="key">The configuration key.</param>
+    /// <param name="value">The configuration value.</param>
+    /// <param name="label">The label (optional).</param>
+    /// <param name="cancellationToken">The cancellation token.</param>
+    public async Task SeedAsync(string key, string value, string label = null, CancellationToken cancellationToken = default)
+        => await Client.AddConfigurationSettingAsync(key, value, label, cancellationToken);
 
     /// <inheritdoc />
     public ValueTask DisposeAsync() => Container.DisposeAsync();
