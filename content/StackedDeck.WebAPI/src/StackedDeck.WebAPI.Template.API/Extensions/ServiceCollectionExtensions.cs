@@ -181,11 +181,11 @@ public static class ServiceCollectionExtensions
             .ValidateDataAnnotations();
 
 #if (UseAzureCloudProvider)
-        services.Configure<AzureAppConfigurationOptions>(configuration.GetSection(ManagedIdentityOptions.CFG_SECTION_NAME))
-            .AddOptionsWithValidateOnStart<AzureAppConfigurationOptions>()
+        services.Configure<AzureAppConfigOptions>(configuration.GetSection(AzureAppConfigOptions.CFG_SECTION_NAME))
+            .AddOptionsWithValidateOnStart<AzureAppConfigOptions>()
             .ValidateDataAnnotations()
-            .Validate(options => environment.IsLocal() || (!string.IsNullOrWhiteSpace(options.AppConfigEndpoint) &&
-                     Uri.IsWellFormedUriString(options.AppConfigEndpoint, UriKind.Absolute)));
+            .Validate(options => environment.IsLocal() || (!string.IsNullOrWhiteSpace(options.Endpoint.OriginalString) &&
+                     Uri.IsWellFormedUriString(options.Endpoint.OriginalString, UriKind.Absolute)));
 #endif
 
         services.Configure<ConnectionStrings>(configuration.GetSection(ConnectionStrings.CFG_SECTION_NAME))
