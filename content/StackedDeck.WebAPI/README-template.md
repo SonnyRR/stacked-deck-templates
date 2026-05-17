@@ -166,9 +166,22 @@ comply with your company's design guidelines & security practices.
 ### ⚙️ Azure App Configuration
 
 This project can utilize retrieving, registering & validating variables and secrets
-from `Azure App Config` instances for all environments that are not `LOCAL`.
+from `Azure App Configuration` instances for all environments that are not `LOCAL`.
 Authentication is setup with `User Managed Identities`, so that you can minimize
 the storage of sensitive data in `appsettings.*.json` documents.
+
+#### 🔑 Key Prefix Requirements
+
+Configuration keys in `Azure App Configuration` must be prefixed with the API identifier
+defined in your `appsettings.json` (under `API:Identifier`). For example, if your
+identifier is `my-api`, keys should be named like:
+
+- `my-api:Serilog:MinimumLevel:Default`
+- `my-api:ConnectionStrings:DefaultConnection`
+
+The prefix is automatically trimmed, so your application accesses keys normally
+(e.g., `Serilog:MinimumLevel:Default`). This allows multiple APIs to share a single
+Azure App Configuration instance without key collisions.
 <!--#endif-->
 
 ### 🔁 GitHub Actions Workflow
