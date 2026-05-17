@@ -18,6 +18,11 @@ public sealed class AzureAppConfigurationFixture : IAsyncLifetime
     private const int CONTAINER_PORT = 8483;
     private const string ACCESS_KEY_ID = "sd-azcfg-emu";
     private const string ACCESS_KEY_SECRET = "abcdefghijklmnopqrstuvwxyz1234567890";
+
+    // TODO: Change the API identifier below to match the custom one in 'appsettings.json'.
+    // You should change this value to an unique identifier that is only applicable to your API.
+    // The Azure App Configuration infrastructure uses this to filter keys. If there's a mismatch
+    // between this constant and the value in 'appsettings.json' - you'll get failing tests.
     private const string API_IDENTIFIER = "api-identifier";
     private const string API_SETTING_LABEL = $"{API_IDENTIFIER}-E2E";
 
