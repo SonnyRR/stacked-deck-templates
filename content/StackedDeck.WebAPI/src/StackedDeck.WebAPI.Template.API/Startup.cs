@@ -73,6 +73,13 @@ public class Startup
             app.UseExceptionHandler();
         }
 
+#if (UseAzureCloudProvider)
+        if (!env.IsLocal())
+        {
+            app.UseAzureAppConfiguration();
+        }
+
+#endif
         app.UseForwardedHeaders();
         app.UseHttpsRedirection();
         app.UseMiddleware<CorrelationIdMiddleware>();
