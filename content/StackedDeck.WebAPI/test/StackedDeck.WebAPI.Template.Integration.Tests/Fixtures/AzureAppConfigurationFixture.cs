@@ -17,7 +17,7 @@ public sealed class AzureAppConfigurationFixture : IAsyncLifetime
 {
     private const string IMAGE_NAME = "mcr.microsoft.com/azure-app-configuration/app-configuration-emulator:1.0.2";
     private const int CONTAINER_PORT = 8483;
-    private const string ACCESS_KEY_ID = "fm-azcfg-emu";
+    private const string ACCESS_KEY_ID = "sd-azcfg-emu";
     private const string ACCESS_KEY_SECRET = "abcdefghijklmnopqrstuvwxyz1234567890";
 
     /// <summary>
@@ -26,8 +26,7 @@ public sealed class AzureAppConfigurationFixture : IAsyncLifetime
     public AzureAppConfigurationFixture()
     {
         Container = new ContainerBuilder(IMAGE_NAME)
-            .WithName($"azcfg-{Guid.NewGuid():N}")
-            .WithPortBinding(CONTAINER_PORT, true)
+            .WithPortBinding(CONTAINER_PORT, CONTAINER_PORT)
             .WithEnvironment("Tenant:AnonymousAuthEnabled", "true")
             .WithEnvironment("Authentication:Anonymous:AnonymousUserRole", "Owner")
             .WithEnvironment("Tenant:HmacSha256Enabled", "true")
@@ -95,7 +94,7 @@ public sealed class AzureAppConfigurationFixture : IAsyncLifetime
     /// <param name="value">The configuration value.</param>
     /// <param name="label">The label (optional).</param>
     /// <param name="cancellationToken">The cancellation token.</param>
-    public async Task SeedAsync(string key, string value, string label = null, CancellationToken cancellationToken = default)
+    public async Task SeedAsync(string key, string value, string label = "api-identifier-E2E", CancellationToken cancellationToken = default)
         => await Client.AddConfigurationSettingAsync(key, value, label, cancellationToken);
 
     /// <inheritdoc />
