@@ -1,6 +1,5 @@
+using System.Net;
 using System.Threading.Tasks;
-
-using Azure.Data.AppConfiguration;
 
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -18,9 +17,7 @@ namespace StackedDeck.WebAPI.Template.Integration.Tests.Configuration;
 public class ConfigurationTests
 {
     private readonly AzureAppConfigurationFixture azureAppConfigFixture;
-    private readonly IConfiguration configuration;
-
-    private const string API_IDENTIFIER = "api-identifier";
+    private readonly ApiFixture apiFixture;
 
     /// <summary>
     /// Creates a new instance of <see cref="ConfigurationTests"/>.
@@ -28,82 +25,39 @@ public class ConfigurationTests
     public ConfigurationTests(AzureAppConfigurationFixture azureAppConfigFixture, ApiFixture apiFixture)
     {
         this.azureAppConfigFixture = azureAppConfigFixture;
-        this.configuration = apiFixture.ServiceScope.ServiceProvider.GetRequiredService<IConfiguration>();
+        this.apiFixture = apiFixture;
     }
 
     /// <summary>
-    /// Tests that a simple string configuration key is resolved from App Configuration.
+    /// Tests that configuration values from Azure App Configuration are resolved.
     /// </summary>
-    [Fact(DisplayName = "Configuration resolves string value from App Configuration")]
-    public async Task Configuration_ResolvesStringValue_FromAppConfiguration()
+    [Fact(DisplayName = "Resolves value from App Configuration")]
+    public void Configuration_ResolvesValueFromAppConfiguration_ReturnsSeededValue()
     {
-        var testKey = $"{API_IDENTIFIER}:TestStringKey";
-        var testValue = "TestStringValue";
-
-        await azureAppConfigFixture.SeedAsync(testKey, testValue, cancellationToken: TestContext.Current.CancellationToken);
-
-        configuration["TestStringKey"].ShouldBe(testValue);
+        var configuration = apiFixture.ServiceScope.ServiceProvider.GetRequiredService<IConfiguration>();
+        configuration["TestStringKey"].ShouldBe("TestStringValue");
     }
 
     /// <summary>
-    /// Tests that a nested configuration key is resolved from App Configuration.
+    /// Tests that configuration values are updated dynamically after an HTTP request triggers refresh.
     /// </summary>
-    [Fact(DisplayName = "Configuration resolves nested configuration key from App Configuration")]
-    public async Task Configuration_ResolvesNestedKey_FromAppConfiguration()
+    [Fact(DisplayName = "Updates dynamically after an HTTP request")]
+    public async Task Configuration_UpdatesDynamicallyViaHttpRequest_ReturnsUpdatedValue()
     {
-        var testKey = $"{API_IDENTIFIER}:Features:NestedSetting";
-        var testValue = "NestedValue123";
+        var configurationBefore = apiFixture.ServiceScope.ServiceProvider.GetRequiredService<IConfiguration>();
+        configurationBefore["DynamicKey"].ShouldBe("InitialValue");
 
-        await azureAppConfigFixture.SeedAsync(testKey, testValue, cancellationToken: TestContext.Current.CancellationToken);
+        await azureAppConfigFixture.SetConfigurationSettingAsync(
+            "DynamicKey",
+            "UpdatedValue",
+            cancellationToken: TestContext.Current.CancellationToken);
 
-        configuration["Features:NestedSetting"].ShouldBe(testValue);
-    }
+        await Task.Delay(2_000, TestContext.Current.CancellationToken);
+        var response = await apiFixture.Client.GetAsync("/fast-way/health", TestContext.Current.CancellationToken);
+        response.StatusCode.ShouldBe(HttpStatusCode.OK);
 
-    /// <summary>
-    /// Tests that a boolean configuration value is resolved from App Configuration.
-    /// </summary>
-    [Fact(DisplayName = "Configuration resolves boolean value from App Configuration")]
-    public async Task Configuration_ResolvesBooleanValue_FromAppConfiguration()
-    {
-        var testKey = $"{API_IDENTIFIER}:FeatureFlags:Enabled";
-        var testValue = "true";
-
-        await azureAppConfigFixture.SeedAsync(testKey, testValue, cancellationToken: TestContext.Current.CancellationToken);
-
-        configuration["FeatureFlags:Enabled"].ShouldBe(testValue);
-    }
-
-    /// <summary>
-    /// Tests that multiple configuration keys are resolved from App Configuration.
-    /// </summary>
-    [Fact(DisplayName = "Configuration resolves multiple keys from App Configuration")]
-    public async Task Configuration_ResolvesMultipleKeys_FromAppConfiguration()
-    {
-        var settings = new[]
-        {
-            new ConfigurationSetting($"{API_IDENTIFIER}:MultiKey1", "Value1"),
-            new ConfigurationSetting($"{API_IDENTIFIER}:MultiKey2", "Value2"),
-            new ConfigurationSetting($"{API_IDENTIFIER}:MultiKey3", "Value3"),
-        };
-
-        await azureAppConfigFixture.SeedAsync(settings, TestContext.Current.CancellationToken);
-
-        configuration["MultiKey1"].ShouldBe("Value1");
-        configuration["MultiKey2"].ShouldBe("Value2");
-        configuration["MultiKey3"].ShouldBe("Value3");
-    }
-
-    /// <summary>
-    /// Tests that an integer configuration value is resolved from App Configuration.
-    /// </summary>
-    [Fact(DisplayName = "Configuration resolves integer value from App Configuration")]
-    public async Task Configuration_ResolvesIntegerValue_FromAppConfiguration()
-    {
-        var testKey = $"{API_IDENTIFIER}:MaxRetries";
-        var testValue = "5";
-
-        await azureAppConfigFixture.SeedAsync(testKey, testValue, cancellationToken: TestContext.Current.CancellationToken);
-
-        configuration["MaxRetries"].ShouldBe(testValue);
+        using var newScope = apiFixture.ApiFactory.Services.CreateScope();
+        var configurationAfter = newScope.ServiceProvider.GetRequiredService<IConfiguration>();
+        configurationAfter["DynamicKey"].ShouldBe("UpdatedValue");
     }
 }

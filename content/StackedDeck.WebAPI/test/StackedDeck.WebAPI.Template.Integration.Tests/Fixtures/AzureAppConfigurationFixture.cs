@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
@@ -19,6 +18,8 @@ public sealed class AzureAppConfigurationFixture : IAsyncLifetime
     private const int CONTAINER_PORT = 8483;
     private const string ACCESS_KEY_ID = "sd-azcfg-emu";
     private const string ACCESS_KEY_SECRET = "abcdefghijklmnopqrstuvwxyz1234567890";
+    private const string API_IDENTIFIER = "api-identifier";
+    private const string API_SETTING_LABEL = $"{API_IDENTIFIER}-E2E";
 
     /// <summary>
     /// Creates a new instance of <see cref="AzureAppConfigurationFixture"/>
@@ -72,6 +73,11 @@ public sealed class AzureAppConfigurationFixture : IAsyncLifetime
         ConnectionString = $"Endpoint={Endpoint};Id={ACCESS_KEY_ID};Secret={ACCESS_KEY_SECRET}";
 
         Client = new ConfigurationClient(ConnectionString);
+
+        await SeedAsync($"{API_IDENTIFIER}:TestStringKey", "TestStringValue");
+        await SeedAsync($"{API_IDENTIFIER}:DynamicKey", "InitialValue");
+        await SeedAsync($"{API_IDENTIFIER}:Feature1", "FeatureOff");
+        await SeedAsync($"{API_IDENTIFIER}:Feature2", "FeatureOff");
     }
 
     /// <summary>
@@ -88,14 +94,24 @@ public sealed class AzureAppConfigurationFixture : IAsyncLifetime
     }
 
     /// <summary>
-    /// Seeds a key-value setting into the emulator.
+    /// Seeds a key-value setting.
     /// </summary>
     /// <param name="key">The configuration key.</param>
     /// <param name="value">The configuration value.</param>
     /// <param name="label">The label (optional).</param>
     /// <param name="cancellationToken">The cancellation token.</param>
-    public async Task SeedAsync(string key, string value, string label = "api-identifier-E2E", CancellationToken cancellationToken = default)
+    public async Task SeedAsync(string key, string value, string label = API_SETTING_LABEL, CancellationToken cancellationToken = default)
         => await Client.AddConfigurationSettingAsync(key, value, label, cancellationToken);
+
+    /// <summary>
+    /// Sets a configuration setting.
+    /// </summary>
+    /// <param name="key">The configuration key.</param>
+    /// <param name="value">The configuration value.</param>
+    /// <param name="label">The label (optional).</param>
+    /// <param name="cancellationToken">The cancellation token.</param>
+    public Task SetConfigurationSettingAsync(string key, string value, string label = API_SETTING_LABEL, CancellationToken cancellationToken = default)
+        => Client.SetConfigurationSettingAsync($"{API_IDENTIFIER}:{key}", value, label, cancellationToken);
 
     /// <inheritdoc />
     public ValueTask DisposeAsync() => Container.DisposeAsync();
