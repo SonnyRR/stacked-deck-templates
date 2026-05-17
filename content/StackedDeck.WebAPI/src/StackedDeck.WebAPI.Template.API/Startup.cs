@@ -9,6 +9,9 @@ using Microsoft.AspNetCore.CookiePolicy;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
+#if (UseAzureCloudProvider)
+using Microsoft.Extensions.Configuration.AzureAppConfiguration
+#endif
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 
@@ -73,6 +76,13 @@ public class Startup
             app.UseExceptionHandler();
         }
 
+#if (UseAzureCloudProvider)
+        if (!env.IsLocal())
+        {
+            app.UseAzureAppConfiguration();
+        }
+
+#endif
         app.UseForwardedHeaders();
         app.UseHttpsRedirection();
         app.UseMiddleware<CorrelationIdMiddleware>();

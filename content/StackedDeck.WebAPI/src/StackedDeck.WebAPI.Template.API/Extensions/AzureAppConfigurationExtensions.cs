@@ -89,7 +89,13 @@ public static class AzureAppConfigurationExtensions
                 options
                     .Select(keyFilter, LabelFilter.Null)
                     .Select(keyFilter, $"{apiOptions.Identifier}-{context.HostingEnvironment.EnvironmentName}")
-                    .TrimKeyPrefix(keyPrefix);
+                    .TrimKeyPrefix(keyPrefix)
+                    .ConfigureRefresh(ro => ro
+                        .RegisterAll()
+                        .SetRefreshInterval(context.HostingEnvironment.IsE2E()
+                            ? TimeSpan.FromSeconds(2)
+                            : TimeSpan.FromSeconds(30)));
+
             });
         });
 

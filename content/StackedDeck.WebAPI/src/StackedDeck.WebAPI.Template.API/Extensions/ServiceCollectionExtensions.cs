@@ -123,6 +123,13 @@ public static class ServiceCollectionExtensions
         services.AddTelemetry(apiOptions.Identifier);
 #endif
 
+#if (UseAzureCloudProvider)
+        if (!environment.IsLocal())
+        {
+            services.AddAzureAppConfiguration();
+        }
+
+#endif
         connectionStringsOptions = sp.GetRequiredService<IOptions<ConnectionStrings>>();
 
         return services;
