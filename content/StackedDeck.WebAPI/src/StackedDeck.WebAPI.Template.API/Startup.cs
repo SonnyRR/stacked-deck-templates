@@ -9,9 +9,6 @@ using Microsoft.AspNetCore.CookiePolicy;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
-#if (UseAzureCloudProvider)
-using Microsoft.Extensions.Configuration.AzureAppConfiguration;
-#endif
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 

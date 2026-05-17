@@ -215,7 +215,9 @@
           "condition": "!UseAzureCloudProvider",
           "exclude": [
             "src/StackedDeck.WebAPI.Template.API/Extensions/AzureAppConfigurationExtensions.cs",
-            "src/StackedDeck.WebAPI.Template.API/Configuration/ManagedIdentityOptions.cs"
+            "src/StackedDeck.WebAPI.Template.API/Configuration/ManagedIdentityOptions.cs",
+            "test/StackedDeck.WebAPI.Template.Integration.Tests/Fixtures/AzureAppConfigurationFixture.cs",
+            "test/StackedDeck.WebAPI.Template.Integration.Tests/Configuration/*"
           ]
         },
         {

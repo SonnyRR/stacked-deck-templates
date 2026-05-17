@@ -1,5 +1,7 @@
 using System;
+#if (UseOTELCollector)
 using System.Linq;
+#endif
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
@@ -21,7 +23,6 @@ using Microsoft.Extensions.Options;
 using OpenTelemetry.Metrics;
 using OpenTelemetry.Resources;
 #if (UseOTELCollector)
-using OpenTelemetry.Exporter;
 using OpenTelemetry.Trace;
 #endif
 
@@ -191,10 +192,11 @@ public static class ServiceCollectionExtensions
         services.Configure<AzureAppConfigOptions>(configuration.GetSection(AzureAppConfigOptions.CFG_SECTION_NAME))
             .AddOptionsWithValidateOnStart<AzureAppConfigOptions>()
             .ValidateDataAnnotations()
-            .Validate(options => environment.IsLocal() || environment.IsE2E() || (!string.IsNullOrWhiteSpace(options.Endpoint.OriginalString) &&
-                     Uri.IsWellFormedUriString(options.Endpoint.OriginalString, UriKind.Absolute)));
-#endif
+            .Validate(options => environment.IsLocal() || environment.IsE2E() ||
+                    (!string.IsNullOrWhiteSpace(options.Endpoint.OriginalString) &&
+                    Uri.IsWellFormedUriString(options.Endpoint.OriginalString, UriKind.Absolute)));
 
+#endif
         services.Configure<ConnectionStrings>(configuration.GetSection(ConnectionStrings.CFG_SECTION_NAME))
             .AddOptionsWithValidateOnStart<ConnectionStrings>()
             .ValidateDataAnnotations();
