@@ -193,8 +193,8 @@ public static class ServiceCollectionExtensions
             .AddOptionsWithValidateOnStart<AzureAppConfigOptions>()
             .ValidateDataAnnotations()
             .Validate(options => environment.IsLocal() || environment.IsE2E() ||
-                    (!string.IsNullOrWhiteSpace(options.Endpoint.OriginalString) &&
-                    Uri.IsWellFormedUriString(options.Endpoint.OriginalString, UriKind.Absolute)));
+                    (!string.IsNullOrWhiteSpace(options.Endpoint?.OriginalString) &&
+                    Uri.IsWellFormedUriString(options.Endpoint?.OriginalString, UriKind.Absolute)));
 
 #endif
         services.Configure<ConnectionStrings>(configuration.GetSection(ConnectionStrings.CFG_SECTION_NAME))

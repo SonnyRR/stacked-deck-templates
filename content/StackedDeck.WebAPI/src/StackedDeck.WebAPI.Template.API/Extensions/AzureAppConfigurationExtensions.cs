@@ -50,10 +50,10 @@ public static class AzureAppConfigurationExtensions
                 .GetSection(AzureAppConfigOptions.CFG_SECTION_NAME)
                 .Get<AzureAppConfigOptions>();
 
-            if (string.IsNullOrWhiteSpace(appConfigOptions?.Endpoint.OriginalString))
+            if (string.IsNullOrWhiteSpace(appConfigOptions?.Endpoint?.OriginalString))
             {
                 throw new InvalidOperationException("Azure App Configuration endpoint is not configured. " +
-                    "Please set the 'ManagedIdentity:AppConfigEndpoint' value in your configuration.");
+                    "Please set the 'AzureAppConfiguration:Endpoint' value in your configuration.");
             }
 
             var apiOptions = configurationRoot
