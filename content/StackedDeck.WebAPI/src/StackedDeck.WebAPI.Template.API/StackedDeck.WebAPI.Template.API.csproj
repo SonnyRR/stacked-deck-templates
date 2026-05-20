@@ -1,5 +1,4 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
-
   <PropertyGroup>
     <TargetFramework>net10.0</TargetFramework>
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
@@ -51,5 +50,4 @@
   <ItemGroup>
     <ProjectReference Include="..\StackedDeck.WebAPI.Template.Common\StackedDeck.WebAPI.Template.Common.csproj" />
   </ItemGroup>
-
 </Project>

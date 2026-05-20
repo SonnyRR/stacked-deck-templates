@@ -1,19 +1,17 @@
 <Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
 
-    <PropertyGroup>
-        <IsPackable>false</IsPackable>
-    </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Moq" Version="4.20.72" />
+  </ItemGroup>
 
-    <ItemGroup>
-        <PackageReference Include="Moq" Version="4.20.72" />
-    </ItemGroup>
+  <ItemGroup>
+    <Using Include="Xunit" />
+  </ItemGroup>
 
-    <ItemGroup>
-        <Using Include="Xunit"/>
-    </ItemGroup>
-
-    <ItemGroup>
-      <ProjectReference Include="..\..\src\StackedDeck.WebAPI.Template.API\StackedDeck.WebAPI.Template.API.csproj" />
-    </ItemGroup>
-
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\StackedDeck.WebAPI.Template.API\StackedDeck.WebAPI.Template.API.csproj" />
+  </ItemGroup>
 </Project>
