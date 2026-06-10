@@ -7,6 +7,13 @@ updates:
     registries:
       - nuget-org
 
+  - package-ecosystem: "nuget"
+    directory: "/content/StackedDeck.Persistence"
+    schedule:
+      interval: "daily"
+    registries:
+      - nuget-org
+
   - package-ecosystem: "docker"
     directory: "/content/StackedDeck.WebAPI/src/StackedDeck.WebAPI.Template.API"
     schedule:
