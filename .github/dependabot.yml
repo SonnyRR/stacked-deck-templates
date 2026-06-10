@@ -1,7 +1,19 @@
 version: 2
+registries:
+  nuget-org:
+    type: nuget-feed
+    url: https://api.nuget.org/v3/index.json
+
 updates:
   - package-ecosystem: "nuget"
     directory: "/content/StackedDeck.WebAPI"
+    schedule:
+      interval: "daily"
+    registries:
+      - nuget-org
+
+  - package-ecosystem: "nuget"
+    directory: "/content/StackedDeck.Persistence"
     schedule:
       interval: "daily"
     registries:
