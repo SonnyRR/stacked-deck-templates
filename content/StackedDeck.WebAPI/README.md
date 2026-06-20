@@ -30,9 +30,9 @@ dotnet new sd-webapi -h
 > for global error handling, semantic versioning, security policies, OpenAPI
 > specification, strongly typed options, integration test fixtures and more.
 
-### 🏗️ NUKE build system
+### 🏗️ FALLOUT build system
 
-This project uses the [NUKE](https://nuke.build/) build system to manage common
+This project uses the [FALLOUT](https://fallout.build/) build system to manage common
 `CI/CD` and `custom` tasks, that are needed during the development lifecycle of
 this application. A dedicated build system allows for the abstracting of common
 `CI/CD` tasks in a `DSL`, in this case `C#`. The benefits are that you can debug
@@ -50,11 +50,11 @@ for various `CI/CD` providers, like `GitHub Actions`, `Azure Pipelines` and othe
 But you can also invoke them on your own.
 
 > [!TIP]
-> It's recommended that you install the global dotnet tool for `NUKE`, so that
+> It's recommended that you install the global dotnet tool for `FALLOUT`, so that
 > you can skip specifying the build script path before invoking a dedicated target.
 
 ```sh
-dotnet tool install Nuke.GlobalTool --global
+dotnet tool install Fallout.GlobalTool --global
 ```
 
 #### 🎯 Targets
@@ -68,8 +68,8 @@ In order to get started, you will need to see what are the available targets:
 # You can use the aforementioned boostrap scripts.
 ./build.sh --help
 
-# Or if you installed the NUKE global tool
-nuke --help
+# Or if you installed the FALLOUT global tool
+fallout --help
 ```
 
 To run a target you will need to specify it's identifier:
@@ -77,8 +77,8 @@ To run a target you will need to specify it's identifier:
 ```sh
 ./build.sh BuildImage
 
-# Or through the NUKE global tool
-nuke BuildImage
+# Or through the FALLOUT global tool
+fallout BuildImage
 ```
 
 By default, the `Build` target will be executed if you don't provide an explicit
@@ -94,16 +94,16 @@ This template comes with a pre-configured `Dockerfile`, utilizing `aspnet:10.0-a
 as the base runtime image. Globalization features are enabled through the
 `International Components for Unicode` packages from the `alpine` package registry.
 
-To build an `OCI` compatible image, you need to run the following `NUKE` target:
+To build an `OCI` compatible image, you need to run the following `FALLOUT` target:
 
 ```sh
-nuke BuildImage
+fallout BuildImage
 ```
 
 You can also publish images to container registries:
 
 ```sh
-nuke PublishImage \
+fallout PublishImage \
   --container-registry-pat '{PAT}' \
   --container-registry-url '{URL}' \
   --container-registry-username '{USERNAME}'
@@ -173,7 +173,7 @@ compatible images to a container registry of your choice. It also makes use of
 `dependabot` for automatic dependency version management. Both configurations are
 specific to `GitHub` services, if you're hosting your pipelines on other
 providers - adjust the configurations accordingly. Ensure that the `yaml` documents
-are slim, they should only be concerned with bootsrapping the `NUKE` scripts & to
+are slim, they should only be concerned with bootstrapping the `FALLOUT` scripts & to
 pass forward the custom parameters.
 
 > [!WARNING]
