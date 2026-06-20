@@ -114,7 +114,7 @@ Introduces the following changes:
     * Smaller alpine based images, whenever possible
     * And more...
 
-End result is that the Integration Tests NUKE target now runs in one minute in local
+End result is that the Integration Tests FALLOUT target now runs in one minute in local
 environments and around 3 minutes in CI pipelines (due to not leveraging image caches).
 Reducing the evaluation time in the build agents from ~28 minutes to ~3 minutes flat.
 ```
