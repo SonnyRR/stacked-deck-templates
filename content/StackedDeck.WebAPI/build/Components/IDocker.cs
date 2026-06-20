@@ -1,18 +1,18 @@
 using System;
 using System.Linq;
 
-using Nuke.Common;
-using Nuke.Common.Git;
-using Nuke.Common.IO;
-using Nuke.Common.Tooling;
-using Nuke.Common.Tools.Docker;
-using Nuke.Common.Utilities;
+using Fallout.Common;
+using Fallout.Common.Git;
+using Fallout.Common.IO;
+using Fallout.Common.Tooling;
+using Fallout.Common.Tools.Docker;
+using Fallout.Common.Utilities;
 
 using Polly;
 
 using Serilog;
 
-using static Nuke.Common.Tools.Docker.DockerTasks;
+using static Fallout.Common.Tools.Docker.DockerTasks;
 
 namespace Components;
 
