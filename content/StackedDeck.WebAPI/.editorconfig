@@ -282,3 +282,6 @@ dotnet_diagnostic.CA1311.severity = suggestion
 dotnet_diagnostic.IDE1006.severity = error
 dotnet_diagnostic.S1144.severity = error
 dotnet_diagnostic.RCS1213.severity = error
+
+# Overridden severity level until https://github.com/SonarSource/sonar-dotnet/issues/9813 is resolved.
+dotnet_diagnostic.S3241.severity = silent
