@@ -12,8 +12,8 @@ $PSScriptRoot = Split-Path $MyInvocation.MyCommand.Path -Parent
 ###########################################################################
 # CONFIGURATION
 ###########################################################################
-
-$TempDirectory = Join-Path $PSScriptRoot '.fallout/temp'
+$BuildProjectFile = Join-Path $PSScriptRoot "\build\StackedDeck.WebAPI.Template.Build.csproj"
+$TempDirectory = Join-Path $PSScriptRoot '.fallout\temp'
 
 $DotNetGlobalFile = Join-Path $PSScriptRoot 'global.json'
 $DotNetInstallUrl = "https://dot.net/v1/dotnet-install.ps1"
@@ -63,5 +63,5 @@ else {
 
 Write-Output "Microsoft (R) .NET SDK version $(& $env:DOTNET_EXE --version)"
 
-ExecSafe { & $env:DOTNET_EXE tool restore }
-ExecSafe { & $env:DOTNET_EXE fallout $BuildArguments }
+ExecSafe { & $env:DOTNET_EXE build $BuildProjectFile /nodeReuse:false /p:UseSharedCompilation=false -nologo -clp:NoSummary --verbosity quiet }
+ExecSafe { & $env:DOTNET_EXE run --project $BuildProjectFile --no-build -- $BuildArguments }

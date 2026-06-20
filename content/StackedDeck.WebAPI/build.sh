@@ -8,7 +8,7 @@ SCRIPT_DIR=$(cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd)
 ###########################################################################
 # CONFIGURATION
 ###########################################################################
-
+BUILD_PROJECT_FILE="$SCRIPT_DIR/build/StackedDeck.WebAPI.Template.Build.csproj"
 TEMP_DIRECTORY="$SCRIPT_DIR/.fallout/temp"
 
 DOTNET_GLOBAL_FILE="$SCRIPT_DIR/global.json"
@@ -56,5 +56,5 @@ fi
 
 echo "Microsoft (R) .NET SDK version $("$DOTNET_EXE" --version)"
 
-"$DOTNET_EXE" tool restore
-exec "$DOTNET_EXE" fallout "$@"
+"$DOTNET_EXE" build "$BUILD_PROJECT_FILE" /nodeReuse:false /p:UseSharedCompilation=false -nologo -clp:NoSummary --verbosity quiet
+"$DOTNET_EXE" run --project "$BUILD_PROJECT_FILE" --no-build -- "$@"
