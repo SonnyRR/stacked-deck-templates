@@ -9,14 +9,14 @@ this project.
 
 - `git`
 - `docker`
-- `dotnet SDK` - can be installed automatically by the `NUKE` build system,
+- `dotnet SDK` - can be installed automatically by the `FALLOUT` build system,
   via the bootstrap scripts.
 
 ## 🚀 Quickstart
 
 ### 🏗️ Build system
 
-This project uses the [NUKE](https://nuke.build/) build system to manage common
+This project uses the [FALLOUT](https://fallout.build/) build system to manage common
 `CI/CD` and `custom` tasks, that are needed during the development lifecycle of
 this application. A dedicated build system allows for the abstracting of common
 `CI/CD` tasks in a `DSL`, in this case `C#`. The benefits are that you can debug
@@ -34,11 +34,11 @@ for various `CI/CD` providers, like `GitHub Actions`, `Azure Pipelines` and othe
 But you can also invoke them on your own.
 
 > [!TIP]
-> It's recommended that you install the global dotnet tool for `NUKE`, so that
+> It's recommended that you install the global dotnet tool for `FALLOUT`, so that
 > you can skip specifying the build script path before invoking a dedicated target.
 
 ```sh
-dotnet tool install Nuke.GlobalTool --global
+dotnet tool install Fallout.GlobalTool --global
 ```
 
 #### 🎯 Targets
@@ -52,8 +52,8 @@ In order to get started, you will need to see what are the available targets:
 # You can use the aforementioned boostrap scripts.
 ./build.sh --help
 
-# Or if you installed the NUKE global tool
-nuke --help
+# Or if you installed the FALLOUT global tool
+fallout --help
 ```
 
 To run a target you will need to specify it's identifier:
@@ -61,8 +61,8 @@ To run a target you will need to specify it's identifier:
 ```sh
 ./build.sh BuildImage
 
-# Or through the NUKE global tool
-nuke BuildImage
+# Or through the FALLOUT global tool
+fallout BuildImage
 ```
 
 By default, the `Build` target will be executed if you don't provide an explicit
@@ -85,7 +85,7 @@ This solution uses a configuration for `GitHub Actions`, which builds & pushes `
 compatible images to a container registry of your choice. It also makes use of
 `dependabot` for automatic dependency version management. Both configurations are
 specific to `GitHub` services. Ensure that the `yaml` documents are slim, they
-should only be concerned with bootsrapping the `NUKE` scripts & to pass forward
+should only be concerned with bootstrapping the `FALLOUT` scripts & to pass forward
 the custom parameters.
 
 > [!WARNING]
@@ -102,16 +102,16 @@ This project comes with a pre-configured `Dockerfile`, utilizing `aspnet:10.0-al
 as the base runtime image. Globalization features are enabled through the
 `International Components for Unicode` packages from the `alpine` package registry.
 
-To build an `OCI` compatible image, you need to run the following `NUKE` target:
+To build an `OCI` compatible image, you need to run the following `FALLOUT` target:
 
 ```sh
-nuke BuildImage
+fallout BuildImage
 ```
 
 You can also publish images to container registries:
 
 ```sh
-nuke PublishImage \
+fallout PublishImage \
   --container-registry-pat '{PAT}' \
   --container-registry-url '{URL}' \
   --container-registry-username '{USERNAME}'
@@ -129,10 +129,10 @@ Static code analysis is performed via the `Roslyn` compiler platform and
 extended with the `Roslynator.Analyzers` & `SonarAnalyzer.CSharp` analyzers,
 to ensure code quality & standards enforced by the `.editorconfig` preferences.
 
-### 🏗️ NUKE build system
+### 🏗️ FALLOUT build system
 
 As mentioned in the quickstart section, this project utilizes a dedicated build
-system - [NUKE](https://github.com/nuke-build/nuke), which allows for abstacting
+system - [FALLOUT](https://github.com/Fallout-build/Fallout), which allows for abstacting
 & automating common build/deploy tasks in a domain specific language - C#.
 Having all of your `CI/CD` tasks wrapped in C# code allows for easier debugging,
 reproducibility across multiple environments, more pleasant maintenance & decoupling
