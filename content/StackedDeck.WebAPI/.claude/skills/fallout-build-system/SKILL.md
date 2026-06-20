@@ -1,40 +1,40 @@
 ---
-name: nuke-build-system
-description: Comprehensive task execution through a C# DSL build system - NUKE. Use when restoring dependencies, building projects, publishing artifacts, building OCI images, cleaning-up artifacts or doing other project related tasks.
+name: fallout-build-system
+description: Comprehensive task execution through a C# DSL build system - FALLOUT. Use when restoring dependencies, building projects, publishing artifacts, building OCI images, cleaning-up artifacts or doing other project related tasks.
 license: MIT
 compatibility: opencode, claude code, copilot
 metadata:
     author: Vasil Kotsev
     audience: contributors
-    version: "1.0.0"
+    version: "1.0.1"
 ---
 
-# NUKE Build System
+# FALLOUT Build System
 
-Use the `NUKE` build system for carrying out various build related tasks,
+Use the `FALLOUT` build system for carrying out various build related tasks,
 such as restoring dependencies, building projects, cleaning-up artifacts,
 evaluating automation test suites and others.
 
 ## Checks
 
-Detect if the `NUKE` build system is setup by checking if the following files &
+Detect if the `FALLOUT` build system is setup by checking if the following files &
 directories exist:
 
 - `../../../build.sh`
 - `../../../build.ps1`
 - `../../../build/`
-- `../../../.nuke/`
+- `../../../.fallout/`
 
 If the build system is setup, proceed forward. If not - ignore this skill and revert
 to the `dotnet CLI`.
 
 ## When to Apply
 
-Leverage the `NUKE` build system whenever you assess that an applicable target
+Leverage the `FALLOUT` build system whenever you assess that an applicable target
 should be invoked (e.g, `clean`, `restore`, `build`). Consider it as the go-to-build
 toolchain for this repository.
 
-**Evaluate** `NUKE` targets when:
+**Evaluate** `FALLOUT` targets when:
 
 - Code changes have been made across multiple `C#` assemblies
 - You need to evaluate all `unit` or `integration` tests
@@ -52,8 +52,8 @@ toolchain for this repository.
 
 ## How to Use
 
-In order to evaluate targets from the `NUKE` build system you must either use
-the global `nuke.globaltool` `dotnet CLI` tool or one of the following bootstrap
+In order to evaluate targets from the `FALLOUT` build system you must either use
+the global `fallout.globaltool` `dotnet CLI` tool or one of the following bootstrap
 scripts:
 
 ```sh
@@ -67,16 +67,16 @@ scripts:
 ..\..\..\build.ps1 --help
 ```
 
-Prefer to use the `nuke` global dotnet CLI tool, if it's installed, via:
+Prefer to use the `fallout` global dotnet CLI tool, if it's installed, via:
 
 ```sh
-nuke --help
+fallout --help
 ```
 
 If it's not - prompt the user to install it:
 
 ```sh
-dotnet tool install -g nuke.globaltool
+dotnet tool install -g fallout.globaltool
 ```
 
 ## Examples
