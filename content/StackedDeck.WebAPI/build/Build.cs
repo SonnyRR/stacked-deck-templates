@@ -1,6 +1,6 @@
 using Components;
 
-using Nuke.Common;
+using Fallout.Common;
 
 namespace StackedDeck.WebAPI.Template.Build;
 
@@ -8,7 +8,7 @@ namespace StackedDeck.WebAPI.Template.Build;
 /// The main NUKE build system entry point.
 /// </summary>
 public class Build :
-    NukeBuild,
+    FalloutBuild,
     IDotNet,
     ICodeCoverage,
     IDocker,

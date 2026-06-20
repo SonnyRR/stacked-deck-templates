@@ -1,9 +1,9 @@
 using System.IO;
 using System.Linq;
 
-using Nuke.Common;
-using Nuke.Common.IO;
-using Nuke.Common.Tools.DotNet;
+using Fallout.Common;
+using Fallout.Common.IO;
+using Fallout.Common.Tools.DotNet;
 
 using Serilog;
 

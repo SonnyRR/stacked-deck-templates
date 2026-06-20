@@ -1,4 +1,4 @@
-using Nuke.Common.ProjectModel;
+using Fallout.Common.ProjectModel;
 
 namespace Components;
 

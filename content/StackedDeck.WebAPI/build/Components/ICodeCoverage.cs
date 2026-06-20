@@ -3,9 +3,9 @@ using System;
 #endif
 using System.IO;
 
-using Nuke.Common;
-using Nuke.Common.IO;
-using Nuke.Common.Tools.ReportGenerator;
+using Fallout.Common;
+using Fallout.Common.IO;
+using Fallout.Common.Tools.ReportGenerator;
 
 using Serilog;
 
