@@ -76,13 +76,35 @@ public static class ServiceCollectionExtensions
         // that are required for other service registrations.
         using var sp = services.BuildServiceProvider();
         var apiOptions = sp.GetRequiredService<IOptions<ApiOptions>>().Value;
+#if (UseOTELCollector)
+        var otelOptions = sp.GetRequiredService<IOptions<OpenTelemetryOptions>>().Value;
+#endif
 
         services
             .AddHttpContextAccessor()
             .AddProblemDetails(options => options
-                    .CustomizeProblemDetails = context => context
-                        .ProblemDetails.WithHttpContextMetadata(context.HttpContext))
+                .CustomizeProblemDetails = context => context
+                    .ProblemDetails.WithHttpContextMetadata(context.HttpContext))
             .AddExceptionHandler<GlobalExceptionHandler>()
+            .AddApiVersioning()
+            .AddOpenApiSpecification()
+            .AddHealthProbes()
+            .AddCors(options => options
+               .AddDefaultPolicy(policyBuilder =>
+               {
+                   policyBuilder
+                       .SetIsOriginAllowedToAllowWildcardSubdomains()
+                       .WithOrigins(apiOptions.CorsOrigins)
+                       .AllowAnyMethod()
+                       .AllowAnyHeader();
+
+                   // Set AllowCredentials() if you change the default origins and you plan to use SSO.
+               }))
+#if (UseOTELCollector)
+            .AddTelemetry(apiOptions.Identifier, otelOptions)
+#else
+            .AddTelemetry(apiOptions.Identifier)
+#endif
 #if (UseFastEndpoints)
             .AddFastEndpoints()
 #endif
@@ -99,29 +121,6 @@ public static class ServiceCollectionExtensions
                 options.SerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
                 options.SerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull;
             });
-#endif
-
-        services
-           .AddCors(options => options
-               .AddDefaultPolicy(policyBuilder =>
-               {
-                   policyBuilder
-                       .SetIsOriginAllowedToAllowWildcardSubdomains()
-                       .WithOrigins(apiOptions.CorsOrigins)
-                       .AllowAnyMethod()
-                       .AllowAnyHeader();
-
-                   // Set AllowCredentials() if you change the default origins and you plan to use SSO.
-               }));
-
-        services.AddApiVersioning();
-        services.AddOpenApiSpecification();
-        services.AddHealthProbes();
-#if (UseOTELCollector)
-        var otelOptions = sp.GetRequiredService<IOptions<OpenTelemetryOptions>>().Value;
-        services.AddTelemetry(apiOptions.Identifier, otelOptions);
-#else
-        services.AddTelemetry(apiOptions.Identifier);
 #endif
 
 #if (UseAzureCloudProvider)
@@ -155,8 +154,7 @@ public static class ServiceCollectionExtensions
     /// <param name="configuration">The web host configuration.</param>
     /// <returns>The updated <see cref="IServiceCollection"/> with strongly typed API options configured.</returns>
     /// <exception cref="ArgumentNullException"/>
-    private static IServiceCollection AddApiConfigurationOptions(
-        this IServiceCollection services, IConfiguration configuration)
+    private static IServiceCollection AddApiConfigurationOptions(this IServiceCollection services, IConfiguration configuration)
 #endif
     {
         ArgumentNullException.ThrowIfNull(services);
