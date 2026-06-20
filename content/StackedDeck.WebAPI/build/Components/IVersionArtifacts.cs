@@ -2,9 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-using Nuke.Common;
-using Nuke.Common.Tooling;
-using Nuke.Common.Tools.Git;
+using Fallout.Common;
+using Fallout.Common.Tooling;
+using Fallout.Common.Tools.Git;
 
 using Serilog;
 
