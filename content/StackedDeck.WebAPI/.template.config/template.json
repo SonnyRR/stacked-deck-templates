@@ -339,7 +339,7 @@
       },
       "manualInstructions": [
         {
-          "text": "Before running the NUKE build target, ensure that at least 1 git commit is present.\nSemantic versioning is determined by the git history, so if 0 commits are present - you're going to get an error."
+          "text": "Before running the FALLOUT build target, ensure that at least 1 git commit is present.\nSemantic versioning is determined by the git history, so if 0 commits are present - you're going to get an error."
         }
       ],
       "continueOnError": true
