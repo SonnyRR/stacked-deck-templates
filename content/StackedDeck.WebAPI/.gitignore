@@ -402,8 +402,8 @@ FodyWeavers.xsd
 # JetBrains Rider
 *.sln.iml
 
-# Ignore the .nuke/temp folder
-.nuke/temp/
+# Ignore the .fallout/temp folder
+.fallout/temp/
 
 # macOS
 .DS_Store
