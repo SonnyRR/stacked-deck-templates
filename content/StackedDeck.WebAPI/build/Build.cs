@@ -5,7 +5,7 @@ using Fallout.Common;
 namespace StackedDeck.WebAPI.Template.Build;
 
 /// <summary>
-/// The main NUKE build system entry point.
+/// The main FALLOUT build system entry point.
 /// </summary>
 public class Build :
     FalloutBuild,
@@ -15,7 +15,7 @@ public class Build :
     IVersionArtifacts
 {
     /// <summary>
-    /// The default NUKE build target.
+    /// The default FALLOUT build target.
     /// </summary>
     /// <returns>The exit code of the build process.</returns>
     public static int Main() => Execute<Build>(x => ((IDotNet)x).Build);
