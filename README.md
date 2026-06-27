@@ -132,5 +132,3 @@ configuration out-of-the-box.
 - `Serilog` logging with console and async file sinks
 - Configurable logging levels per environment
 - Customizable CLI title and author display name
-- `dotnet format` post-action for consistent code style
-- XML documentation generation enabled by default

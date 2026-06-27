@@ -86,11 +86,11 @@ container and resolved automatically for commands and their dependencies.
 Configuration is managed via `Microsoft.Extensions.Configuration` using
 environment-specific `appsettings.json` files:
 
-- `appsettings.json` — Base configuration
-- `appsettings.Development.json` — Development overrides (`Information` verbosity)
-- `appsettings.Staging.json` — Staging overrides (`Information` verbosity)
-- `appsettings.Production.json` — Production overrides (`Warning` verbosity)
-- `appsettings.Local.json` — Local overrides (gitignored)
+- `appsettings.json` - Base configuration
+- `appsettings.Development.json` - Development overrides (`Information` verbosity)
+- `appsettings.Staging.json` - Staging overrides (`Information` verbosity)
+- `appsettings.Production.json` - Production overrides (`Warning` verbosity)
+- `appsettings.Local.json` - Local overrides (gitignored)
 
 The `ConfigurationProvider` class loads and merges the configuration
 files in a layered manner, with more specific environments overriding
@@ -103,8 +103,9 @@ dotnet new sd-cli -n MyCli
 ### 📝 Logging
 
 Logging is provided by `Serilog` with pre-configured sinks:
-- **Console** — Colored console output for human-readable logs
-- **Async File** — Asynchronous file logging to `logs/log-.log` with rolling file intervals
+
+- **Console** - Colored console output for human-readable logs
+- **Async File** - Asynchronous file logging to `logs/log-.log` with rolling file intervals
 
 Logging levels are configured per environment via the `appsettings.*.json`
 files, providing fine-grained control over verbosity in different deployment
@@ -115,16 +116,8 @@ scenarios.
 When creating a new project from this template, you can customize the
 following parameters:
 
-| Parameter | Default | Description |
-|-----------|---------|-------------|
-| `--name` / `-n` | `StackedDeckCli` | The project name |
-| `--Title` | `StackedDeck CLI Tool` | The CLI tool's display title |
-| `--Author` | `Stacked Deck` | The author name displayed in the CLI header |
-| `--SkipRestore` | `false` | Skips automatic NuGet restore on create |
-
-
-### 🧹 Code Formatting
-
-After project creation, `dotnet format` is executed automatically to
-ensure consistent code style. The template includes the `EnforceCodeStyleInBuild`
-property and generates XML documentation files by default.
+| Parameter       | Default                | Description                                 |
+| --------------- | ---------------------- | ------------------------------------------- |
+| `--name` / `-n` | `StackedDeckCli`       | The project name                            |
+| `-t, --title`   | `StackedDeck CLI Tool` | The CLI tool's display title                |
+| `--author-name` | `Stacked Deck`         | The author name displayed in the CLI header |
