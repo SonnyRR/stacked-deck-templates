@@ -1,6 +1,7 @@
 {
   "$schema": "http://json.schemastore.org/vs-2017.3.host",
   "order": 17,
+  "icon": "sd-logo-7.png",
   "symbolInfo": [
   ]
 }

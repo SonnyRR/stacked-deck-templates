@@ -8,7 +8,7 @@
     "Style",
     "Stacked Deck"
   ],
-  "precedence": 1337,
+  "precedence": 1339,
   "identity": "StackedDeck.Editorconfig",
   "groupIdentity": "StackedDeck.Editorconfig",
   "shortName": "sd-editorconfig",
