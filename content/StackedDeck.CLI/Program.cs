@@ -1,3 +1,5 @@
+using Serilog;
+
 namespace StackedDeck.CLI.Template;
 
 /// <summary>
@@ -11,8 +13,17 @@ public static class Program
     /// <param name="args">Command line arguments.</param>
     /// <returns>The exit code.</returns>
     public static int Main(string[] args)
-        => CommandAppBuilder
-            .Create()
-            .Build()
-            .Run(args);
+    {
+        try
+        {
+            return CommandAppBuilder
+                .Create()
+                .Build()
+                .Run(args);
+        }
+        finally
+        {
+            Log.CloseAndFlush();
+        }
+    }
 }

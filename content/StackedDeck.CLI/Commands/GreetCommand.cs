@@ -56,7 +56,6 @@ public class GreetCommand : AsyncCommand<GreetCommandSettings>
             console.MarkupLine($"[green]Hello, {name}![/]");
 
             Log.Information("Greeted {Name} successfully", name);
-            await Log.CloseAndFlushAsync();
 
             return 0;
         }
