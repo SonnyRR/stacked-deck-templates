@@ -1,0 +1,103 @@
+{
+  "$schema": "http://json.schemastore.org/template",
+  "author": "Vasil Kotsev",
+  "name": "Stacked Deck CLI",
+  "description": "Creates a CLI application with Spectre.Console, DI, and configuration support.",
+  "classifications": [
+    "CLI",
+    "Console",
+    "Spectre",
+    "Project",
+    "Stacked Deck"
+  ],
+  "precedence": 1338,
+  "identity": "StackedDeck.CLI",
+  "groupIdentity": "StackedDeck.CLI",
+  "shortName": "sd-cli",
+  "defaultName": "StackedDeckCli",
+  "sourceName": "StackedDeck.CLI.Template",
+  "tags": {
+    "language": "C#",
+    "type": "project"
+  },
+  "symbols": {
+    "Title": {
+      "type": "parameter",
+      "datatype": "text",
+      "description": "The CLI tool's title, used for display purposes.",
+      "defaultValue": "StackedDeck CLI Tool",
+      "replaces": "sd-api-title"
+    },
+    "Author": {
+      "type": "parameter",
+      "datatype": "text",
+      "description": "The author name, displayed in the CLI header.",
+      "defaultValue": "Stacked Deck",
+      "replaces": "templateAuthor"
+    },
+    "SkipRestore": {
+      "type": "parameter",
+      "datatype": "bool",
+      "description": "If specified, skips the automatic restore of the project on create.",
+      "defaultValue": "false"
+    },
+    "CopyrightYear": {
+      "type": "generated",
+      "generator": "now",
+      "replaces": "2026",
+      "parameters": {
+        "format": "yyyy"
+      }
+    }
+  },
+  "sources": [
+    {
+      "source": "./",
+      "target": "./",
+      "exclude": [
+        ".git/**/*",
+        ".template.config/**/*",
+        "**/*.user",
+        "**/*.lock.json",
+        "*.nuspec",
+        ".vs/**/*",
+        "**/publish/**/*",
+        "**/.DS_Store",
+        ".idea/**/*",
+        "logs/**/*"
+      ]
+    }
+  ],
+  "postActions": [
+    {
+      "id": "restore",
+      "actionId": "210D431B-A78B-4D2F-B762-4ED3E3EA9025",
+      "condition": "(!SkipRestore)",
+      "description": "Restore NuGet packages required by this project.",
+      "args": {
+        "files": ["./StackedDeck.CLI.Template.csproj"]
+      },
+      "manualInstructions": [
+        {
+          "text": "Run 'dotnet restore'"
+        }
+      ],
+      "continueOnError": true
+    },
+    {
+      "id": "format",
+      "actionId": "3A7C4B45-1F5D-4A30-959A-51B88E82B5D2",
+      "description": "Format source code documents",
+      "args": {
+        "executable": "dotnet",
+        "args": "format"
+      },
+      "manualInstructions": [
+        {
+          "text": "Run 'dotnet format' for this project from your terminal."
+        }
+      ],
+      "continueOnError": true
+    }
+  ]
+}

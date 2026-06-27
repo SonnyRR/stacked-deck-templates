@@ -5,7 +5,7 @@
     <Title>Stacked Deck Project Templates</Title>
     <Authors>Vasil Kotsev</Authors>
     <Description>.NET Project templates, composed to give you advantage akin to a "stacked card deck".</Description>
-    <PackageTags>dotnet;templates;aspnet-core;web-api;containers;docker;production;csharp;stacked-deck</PackageTags>
+    <PackageTags>dotnet;templates;aspnet-core;web-api;containers;docker;cli;spectre;console;production;csharp;stacked-deck</PackageTags>
     <PackageIcon>assets\sd-logo-7.png</PackageIcon>
     <PackageProjectUrl>https://github.com/SonnyRR/stacked-deck-templates/</PackageProjectUrl>
     <RepositoryUrl>https://github.com/SonnyRR/stacked-deck-templates</RepositoryUrl>
@@ -55,5 +55,6 @@
     <None Include="LICENSE" Pack="true" PackagePath="" />
     <None Include="PKG_README.md" Pack="true" PackagePath=".\README.md" />
     <None Include="content\StackedDeck.WebAPI\.template.config\sd-logo-7.png" Pack="true" PackagePath="assets\" />
+    <None Include="content\StackedDeck.CLI\.template.config\sd-logo-7.png" Pack="true" PackagePath="assets\" />
   </ItemGroup>
 </Project>
