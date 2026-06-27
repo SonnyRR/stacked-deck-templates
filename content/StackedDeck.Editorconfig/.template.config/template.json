@@ -1,0 +1,30 @@
+{
+  "$schema": "http://json.schemastore.org/template",
+  "author": "Vasil Kotsev",
+  "name": "Stacked Deck Editorconfig",
+  "description": "Adds a comprehensive .editorconfig file with C# coding conventions, formatting rules, and naming styles.",
+  "classifications": [
+    "Editorconfig",
+    "Style",
+    "Stacked Deck"
+  ],
+  "precedence": 1339,
+  "identity": "StackedDeck.Editorconfig",
+  "groupIdentity": "StackedDeck.Editorconfig",
+  "shortName": "sd-editorconfig",
+  "defaultName": ".editorconfig",
+  "tags": {
+    "language": "C#",
+    "type": "item"
+  },
+  "sources": [
+    {
+      "source": "./",
+      "target": "./",
+      "exclude": [
+        ".template.config/**/*",
+        "README.md"
+      ]
+    }
+  ]
+}

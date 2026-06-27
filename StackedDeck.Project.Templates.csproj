@@ -56,5 +56,6 @@
     <None Include="PKG_README.md" Pack="true" PackagePath=".\README.md" />
     <None Include="content\StackedDeck.WebAPI\.template.config\sd-logo-7.png" Pack="true" PackagePath="assets\" />
     <None Include="content\StackedDeck.CLI\.template.config\sd-logo-7.png" Pack="true" PackagePath="assets\" />
+    <None Include="content\StackedDeck.Editorconfig\.template.config\sd-logo-7.png" Pack="true" PackagePath="assets\" />
   </ItemGroup>
 </Project>
