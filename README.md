@@ -132,3 +132,18 @@ configuration out-of-the-box.
 - `Serilog` logging with console and async file sinks
 - Configurable logging levels per environment
 - Customizable CLI title and author display name
+
+### 📐 Stacked Deck Editorconfig (C#)
+
+An item template that adds a comprehensive `.editorconfig` file with
+.NET and C# coding conventions, formatting rules, and naming styles.
+Designed to enforce consistent code standards across your projects,
+based on the conventions used throughout the Stacked Deck templates.
+
+#### ✨ Features
+
+- **Coding conventions** - Organize usings, qualification preferences, predefined types, expression-level preferences
+- **Naming styles** - PascalCase types and members, `I`-prefix interfaces, `camelCase` fields, `UPPER_CASE` constants
+- **Style preferences** - File-scoped namespaces, pattern matching, switch expressions, collection expressions
+- **Formatting rules** - Allman braces, 4-space indentation, spacing around operators and keywords
+- **Diagnostic severities** - Pre-configured overrides for Roslyn and SonarAnalyzer rules
