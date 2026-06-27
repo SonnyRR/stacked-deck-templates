@@ -52,6 +52,7 @@ public class CommandAppBuilder
     private void ConfigureServices()
     {
         Services.AddSingleton(Configuration);
+        Services.AddSingleton<IConfiguration>(Configuration);
         Services.AddSingleton(Console);
     }
 

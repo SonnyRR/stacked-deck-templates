@@ -1,5 +1,7 @@
 using System;
 
+using Microsoft.Extensions.DependencyInjection;
+
 using Spectre.Console.Cli;
 
 namespace StackedDeck.CLI.Template.DependencyInjection;
@@ -13,5 +15,5 @@ internal sealed class SpectreCliTypeResolver : ITypeResolver
         => this.provider = provider ?? throw new ArgumentNullException(nameof(provider));
 
     /// <inheritdoc/>
-    public object Resolve(Type type) => provider.GetService(type);
+    public object Resolve(Type type) => provider.GetRequiredService(type);
 }

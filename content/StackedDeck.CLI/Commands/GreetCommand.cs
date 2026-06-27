@@ -18,15 +18,15 @@ namespace StackedDeck.CLI.Template.Commands;
 /// </summary>
 public class GreetCommand : AsyncCommand<GreetCommandSettings>
 {
-    private readonly IConfigurationRoot configuration;
+    private readonly IConfiguration configuration;
     private readonly IAnsiConsole console;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="GreetCommand"/> class.
     /// </summary>
-    /// <param name="configuration">The configuration root.</param>
+    /// <param name="configuration">The configuration interface.</param>
     /// <param name="console">The Ansi console for output.</param>
-    public GreetCommand(IConfigurationRoot configuration, IAnsiConsole console)
+    public GreetCommand(IConfiguration configuration, IAnsiConsole console)
     {
         this.configuration = configuration ?? throw new ArgumentNullException(nameof(configuration));
         this.console = console ?? throw new ArgumentNullException(nameof(console));
@@ -37,6 +37,8 @@ public class GreetCommand : AsyncCommand<GreetCommandSettings>
     {
         try
         {
+            cancellationToken.ThrowIfCancellationRequested();
+
             var title = configuration["Title"] ?? "StackedDeck CLI";
             var name = !string.IsNullOrWhiteSpace(settings.Name) ? settings.Name : "World";
 
@@ -58,6 +60,10 @@ public class GreetCommand : AsyncCommand<GreetCommandSettings>
             Log.Information("Greeted {Name} successfully", name);
 
             return 0;
+        }
+        catch (OperationCanceledException)
+        {
+            return 130;
         }
         catch (Exception ex)
         {
