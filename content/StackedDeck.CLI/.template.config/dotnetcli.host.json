@@ -1,0 +1,16 @@
+{
+  "symbolInfo": {
+    "Title": {
+      "longName": "title",
+      "shortName": "t"
+    },
+    "Author": {
+      "longName": "author-name",
+      "shortName": ""
+    },
+    "SkipRestore": {
+      "longName": "no-restore",
+      "shortName": ""
+    }
+  }
+}

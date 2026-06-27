@@ -111,3 +111,24 @@ soft-deletion support out-of-the-box.
   - Global query filters exclude soft-deleted entities from queries
 - Fluent API configuration via `ApplyConfigurationsFromAssembly`
 - Extension methods for streamlined service registration
+
+### ⌨️ Stacked Deck CLI (C#)
+
+Provides a CLI application template preconfigured with `Spectre.Console`
+for building beautiful, cross-platform command-line tools. Integrates
+dependency injection, logging, and environment-specific
+configuration out-of-the-box.
+
+#### ✨ Features
+
+- `Spectre.Console` for rich, cross-platform CLI output
+- `Spectre.Console.Cli` for command parsing and routing
+  - `AsyncCommand<T>` pattern for type-safe parameter binding
+  - Named subcommand registration (e.g., `config.AddCommand<GreetCommand>("greet")`)
+- Fluent `CommandAppBuilder` API for clean application setup
+- `Microsoft.Extensions.DependencyInjection` integration via custom type registrar and resolver
+- `Microsoft.Extensions.Configuration` with environment-specific `appsettings.json` files
+  - Development, Staging, Production, and Local configuration layers
+- `Serilog` logging with console and async file sinks
+- Configurable logging levels per environment
+- Customizable CLI title and author display name
