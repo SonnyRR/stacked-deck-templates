@@ -110,7 +110,7 @@ soft-deletion support out-of-the-box.
 
 Provides a CLI application template preconfigured with `Spectre.Console`
 for building beautiful, cross-platform command-line tools. Integrates
-dependency injection, structured logging, and environment-specific
+dependency injection, logging, and environment-specific
 configuration out-of-the-box.
 
 #### ✨ Features
@@ -123,7 +123,7 @@ configuration out-of-the-box.
 - `Microsoft.Extensions.DependencyInjection` integration via custom type registrar and resolver
 - `Microsoft.Extensions.Configuration` with environment-specific `appsettings.json` files
   - Development, Staging, Production, and Local configuration layers
-- `Serilog` structured logging with console and async file sinks
+- `Serilog` logging with console and async file sinks
 - Configurable logging levels per environment
 - Customizable CLI title and author display name
 - `dotnet format` post-action for consistent code style

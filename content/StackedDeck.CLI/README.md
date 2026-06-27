@@ -100,9 +100,9 @@ base values.
 dotnet new sd-cli -n MyCli
 ```
 
-### 📝 Structured Logging
+### 📝 Logging
 
-Structured logging is provided by `Serilog` with pre-configured sinks:
+Logging is provided by `Serilog` with pre-configured sinks:
 - **Console** — Colored console output for human-readable logs
 - **Async File** — Asynchronous file logging to `logs/log-.log` with rolling file intervals
 
@@ -122,10 +122,6 @@ following parameters:
 | `--Author` | `Stacked Deck` | The author name displayed in the CLI header |
 | `--SkipRestore` | `false` | Skips automatic NuGet restore on create |
 
-> [!NOTE]
-> The `CopyrightYear` is automatically generated based on the current
-> year during project creation. You do not need to provide a value for
-> this parameter.
 
 ### 🧹 Code Formatting
 
