@@ -13,7 +13,7 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="10.0.9" />
     <!--#endif-->
     <!--#if (UsePostgresProvider)-->
-    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="10.0.2" />
+    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="10.0.3" />
     <PackageReference Include="EFCore.NamingConventions" Version="10.0.1" />
     <!--#endif-->
     <!--#if (UseSqliteProvider)-->
