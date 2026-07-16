@@ -31,7 +31,7 @@
     <PackageReference Include="OpenTelemetry.Exporter.Prometheus.AspNetCore" Version="1.16.0-beta.1" />
     <!--#endif-->
     <!--#if (UseOTELCollector)-->
-    <PackageReference Include="OpenTelemetry.Exporter.OpenTelemetryProtocol" Version="1.16.0" />
+    <PackageReference Include="OpenTelemetry.Exporter.OpenTelemetryProtocol" Version="1.17.0" />
     <!--#endif-->
     <PackageReference Include="Scalar.AspNetCore" Version="2.16.13" />
     <!--#if (UseFastEndpoints)-->
