@@ -3,15 +3,6 @@
 A production-ready `ASP.NET Core Web API` solution template, that comes with
 batteries included and sensible defaults.
 
-> [!WARNING]
-> This template is currently in a stable state, but some of it's features
-> are more opinionated towards the Azure & GitHub ecosystems. Support for
-> `Azure App Config`, `GitHub Workflows` & `Dependabot` comes OOB with the
-> current version. This might not be suitable for everyone & multiple
-> options for cloud & `CI/CD` providers will be provided. As of right now
-> you will have to remove those documents manually if you don't wish to
-> use `GitHub` as your pipeline provider.
-
 TFM: `net10.0`
 Identifier: `sd-webapi`
 
