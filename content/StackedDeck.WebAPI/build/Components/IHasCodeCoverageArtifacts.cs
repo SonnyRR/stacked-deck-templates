@@ -1,9 +1,9 @@
-using Nuke.Common;
-using Nuke.Common.IO;
+using Fallout.Common;
+using Fallout.Common.IO;
 
 namespace Components;
 
-internal interface IHasCodeCoverageArtifacts : INukeBuild
+internal interface IHasCodeCoverageArtifacts : IFalloutBuild
 {
     const string COVERAGE_DIR_NAME = "coverage";
 

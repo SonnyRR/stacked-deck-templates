@@ -1,9 +1,9 @@
-using Nuke.Common;
-using Nuke.Common.ProjectModel;
+using Fallout.Common;
+using Fallout.Common.ProjectModel;
 
 namespace Components;
 
-internal interface IHasSolution : INukeBuild
+internal interface IHasSolution : IFalloutBuild
 {
     [Solution]
     Solution Solution => TryGetValue(() => Solution);
