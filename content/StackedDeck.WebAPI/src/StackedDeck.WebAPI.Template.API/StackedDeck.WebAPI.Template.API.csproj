@@ -14,7 +14,7 @@
     <!--#endif-->
     <PackageReference Include="Asp.Versioning.Mvc.ApiExplorer" Version="10.0.0" />
     <!--#if (UseMinimalApis)-->
-    <PackageReference Include="Asp.Versioning.Http" Version="10.0.0" />
+    <PackageReference Include="Asp.Versioning.Http" Version="10.0.1" />
     <!--#endif-->
     <!--#if (UseAzureCloudProvider)-->
     <PackageReference Include="Azure.Identity" Version="1.21.0" />
