@@ -1,15 +1,12 @@
 using System;
 
-#if (UseFastEndpoints)
-using Asp.Versioning;
-
-#endif
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.CookiePolicy;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
 
 #if (UseFastEndpoints)
@@ -64,7 +61,7 @@ public class Startup
     {
         app.UseSerilogRequestLogging();
 
-        if (env.IsLocal() || env.IsE2E())
+        if (env.IsLocal() || env.IsDevelopment() || env.IsE2E())
         {
             app.UseDeveloperExceptionPage();
         }
@@ -103,13 +100,7 @@ public class Startup
             endpoints.MapMinimalApiEndpoints();
 #endif
 #if (UseFastEndpoints)
-            endpoints.MapFastEndpoints(b =>
-            {
-                b.Endpoints.RoutePrefix = Constants.Api.Routes.PREFIX.TrimStart('/');
-                b.Versioning.PrependToRoute = true;
-                b.Versioning.Prefix = "v";
-                b.Versioning.DefaultVersion = ApiVersion.Default.MajorVersion.GetValueOrDefault();
-            });
+            endpoints.MapFastEndpoints(b => b.Endpoints.RoutePrefix = Constants.Api.Routes.PREFIX.TrimStart('/'));
 #endif
 #if (UseControllers)
             endpoints.MapDefaultControllerRoute();

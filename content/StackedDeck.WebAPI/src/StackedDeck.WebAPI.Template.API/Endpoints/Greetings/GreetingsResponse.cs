@@ -8,5 +8,5 @@ public class GreetingsResponse
     /// <summary>
     /// The greeting message.
     /// </summary>
-    public string Message { get; set; } = default!;
+    public string Message { get; set; }
 }

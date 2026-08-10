@@ -4,8 +4,11 @@ using System.Linq;
 #endif
 using System.Text.Json;
 using System.Text.Json.Serialization;
+using System.Threading.Tasks;
 
 using Asp.Versioning;
+using Asp.Versioning.ApiExplorer;
+using Asp.Versioning.OpenApi;
 #if (UseFastEndpoints)
 
 using FastEndpoints;
@@ -86,8 +89,7 @@ public static class ServiceCollectionExtensions
                 .CustomizeProblemDetails = context => context
                     .ProblemDetails.WithHttpContextMetadata(context.HttpContext))
             .AddExceptionHandler<GlobalExceptionHandler>()
-            .AddApiVersioning()
-            .AddOpenApiSpecification()
+            .AddApiVersioning(apiOptions)
             .AddHealthProbes()
             .AddCors(options => options
                .AddDefaultPolicy(policyBuilder =>
@@ -228,67 +230,62 @@ public static class ServiceCollectionExtensions
     /// Registers the API Versioning services in the DI container.
     /// </summary>
     /// <param name="services">The service collection.</param>
+    /// <param name="apiOptions">The API configuration options.</param>
     /// <returns>The updated <see cref="IServiceCollection"/> with API Versioning services registered.</returns>
-    private static IServiceCollection AddApiVersioning(this IServiceCollection services)
+    private static IServiceCollection AddApiVersioning(this IServiceCollection services, ApiOptions apiOptions)
     {
         ArgumentNullException.ThrowIfNull(services);
+        ArgumentNullException.ThrowIfNull(apiOptions);
+
+        static void ConfigureApiVersioning(ApiVersioningOptions options)
+        {
+            options.ReportApiVersions = true;
+            options.AssumeDefaultVersionWhenUnspecified = true;
+            options.ApiVersionReader = ApiVersionReader.Combine(new UrlSegmentApiVersionReader());
+        }
+
+        static void ConfigureApiExplorer(ApiExplorerOptions options)
+        {
+
+            options.GroupNameFormat = "'v'VVV";
+            options.SubstituteApiVersionInUrl = true;
+        }
+
+        void ConfigureOpenApi(VersionedOpenApiOptions options)
+        {
+            options.Document.AddDocumentTransformer(
+                (document, _, _) =>
+                {
+                    document.Info.Title = apiOptions.Title;
+                    document.Info.Description = apiOptions.Description;
+
+                    return Task.CompletedTask;
+                });
+        }
 
 #if (!UseFastEndpoints)
         services
-            .AddApiVersioning(options =>
-            {
-                options.ReportApiVersions = true;
-                options.AssumeDefaultVersionWhenUnspecified = true;
-                options.DefaultApiVersion = ApiVersion.Default;
-                options.ApiVersionReader = ApiVersionReader.Combine(new UrlSegmentApiVersionReader());
-            })
-            .AddApiExplorer(options =>
-            {
-                options.GroupNameFormat = "'v'VVV";
-                options.SubstituteApiVersionInUrl = true;
-            });
-#else
-        services
-            .AddVersioning(versioningOptions =>
-            {
-                versioningOptions.ReportApiVersions = true;
-                versioningOptions.AssumeDefaultVersionWhenUnspecified = true;
-                versioningOptions.DefaultApiVersion = ApiVersion.Default;
-                versioningOptions.ApiVersionReader = ApiVersionReader.Combine(new UrlSegmentApiVersionReader());
-            }, explorerOptions =>
-            {
-                explorerOptions.GroupNameFormat = "'v'VVV";
-                explorerOptions.SubstituteApiVersionInUrl = true;
-            });
-
-        VersionSets.CreateApi(Api.Routes.Versioning.V1_SET, v => v.HasApiVersion(new ApiVersion(1.0)));
+            .AddApiVersioning(ConfigureApiVersioning)
+            .AddOpenApi(ConfigureOpenApi)
+#if (UseControllers)
+            .AddMvc()
 #endif
+            .AddApiExplorer(ConfigureApiExplorer);
+#else
+        // HACK: FastEndpoints' 'AddVersioning' hides the 'IApiVersioningBuilder', so we can't register
+        // the versioned OpenAPI services (including the 'KeyedServiceContainer') separately
+        // because the extension method returns 'IServiceCollection' instead of 'IApiVersioningBuilder'.
+        // Without them, the 'Asp.Versioning.OpenApi' document endpoint would fail to resolve
+        // the per-version document service at request time.
+        // Unfortunately this is a workaround until they extend their extension method.
+        services
+            .AddVersioning(ConfigureApiVersioning, ConfigureApiExplorer)
+            .AddApiVersioning(_ => { }) // This method is implicitly invoked above.
+            .AddApiExplorer(_ => { }) // This method is implicitly invoked above.
+            .AddOpenApi(ConfigureOpenApi); // Return type of previous methods allow us to invoke this one.
 
-        return services;
-    }
-
-    /// <summary>
-    /// Registers the OpenAPI specification related services to the DI container.
-    /// </summary>
-    /// <param name="services">The service collection.</param>
-    /// <returns>The updated <see cref="IServiceCollection"/> with OpenAPI specification services registered.</returns>
-    private static IServiceCollection AddOpenApiSpecification(this IServiceCollection services)
-    {
-        ArgumentNullException.ThrowIfNull(services);
-
-#pragma warning disable S125
-        /*
-         By default, this invocation will register the OpenAPI specification document
-         as 'v1.json'. If you need to support multiple versions of this API, you'll have
-         to explicitly register additional documents similar to:
-
-         Examples:
-            services.AddOpenApi();
-            services.AddOpenApi("v2");
-        */
-#pragma warning restore S125
-
-        services.AddOpenApi();
+        VersionSets.CreateApi(Api.Routes.Versioning.V1, v => v.HasApiVersion(new ApiVersion(1)));
+#endif
 
         return services;
     }

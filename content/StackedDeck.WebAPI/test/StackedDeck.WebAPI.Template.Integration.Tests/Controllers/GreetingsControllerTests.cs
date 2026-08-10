@@ -33,7 +33,7 @@ public class GreetingsControllerTests
         // Act
         var result = await apiFixture
             .Client
-            .GetAsync($"{Routes.PREFIX}/{Routes.Versioning.V1_SET}/greetings", TestContext.Current.CancellationToken);
+            .GetAsync($"{Routes.PREFIX}/{Routes.Versioning.V1}/greetings", TestContext.Current.CancellationToken);
 
         // Assert
         result.ShouldSatisfyAllConditions(async void () =>

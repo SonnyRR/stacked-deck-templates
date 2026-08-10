@@ -1,5 +1,5 @@
 # StackedDeck C# - Coding Convetions
-# Date: 04/02/2025
+# Date: 09/08/2026
 
 # Remove the line below if you want to inherit .editorconfig settings from higher directories
 root = true
@@ -285,3 +285,6 @@ dotnet_diagnostic.RCS1213.severity = error
 
 # Overridden severity level until https://github.com/SonarSource/sonar-dotnet/issues/9813 is resolved.
 dotnet_diagnostic.S3241.severity = silent
+
+# API description is configured via strongly typed options at startup.
+dotnet_diagnostic.AV0025.severity = silent

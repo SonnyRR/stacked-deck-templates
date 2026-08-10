@@ -22,14 +22,16 @@ public class GreetingsEndpoint : EndpointWithoutRequest<GreetingsResponse>
     /// </summary>
     public override void Configure()
     {
-        Get("/greetings");
-        Options(b => b.WithVersionSet(Constants.Api.Routes.Versioning.V1_SET).MapToApiVersion(ApiVersion.Default));
-        Summary(s =>
-        {
-            s.Summary = "Greets you.";
-            s.Description = "This is the default action, set up by the StackedDeck Web API project template using FastEndpoints with REPR pattern.";
-        });
-        Description(d => d.Produces<GreetingsResponse>(StatusCodes.Status200OK, MediaTypeNames.Application.Json));
+        Get("/v{version:apiVersion}/greetings");
+        Options(b => b
+            .WithVersionSet(Constants.Api.Routes.Versioning.V1)
+            .MapToApiVersion(new ApiVersion(1)));
+
+        Description(d => d
+                .WithSummary("Greets you.")
+                .WithDescription("This is the default action, set up by the StackedDeck Web API project template using FastEndpoints with REPR pattern.")
+                .Produces<GreetingsResponse>(StatusCodes.Status200OK, MediaTypeNames.Application.Json));
+
         AllowAnonymous();
     }
 

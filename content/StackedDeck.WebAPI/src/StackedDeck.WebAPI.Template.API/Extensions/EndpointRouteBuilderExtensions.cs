@@ -1,5 +1,4 @@
 using System;
-using System.Diagnostics.CodeAnalysis;
 using System.Net.Mime;
 using System.Text.Json;
 #if (UseMinimalApis)
@@ -85,7 +84,6 @@ public static class EndpointRouteBuilderExtensions
     /// <param name="environment">The web host environment.</param>
     /// <param name="apiOptions">The API options.</param>
     /// <returns>The endpoint route builder with OpenAPI endpoints mapped.</returns>
-    [SuppressMessage("Major Code Smell", "S125:Sections of code should not be commented out", Justification = "Documentation w/ code example.")]
     public static IEndpointRouteBuilder MapOpenApiEndpoints(
         this IEndpointRouteBuilder builder, IWebHostEnvironment environment, IOptions<ApiOptions> apiOptions)
     {
@@ -95,23 +93,30 @@ public static class EndpointRouteBuilderExtensions
 
         if (!environment.IsProduction())
         {
-            builder.MapOpenApi();
+            builder
+                .MapOpenApi($"{Api.Routes.PREFIX}/openapi/{{documentName}}.json")
+                .WithDocumentPerVersion();
+
             builder.MapScalarApiReference(
                 $"{Api.Routes.PREFIX}/documentation",
                 options =>
                 {
-                    options.WithTitle(apiOptions.Value.Title);
                     options.WithOperationTitleSource(OperationTitleSource.Path);
                     options.SortTagsAlphabetically();
 
-                    // If you decide to support multiple versions of this API,you'll need to specify
-                    // the OpenAPI spec documents explicitly. The route pattern is the default one,
-                    // set up by the 'endpoints.MapOpenApi()'.The document name (v1.json, v2.json) are
-                    // configured by the ServiceCollectionExtensions::AddOpenApiSpecification() extension method.
-                    //
-                    // Examples:
-                    //    options.AddDocument("v1", routePattern:"openapi/v1.json");
-                    //    options.AddDocument("v2", routePattern:"openapi/v2.json");
+                    var descriptions = builder.DescribeApiVersions();
+
+                    for (var i = 0; i < descriptions.Count; i++)
+                    {
+                        var description = descriptions[i];
+                        var isDefault = i == descriptions.Count - 1;
+
+                        options.AddDocument(
+                                documentName: description.GroupName,
+                                title: description.GroupName,
+                                routePattern: $"{Api.Routes.PREFIX}/openapi/v{description.ApiVersion.MajorVersion}.json",
+                                isDefault: isDefault);
+                    }
                 });
         }
 
@@ -128,18 +133,16 @@ public static class EndpointRouteBuilderExtensions
     {
         ArgumentNullException.ThrowIfNull(builder);
 
-        var apiVersionSet = builder
-            .NewApiVersionSet()
-            .HasApiVersion(new ApiVersion(1))
-            .Build();
+        var api = builder.NewVersionedApi();
 
-        var v1Group = builder
+        var v1Group = api
             .MapGroup($"{Api.Routes.PREFIX}/v{{version:apiVersion}}")
-            .WithApiVersionSet(apiVersionSet);
+            .HasApiVersion(new ApiVersion(1));
 
         v1Group
             .MapGet("/greetings", () => "Buongiorno!")
             .WithName("GetGreetings")
+            .WithTags("Greetings")
             .WithSummary("Greets you.")
             .WithDescription("This is the default action, set up by the StackedDeck Web API project template using Minimal APIs.")
             .Produces<string>(StatusCodes.Status200OK);

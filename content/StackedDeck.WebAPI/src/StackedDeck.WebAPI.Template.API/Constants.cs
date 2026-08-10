@@ -1,3 +1,5 @@
+using Asp.Versioning;
+
 namespace StackedDeck.WebAPI.Template.API;
 
 /// <summary>
@@ -5,7 +7,6 @@ namespace StackedDeck.WebAPI.Template.API;
 /// </summary>
 public static class Constants
 {
-
     /// <summary>
     /// Constants, related to HTTP headers.
     /// </summary>
@@ -38,9 +39,9 @@ public static class Constants
             public static class Versioning
             {
                 /// <summary>
-                /// The default API version set.
+                /// The default V1 API identifier.
                 /// </summary>
-                public const string V1_SET = "v1";
+                public const string V1 = "v1";
             }
         }
     }
