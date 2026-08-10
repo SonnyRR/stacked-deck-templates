@@ -10,15 +10,15 @@
 
   <ItemGroup>
     <!--#if (UseControllers)-->
-    <PackageReference Include="Asp.Versioning.Mvc" Version="10.0.0" />
+    <PackageReference Include="Asp.Versioning.Mvc" Version="10.2.1" />
     <!--#endif-->
-    <PackageReference Include="Asp.Versioning.Mvc.ApiExplorer" Version="10.0.0" />
+    <PackageReference Include="Asp.Versioning.Mvc.ApiExplorer" Version="10.2.1" />
     <!--#if (UseMinimalApis)-->
-    <PackageReference Include="Asp.Versioning.Http" Version="10.0.0" />
+    <PackageReference Include="Asp.Versioning.Http" Version="10.2.1" />
     <!--#endif-->
     <!--#if (UseAzureCloudProvider)-->
     <PackageReference Include="Azure.Identity" Version="1.21.0" />
-    <PackageReference Include="Microsoft.Azure.AppConfiguration.AspNetCore" Version="8.5.0" />
+    <PackageReference Include="Microsoft.Azure.AppConfiguration.AspNetCore" Version="8.6.0" />
     <!--#endif-->
     <PackageReference Include="Destructurama.Attributed" Version="5.3.0" />
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="10.0.10" />
@@ -33,7 +33,7 @@
     <!--#if (UseOTELCollector)-->
     <PackageReference Include="OpenTelemetry.Exporter.OpenTelemetryProtocol" Version="1.17.0" />
     <!--#endif-->
-    <PackageReference Include="Scalar.AspNetCore" Version="2.16.16" />
+    <PackageReference Include="Scalar.AspNetCore" Version="2.16.17" />
     <!--#if (UseFastEndpoints)-->
     <PackageReference Include="FastEndpoints" Version="8.2.0" />
     <PackageReference Include="FastEndpoints.AspVersioning" Version="8.2.0" />
