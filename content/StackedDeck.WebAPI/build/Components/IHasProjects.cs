@@ -1,4 +1,4 @@
-using Fallout.Common.ProjectModel;
+using Fallout.Solutions;
 
 namespace Components;
 
