@@ -14,7 +14,7 @@ namespace StackedDeck.WebAPI.Template.Integration.Tests.Fixtures;
 /// </summary>
 public sealed class AzureAppConfigurationFixture : IAsyncLifetime
 {
-    private const string IMAGE_NAME = "mcr.microsoft.com/azure-app-configuration/app-configuration-emulator:1.0.2";
+    private const string IMAGE_NAME = "mcr.microsoft.com/azure-app-configuration/app-configuration-emulator:1.2.0-amd64";
     private const int CONTAINER_PORT = 8483;
     private const string ACCESS_KEY_ID = "sd-azcfg-emu";
     private const string ACCESS_KEY_SECRET = "abcdefghijklmnopqrstuvwxyz1234567890";
