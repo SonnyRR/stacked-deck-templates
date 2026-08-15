@@ -1,9 +1,9 @@
-using Nuke.Common;
-using Nuke.Common.Git;
+using Fallout.Common;
+using Fallout.Common.Git;
 
 namespace Components;
 
-internal interface IHasGitRepository : INukeBuild
+internal interface IHasGitRepository : IFalloutBuild
 {
     [GitRepository]
     GitRepository GitRepository => TryGetValue(() => GitRepository);

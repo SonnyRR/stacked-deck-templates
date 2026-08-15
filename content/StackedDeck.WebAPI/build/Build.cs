@@ -1,21 +1,21 @@
 using Components;
 
-using Nuke.Common;
+using Fallout.Common;
 
 namespace StackedDeck.WebAPI.Template.Build;
 
 /// <summary>
-/// The main NUKE build system entry point.
+/// The main FALLOUT build system entry point.
 /// </summary>
 public class Build :
-    NukeBuild,
+    FalloutBuild,
     IDotNet,
     ICodeCoverage,
     IDocker,
     IVersionArtifacts
 {
     /// <summary>
-    /// The default NUKE build target.
+    /// The default FALLOUT build target.
     /// </summary>
     /// <returns>The exit code of the build process.</returns>
     public static int Main() => Execute<Build>(x => ((IDotNet)x).Build);

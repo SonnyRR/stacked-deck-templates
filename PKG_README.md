@@ -42,26 +42,26 @@ with sensible defaults. For detailed information, see the section below.
 #### ✨ Features
 
 - Pre-configured `Dockerfile` with
-    - Targeting `ASP.NET Core Runtime 10`
-    - `alpine` linux based images
-    - Pinned package versions
-    - Health checks
-- Pre-configured `NUKE` build system with common targets
-    - Restoring
-    - Compiling
-    - Publishing
-    - Testing
-    - Building `OCI` compatible images
+  - Targeting `ASP.NET Core Runtime 10`
+  - `alpine` linux based images
+  - Pinned package versions
+  - Health checks
+- Pre-configured `FALLOUT` build system with common targets
+  - Restoring
+  - Compiling
+  - Publishing
+  - Testing
+  - Building `OCI` compatible images
 - Semantic versioning with GitVersion
 - Roslyn Analyzers
-    - `Roslynator.Analyzers`
-    - `SonarAnalyzer.CSharp`
+  - `Roslynator.Analyzers`
+  - `SonarAnalyzer.CSharp`
 - Structured logging infrastructure with `Serilog`
 - Coding conventions (`.editorconfig`)
 - Multiple API styles with full API versioning support
-    - `Controllers`
-    - `Minimal API (default)`
-    - `FastEndpoints`
+  - `Controllers`
+  - `Minimal API (default)`
+  - `FastEndpoints`
 - `OpenAPI v3` specification generation
 - `Scalar` API client for interacting with the `OpenAPI` specification
 - Optional support for `Azure App Configuration`
@@ -71,13 +71,13 @@ with sensible defaults. For detailed information, see the section below.
 - Shared project properties via `Directory.Build.props`
 - Automatic dependency version management with `Dependabot`
 - Optional pre-configured `CI` pipeline with `GitHub Actions`
-- AI Agent Skills for NUKE build system and git operations
+- AI Agent Skills for FALLOUT build system and git operations
 - `OpenTelemetry` observability infrastructure with multiple collection modes
-    - `Prometheus` scraping endpoint for metrics-only collection
-    - `OTEL Collector` for distributed traces and metrics via `OTLP`
+  - `Prometheus` scraping endpoint for metrics-only collection
+  - `OTEL Collector` for distributed traces and metrics via `OTLP`
 - Infrastructure as Code (`IaC`) directory structure
-    - Local development observability stack (`Docker Compose`)
-    - `Prometheus`, `Grafana`, `Tempo`, and `OTEL Collector` for local development
+  - Local development observability stack (`Docker Compose`)
+  - `Prometheus`, `Grafana`, `Tempo`, and `OTEL Collector` for local development
 - Code coverage collection with `coverlet` & report generation
 
 ### 💾 Stacked Deck Persistence (C#)

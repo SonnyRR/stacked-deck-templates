@@ -52,7 +52,7 @@ with sensible defaults. For detailed information, see the section below.
   - `alpine` linux based images
   - Pinned package versions
   - Health checks
-- Pre-configured `NUKE` build system with common targets
+- Pre-configured `FALLOUT` build system with common targets
   - Restoring
   - Compiling
   - Publishing
@@ -77,7 +77,7 @@ with sensible defaults. For detailed information, see the section below.
 - Shared project properties via `Directory.Build.props`
 - Automatic dependency version management with `Dependabot`
 - Optional pre-configured `CI` pipeline with `GitHub Actions`
-- AI Agent Skills for NUKE build system and git operations
+- AI Agent Skills for FALLOUT build system and git operations
 - `OpenTelemetry` observability infrastructure with multiple collection modes
   - `Prometheus` scraping endpoint for metrics-only collection
   - `OTEL Collector` for distributed traces and metrics via `OTLP`

@@ -1,9 +1,9 @@
-using Nuke.Common;
-using Nuke.Common.Tools.GitVersion;
+using Fallout.Common;
+using Fallout.Common.Tools.GitVersion;
 
 namespace Components;
 
-internal interface IHasGitVersion : INukeBuild
+internal interface IHasGitVersion : IFalloutBuild
 {
     [GitVersion(UpdateBuildNumber = true, NoFetch = true)]
     GitVersion GitVersion => TryGetValue(() => GitVersion);

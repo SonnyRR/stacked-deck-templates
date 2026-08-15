@@ -56,4 +56,4 @@ Follow them closely & respect them.
   an instance of the `API`.
 - Prefer using the `dotnet CLI` to filter and run single test or a subset of tests
   to verify your changes. After successful pass, evaluate all tests via the
-  `NUKE` targets
+  `FALLOUT` targets
