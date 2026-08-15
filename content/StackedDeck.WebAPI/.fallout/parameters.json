@@ -1,4 +1,5 @@
 {
   "$schema": "build.schema.json",
-  "Solution": "StackedDeck.WebAPI.Template.slnx"
+  "Solution": "StackedDeck.WebAPI.Template.slnx",
+  "BuildProjectFile": "build/StackedDeck.WebAPI.Template.Build.csproj"
 }
