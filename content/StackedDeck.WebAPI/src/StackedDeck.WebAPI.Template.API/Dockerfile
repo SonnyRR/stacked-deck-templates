@@ -9,7 +9,7 @@ ENV \
     LC_ALL=en_US.UTF-8 \
     LANG=en_US.UTF-8
 
-RUN apk add --no-cache icu-data-full=76.1-r1 icu-libs=76.1-r1
+RUN apk add --no-cache icu-data-full=78.1-r0 icu-libs=78.1-r0
 
 # You might get some SAST warnings if you use cloud security scanning
 # tools like 'Orca Security' for detected usage of 'wget' with unencrypted
