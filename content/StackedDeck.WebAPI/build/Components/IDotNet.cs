@@ -3,6 +3,7 @@ using System.Linq;
 
 using Fallout.Common;
 using Fallout.Common.IO;
+using Fallout.Common.Tooling;
 using Fallout.Common.Tools.DotNet;
 using Fallout.Common.Utilities;
 
@@ -12,7 +13,17 @@ namespace Components;
 
 internal interface IDotNet : IHasProjects, IHasConfiguration, IHasGitVersion, IHasCodeCoverageArtifacts
 {
-    const string DATA_COLLECTOR = "XPlat Code Coverage";
+    static readonly string[] TEST_TARGET_ARGS = [
+        "--coverlet",
+        "--coverlet-output-format",
+        "cobertura",
+        "--coverlet-exclude-assemblies-without-sources",
+        "MissingAll",
+        "--output",
+        "Detailed",
+        "--show-live-output",
+        "on"
+    ];
 
     AbsolutePath PublicationDirectory => WebApiProject.Directory / "publish";
 
@@ -87,7 +98,7 @@ internal interface IDotNet : IHasProjects, IHasConfiguration, IHasGitVersion, IH
                 .SetConfiguration(Configuration)
                 .EnableNoBuild()
                 .SetResultsDirectory(CoverageDirectory)
-                .SetDataCollector(DATA_COLLECTOR));
+                .SetProcessAdditionalArguments(TEST_TARGET_ARGS));
         });
 
     Target IntegrationTest => _ => _
@@ -99,10 +110,9 @@ internal interface IDotNet : IHasProjects, IHasConfiguration, IHasGitVersion, IH
             DotNetTasks.DotNetTest(s => s
                 .SetProjectFile(IntegrationTestsProject)
                 .SetConfiguration(Configuration)
-                .SetLoggers("console;verbosity=detailed")
                 .EnableNoBuild()
                 .SetResultsDirectory(CoverageDirectory)
-                .SetDataCollector(DATA_COLLECTOR));
+                .SetProcessAdditionalArguments(TEST_TARGET_ARGS));
         });
 
     Target Restore => _ => _

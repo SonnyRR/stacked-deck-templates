@@ -18,7 +18,7 @@ internal interface ICodeCoverage : IHasCodeCoverageArtifacts
         .TriggeredBy<IDotNet>(t => t.UnitTest, t => t.IntegrationTest)
         .Executes(() =>
         {
-            var coberturaCoverageFiles = CoverageDirectory.GlobFiles("**/coverage.cobertura.xml");
+            var coberturaCoverageFiles = CoverageDirectory.GlobFiles("**/coverage.cobertura.*.xml");
 
             if (coberturaCoverageFiles.Count == 0)
             {
@@ -28,7 +28,7 @@ internal interface ICodeCoverage : IHasCodeCoverageArtifacts
             }
 
             ReportGeneratorTasks.ReportGenerator(s => s
-                .SetReports(CoverageDirectory / "**" / "coverage.cobertura.xml")
+                .SetReports(CoverageDirectory / "**" / "coverage.cobertura.*.xml")
                 .SetTargetDirectory(CoverageReportsDirectory)
                 .SetReportTypes(ReportTypes.HtmlInline, ReportTypes.MarkdownSummaryGithub));
         });
