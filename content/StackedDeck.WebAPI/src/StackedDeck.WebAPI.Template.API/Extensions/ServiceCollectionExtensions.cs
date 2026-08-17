@@ -272,17 +272,7 @@ public static class ServiceCollectionExtensions
 #endif
             .AddApiExplorer(ConfigureApiExplorer);
 #else
-        // HACK: FastEndpoints' 'AddVersioning' hides the 'IApiVersioningBuilder', so we can't register
-        // the versioned OpenAPI services (including the 'KeyedServiceContainer') separately
-        // because the extension method returns 'IServiceCollection' instead of 'IApiVersioningBuilder'.
-        // Without them, the 'Asp.Versioning.OpenApi' document endpoint would fail to resolve
-        // the per-version document service at request time.
-        // Unfortunately this is a workaround until they extend their extension method.
-        services
-            .AddVersioning(ConfigureApiVersioning, ConfigureApiExplorer)
-            .AddApiVersioning(_ => { }) // This method is implicitly invoked above.
-            .AddApiExplorer(_ => { }) // This method is implicitly invoked above.
-            .AddOpenApi(ConfigureOpenApi); // Return type of previous methods allow us to invoke this one.
+        services.AddVersioning(ConfigureApiVersioning, ConfigureApiExplorer, ConfigureOpenApi);
 
         VersionSets.CreateApi(Api.Routes.Versioning.V1, v => v.HasApiVersion(new ApiVersion(1)));
 #endif
