@@ -4,6 +4,7 @@ using System.Linq;
 using Fallout.Common;
 using Fallout.Common.IO;
 using Fallout.Common.Tools.DotNet;
+using Fallout.Common.Utilities;
 
 using Serilog;
 
@@ -11,6 +12,8 @@ namespace Components;
 
 internal interface IDotNet : IHasProjects, IHasConfiguration, IHasGitVersion, IHasCodeCoverageArtifacts
 {
+    const string DATA_COLLECTOR = "XPlat Code Coverage";
+
     AbsolutePath PublicationDirectory => WebApiProject.Directory / "publish";
 
     Target Clean => _ => _
@@ -60,7 +63,9 @@ internal interface IDotNet : IHasProjects, IHasConfiguration, IHasGitVersion, IH
 
     Target Publish => _ => _
         .Description("Publishes the API artifacts to local file system.")
-        .DependsOn(Test)
+        .DependsOn(Build)
+        .After(IntegrationTest)
+        .When(IsServerBuild, t => t.DependsOn(IntegrationTest, UnitTest))
         .Executes(() =>
         {
             DotNetTasks.DotNetPublish(s => s
@@ -72,17 +77,32 @@ internal interface IDotNet : IHasProjects, IHasConfiguration, IHasGitVersion, IH
                 .EnableNoRestore());
         });
 
-    Target Test => _ => _
-        .Description("Evaluates the automated test suites.")
+    Target UnitTest => _ => _
+        .Description("Evaluates the unit test suite.")
         .DependsOn(Build)
         .Executes(() =>
         {
             DotNetTasks.DotNetTest(s => s
-                .SetProjectFile(Solution)
+                .SetProjectFile(UnitTestsProject)
                 .SetConfiguration(Configuration)
                 .EnableNoBuild()
                 .SetResultsDirectory(CoverageDirectory)
-                .SetDataCollector("XPlat Code Coverage"));
+                .SetDataCollector(DATA_COLLECTOR));
+        });
+
+    Target IntegrationTest => _ => _
+        .Description("Evaluates the integration test suite.")
+        .DependsOn(Build)
+        .After(UnitTest)
+        .Executes(() =>
+        {
+            DotNetTasks.DotNetTest(s => s
+                .SetProjectFile(IntegrationTestsProject)
+                .SetConfiguration(Configuration)
+                .SetLoggers("console;verbosity=detailed")
+                .EnableNoBuild()
+                .SetResultsDirectory(CoverageDirectory)
+                .SetDataCollector(DATA_COLLECTOR));
         });
 
     Target Restore => _ => _
