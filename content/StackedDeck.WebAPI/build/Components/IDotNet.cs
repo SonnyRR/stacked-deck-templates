@@ -3,7 +3,9 @@ using System.Linq;
 
 using Fallout.Common;
 using Fallout.Common.IO;
+using Fallout.Common.Tooling;
 using Fallout.Common.Tools.DotNet;
+using Fallout.Common.Utilities;
 
 using Serilog;
 
@@ -11,6 +13,18 @@ namespace Components;
 
 internal interface IDotNet : IHasProjects, IHasConfiguration, IHasGitVersion, IHasCodeCoverageArtifacts
 {
+    static readonly string[] TEST_TARGET_ARGS = [
+        "--coverlet",
+        "--coverlet-output-format",
+        "cobertura",
+        "--coverlet-exclude-assemblies-without-sources",
+        "MissingAll",
+        "--output",
+        "Detailed",
+        "--show-live-output",
+        "on"
+    ];
+
     AbsolutePath PublicationDirectory => WebApiProject.Directory / "publish";
 
     Target Clean => _ => _
@@ -60,7 +74,9 @@ internal interface IDotNet : IHasProjects, IHasConfiguration, IHasGitVersion, IH
 
     Target Publish => _ => _
         .Description("Publishes the API artifacts to local file system.")
-        .DependsOn(Test)
+        .DependsOn(Build)
+        .After(IntegrationTest)
+        .When(IsServerBuild, t => t.DependsOn(IntegrationTest, UnitTest))
         .Executes(() =>
         {
             DotNetTasks.DotNetPublish(s => s
@@ -72,17 +88,31 @@ internal interface IDotNet : IHasProjects, IHasConfiguration, IHasGitVersion, IH
                 .EnableNoRestore());
         });
 
-    Target Test => _ => _
-        .Description("Evaluates the automated test suites.")
+    Target UnitTest => _ => _
+        .Description("Evaluates the unit test suite.")
         .DependsOn(Build)
         .Executes(() =>
         {
             DotNetTasks.DotNetTest(s => s
-                .SetProjectFile(Solution)
+                .SetProjectFile(UnitTestsProject)
                 .SetConfiguration(Configuration)
                 .EnableNoBuild()
                 .SetResultsDirectory(CoverageDirectory)
-                .SetDataCollector("XPlat Code Coverage"));
+                .SetProcessAdditionalArguments(TEST_TARGET_ARGS));
+        });
+
+    Target IntegrationTest => _ => _
+        .Description("Evaluates the integration test suite.")
+        .DependsOn(Build)
+        .After(UnitTest)
+        .Executes(() =>
+        {
+            DotNetTasks.DotNetTest(s => s
+                .SetProjectFile(IntegrationTestsProject)
+                .SetConfiguration(Configuration)
+                .EnableNoBuild()
+                .SetResultsDirectory(CoverageDirectory)
+                .SetProcessAdditionalArguments(TEST_TARGET_ARGS));
         });
 
     Target Restore => _ => _

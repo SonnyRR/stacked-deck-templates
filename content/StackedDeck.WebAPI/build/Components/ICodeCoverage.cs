@@ -15,10 +15,10 @@ internal interface ICodeCoverage : IHasCodeCoverageArtifacts
 {
     Target GenerateCoverageReport => _ => _
         .Description("Generates human-readable code coverage reports from Cobertura XML files.")
-        .TriggeredBy<IDotNet>(t => t.Test)
+        .TriggeredBy<IDotNet>(t => t.UnitTest, t => t.IntegrationTest)
         .Executes(() =>
         {
-            var coberturaCoverageFiles = CoverageDirectory.GlobFiles("**/coverage.cobertura.xml");
+            var coberturaCoverageFiles = CoverageDirectory.GlobFiles("**/coverage.cobertura.*.xml");
 
             if (coberturaCoverageFiles.Count == 0)
             {
@@ -28,7 +28,7 @@ internal interface ICodeCoverage : IHasCodeCoverageArtifacts
             }
 
             ReportGeneratorTasks.ReportGenerator(s => s
-                .SetReports(CoverageDirectory / "**" / "coverage.cobertura.xml")
+                .SetReports(CoverageDirectory / "**" / "coverage.cobertura.*.xml")
                 .SetTargetDirectory(CoverageReportsDirectory)
                 .SetReportTypes(ReportTypes.HtmlInline, ReportTypes.MarkdownSummaryGithub));
         });

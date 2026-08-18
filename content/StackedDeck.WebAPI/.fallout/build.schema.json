@@ -29,12 +29,13 @@
         "Clean",
         "CleanupOrphanedGitTags",
         "GenerateCoverageReport",
+        "IntegrationTest",
         "Publish",
         "PublishCoverageSummary",
         "PublishImage",
         "Restore",
         "TagCommitWithVersion",
-        "Test"
+        "UnitTest"
       ]
     },
     "Verbosity": {
