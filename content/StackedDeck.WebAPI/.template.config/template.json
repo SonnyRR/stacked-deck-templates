@@ -228,14 +228,16 @@
           "condition": "UseMinimalApis",
           "exclude": [
             "src/StackedDeck.WebAPI.Template.API/Controllers/**/*",
-            "test/StackedDeck.WebAPI.Template.Integration.Tests/Controllers/**/*",
-            "src/StackedDeck.WebAPI.Template.API/Endpoints/**/*"
+            "src/StackedDeck.WebAPI.Template.API/Endpoints/**/*",
+            "src/StackedDeck.WebAPI.Template.API/Attributes/**/*",
+            "test/StackedDeck.WebAPI.Template.Integration.Tests/Controllers/**/*"
           ]
         },
         {
           "condition": "UseFastEndpoints",
           "exclude": [
             "src/StackedDeck.WebAPI.Template.API/Controllers/**/*",
+            "src/StackedDeck.WebAPI.Template.API/Attributes/**/*",
             "test/StackedDeck.WebAPI.Template.Integration.Tests/Controllers/**/*"
           ]
         },
