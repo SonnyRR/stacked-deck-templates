@@ -20,7 +20,7 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="10.0.11" />
     <!--#endif-->
     <!--#if (UseAuditNet)-->
-    <PackageReference Include="Audit.EntityFramework.Core" Version="32.2.0" />
+    <PackageReference Include="Audit.EntityFramework.Core" Version="32.3.1" />
     <!--#endif-->
   </ItemGroup>
 </Project>
