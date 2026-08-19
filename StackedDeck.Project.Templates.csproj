@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <PackageId>StackedDeck.Project.Templates</PackageId>
-    <PackageVersion>1.0.0-preview.3</PackageVersion>
+    <PackageVersion>1.0.0-preview.4</PackageVersion>
     <Title>Stacked Deck Project Templates</Title>
     <Authors>Vasil Kotsev</Authors>
     <Description>.NET Project templates, composed to give you advantage akin to a "stacked card deck".</Description>
@@ -19,21 +19,11 @@
     <ContentTargetFolders>content</ContentTargetFolders>
     <NoWarn>$(NoWarn);NU5128</NoWarn>
     <NoDefaultExcludes>true</NoDefaultExcludes>
-    <PackageReleaseNotes>✨ Features
-- Rework API versioning with per-version OpenAPI documents wired into Scalar (2ac715a)
-- Simplify versioning setup and bump FastEndpoints to beta.21 (3784382)
-- Exclude InheritableApiVersionAttribute from MinimalAPI &amp; FastEndpoints templates (1b11486)
-
-🚀 Improvements
-- Migrate build system from NUKE to FALLOUT (d170ae7)
-- Migrate from VSTest to Microsoft Test Platform V2 (24c2048)
-
-🔧 Chores
-- Bump Scalar.AspNetCore to 2.16.16 (f4af94c)
-- Bump Roslynator.Analyzers to 4.16.1 (8c80ff6)
-- Bump FastEndpoints and ICU package versions (75933f9, 54bd4d9)
-- Bump Azure App Configuration OCI image version (8c7a2bd)
-- Bump 3rd party NuGet dependencies (b35e193, a22c2fe, bfd7876, bc35b49)</PackageReleaseNotes>
+    <PackageReleaseNotes>🔧 Chores
+- Bump Audit.EntityFramework.Core to v32.3.1 (210cc68)
+- Bump local observability stack images &amp; update configs (2cf604a)
+  - Prometheus to v3.14.0, OTEL Collector to 0.159.0, Tempo to 2.10.8, Grafana to 13.1.4
+  - Fix deprecated Prometheus remote-write-receiver flag and Grafana datasource UID</PackageReleaseNotes>
   </PropertyGroup>
 
   <PropertyGroup>
