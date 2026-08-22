@@ -17,10 +17,12 @@
     <PackageDownload Include="GitVersion.Tool" Version="[6.8.2]" />
     <PackageDownload Include="ReportGenerator" Version="[5.5.11]" />
   </ItemGroup>
+  <!--#if (UseGitHubActions)-->
 
   <ItemGroup>
     <Content Include="..\.github\dependabot.yml">
       <Link>ci\dependabot.yml</Link>
     </Content>
   </ItemGroup>
+  <!--#endif-->
 </Project>
