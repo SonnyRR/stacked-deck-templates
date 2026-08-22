@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <PackageId>StackedDeck.Project.Templates</PackageId>
-    <PackageVersion>1.0.0-preview.4</PackageVersion>
+    <PackageVersion>1.0.0-rc.1</PackageVersion>
     <Title>Stacked Deck Project Templates</Title>
     <Authors>Vasil Kotsev</Authors>
     <Description>.NET Project templates, composed to give you advantage akin to a "stacked card deck".</Description>
@@ -19,11 +19,15 @@
     <ContentTargetFolders>content</ContentTargetFolders>
     <NoWarn>$(NoWarn);NU5128</NoWarn>
     <NoDefaultExcludes>true</NoDefaultExcludes>
-    <PackageReleaseNotes>🔧 Chores
-- Bump Audit.EntityFramework.Core to v32.3.1 (210cc68)
-- Bump local observability stack images &amp; update configs (2cf604a)
-  - Prometheus to v3.14.0, OTEL Collector to 0.159.0, Tempo to 2.10.8, Grafana to 13.1.4
-  - Fix deprecated Prometheus remote-write-receiver flag and Grafana datasource UID</PackageReleaseNotes>
+    <PackageReleaseNotes>🚀 Improvements
+- Exclude dependabot.yml artifact when GitHub Actions support is disabled (c969f60)
+
+🔧 Chores
+- Remove deprecated FALLOUT telemetry opt-out env. variable from CI workflow (c96f216)
+- Bump 3rd party NuGet dependencies (96136a8)
+
+📝 Documentation
+- Update package READMEs (2c1b5a7)</PackageReleaseNotes>
   </PropertyGroup>
 
   <PropertyGroup>
@@ -35,7 +39,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="content\**\*" Exclude="content\**\bin\**;content\**\obj\**;content\**\packages\**;content\**\pkg\**;**\.vs\**;content\**\.DS_Store;content\**\publish\**" />
+    <Content Include="content\**\*" Exclude="content\**\bin\**;content\**\obj\**;content\**\packages\**;content\**\pkg\**;**\.vs\**;content\**\.DS_Store;content\**\publish\**;content\**\.fallout\temp\**;content\**\.git\**;content\**\node_modules\**;content\**\.claude\package.json;content\**\.claude\.gitignore" />
     <Compile Remove="**\*" />
   </ItemGroup>
 
