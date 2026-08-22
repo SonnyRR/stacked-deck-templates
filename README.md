@@ -56,7 +56,7 @@ with sensible defaults. For detailed information, see the section below.
   - Restoring
   - Compiling
   - Publishing
-  - Testing
+  - Testing (unit & integration)
   - Building `OCI` compatible images
 - Semantic versioning with GitVersion
 - Roslyn Analyzers
@@ -84,7 +84,7 @@ with sensible defaults. For detailed information, see the section below.
 - Infrastructure as Code (`IaC`) directory structure
   - Local development observability stack (`Docker Compose`)
   - `Prometheus`, `Grafana`, `Tempo`, and `OTEL Collector` for local development
-- Code coverage collection with `coverlet` & report generation
+- Code coverage collection with `coverlet` on `Microsoft Test Platform v2` & report generation
 
 ### 💾 Stacked Deck Persistence (C#)
 
