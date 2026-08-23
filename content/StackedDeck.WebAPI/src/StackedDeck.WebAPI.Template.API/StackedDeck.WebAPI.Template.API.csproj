@@ -13,10 +13,10 @@
     <PackageReference Include="Asp.Versioning.Mvc" Version="10.2.1" />
     <!--#endif-->
     <!--#if (UseMinimalApis)-->
-    <PackageReference Include="Asp.Versioning.Http" Version="10.2.2" />
+    <PackageReference Include="Asp.Versioning.Http" Version="10.2.3" />
     <!--#endif-->
     <PackageReference Include="Asp.Versioning.Mvc.ApiExplorer" Version="10.2.1" />
-    <PackageReference Include="Asp.Versioning.OpenApi" Version="10.2.2" />
+    <PackageReference Include="Asp.Versioning.OpenApi" Version="10.2.3" />
     <!--#if (UseAzureCloudProvider)-->
     <PackageReference Include="Azure.Identity" Version="1.21.0" />
     <PackageReference Include="Microsoft.Azure.AppConfiguration.AspNetCore" Version="8.6.0" />
