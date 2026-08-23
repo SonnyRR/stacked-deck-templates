@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <PackageId>StackedDeck.Project.Templates</PackageId>
-    <PackageVersion>1.0.0-rc.1</PackageVersion>
+    <PackageVersion>1.0.0-rc.2</PackageVersion>
     <Title>Stacked Deck Project Templates</Title>
     <Authors>Vasil Kotsev</Authors>
     <Description>.NET Project templates, composed to give you advantage akin to a "stacked card deck".</Description>
