@@ -80,13 +80,18 @@ internal interface IDocker : IHasProjects, IHasGitVersion, IHasGitRepository
                     .SetPassword(ContainerRegistryPAT)
                     .DisableProcessOutputLogging()));
 
-            var SemanticallyVersionedImageName = $"{ContainerRegistryUrl}/{SemVerImageTag}";
+            // NOTE: The current image identifier format is for 'DockerHub'. If you plan to use
+            // another registry, such as GHCR, you need to update this variable with the expected
+            // format.
+            var SemanticallyVersionedImageName = $"{ContainerRegistryUsername}/{SemVerImageTag}";
             DockerTag(s => s.SetSourceImage(LatestImageTag).SetTargetImage(SemanticallyVersionedImageName));
             DockerPush(s => s.SetName(SemanticallyVersionedImageName));
 
             if (GitRepository.IsOnMainOrMasterBranch())
             {
-                var LatestImageName = $"{ContainerRegistryUrl}/{LatestImageTag}";
+                // NOTE: This variable also needs changing to the expected format of your image
+                // registry of choice. By default this uses the 'DockerHub' format.
+                var LatestImageName = $"{ContainerRegistryUsername}/{LatestImageTag}";
                 DockerTag(s => s.SetSourceImage(LatestImageTag).SetTargetImage(LatestImageName));
                 DockerPush(s => s.SetName(LatestImageName));
             }
