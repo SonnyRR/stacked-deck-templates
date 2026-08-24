@@ -58,7 +58,10 @@ public class ApiFixture : IDisposable
     /// </param>
     protected virtual void Dispose(bool disposing)
     {
-        ApiFactory?.Dispose();
-        Client?.Dispose();
+        if (disposing)
+        {
+            ApiFactory?.Dispose();
+            Client?.Dispose();
+        }
     }
 }
