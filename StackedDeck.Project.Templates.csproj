@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <PackageId>StackedDeck.Project.Templates</PackageId>
-    <PackageVersion>1.0.0-rc.2</PackageVersion>
+    <PackageVersion>1.0.0-rc.3</PackageVersion>
     <Title>Stacked Deck Project Templates</Title>
     <Authors>Vasil Kotsev</Authors>
     <Description>.NET Project templates, composed to give you advantage akin to a "stacked card deck".</Description>
@@ -19,15 +19,11 @@
     <ContentTargetFolders>content</ContentTargetFolders>
     <NoWarn>$(NoWarn);NU5128</NoWarn>
     <NoDefaultExcludes>true</NoDefaultExcludes>
-    <PackageReleaseNotes>🚀 Improvements
-- Exclude dependabot.yml artifact when GitHub Actions support is disabled (c969f60)
+    <PackageReleaseNotes>✨ Features
+- Introduce xunit.runner.json for integration test project (1b9a131)
 
-🔧 Chores
-- Remove deprecated FALLOUT telemetry opt-out env. variable from CI workflow (c96f216)
-- Bump 3rd party NuGet dependencies (96136a8)
-
-📝 Documentation
-- Update package READMEs (2c1b5a7)</PackageReleaseNotes>
+🐛 Fixes
+- Fix disposing method implementation to check disposing flag (72d5703)</PackageReleaseNotes>
   </PropertyGroup>
 
   <PropertyGroup>
