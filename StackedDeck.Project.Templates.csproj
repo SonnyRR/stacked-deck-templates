@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <PackageId>StackedDeck.Project.Templates</PackageId>
-    <PackageVersion>1.0.0-rc.3</PackageVersion>
+    <PackageVersion>1.0.0-rc.4</PackageVersion>
     <Title>Stacked Deck Project Templates</Title>
     <Authors>Vasil Kotsev</Authors>
     <Description>.NET Project templates, composed to give you advantage akin to a "stacked card deck".</Description>
@@ -20,10 +20,11 @@
     <NoWarn>$(NoWarn);NU5128</NoWarn>
     <NoDefaultExcludes>true</NoDefaultExcludes>
     <PackageReleaseNotes>✨ Features
-- Introduce xunit.runner.json for integration test project (1b9a131)
+- Randomize local development HTTP/HTTPS ports on project creation, with new --http-port / --https-port options to pin them (2d94058)
 
-🐛 Fixes
-- Fix disposing method implementation to check disposing flag (72d5703)</PackageReleaseNotes>
+🔧 Chores
+- Override package content path (cb47a9e)
+- Downgrade FastEndpoints to latest stable version (818b614)</PackageReleaseNotes>
   </PropertyGroup>
 
   <PropertyGroup>
