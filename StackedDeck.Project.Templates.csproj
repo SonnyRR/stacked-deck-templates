@@ -35,7 +35,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="content\**\*" Exclude="content\**\bin\**;content\**\obj\**;content\**\packages\**;content\**\pkg\**;**\.vs\**;content\**\.DS_Store;content\**\publish\**;content\**\.fallout\temp\**;content\**\.git\**;content\**\node_modules\**;content\**\.claude\package.json;content\**\.claude\.gitignore" />
+    <Content Include="content\**\*" Exclude="content\**\bin\**;content\**\obj\**;content\**\packages\**;content\**\pkg\**;**\.vs\**;content\**\.DS_Store;content\**\publish\**;content\**\.fallout\temp\**;content\**\.git\**;content\**\node_modules\**;content\**\.claude\package.json;content\**\.claude\.gitignore">
+      <PackagePath>content</PackagePath>
+    </Content>
     <Compile Remove="**\*" />
   </ItemGroup>
 
