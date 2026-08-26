@@ -35,6 +35,14 @@
     "TelemetryCollectionMode": {
       "longName": "telemetry-mode",
       "shortName": "tm"
+    },
+    "HttpPort": {
+      "longName": "http-port",
+      "shortName": "hp"
+    },
+    "HttpsPort": {
+      "longName": "https-port",
+      "shortName": "hsp"
     }
   }
 }

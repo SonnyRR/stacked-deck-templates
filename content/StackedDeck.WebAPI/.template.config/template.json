@@ -53,6 +53,52 @@
       "description": "The service's path prefix, which will be used in the base controller. (e.g., 'reference')",
       "replaces": "sd-api-route-prefix"
     },
+    "HttpPort": {
+      "type": "parameter",
+      "datatype": "int",
+      "description": "HTTP port to use for the local development endpoints in launchSettings.json. If omitted, a random free port is assigned."
+    },
+    "HttpsPort": {
+      "type": "parameter",
+      "datatype": "int",
+      "description": "HTTPS port to use for the local development endpoints in launchSettings.json. If omitted, a random free port is assigned."
+    },
+    "HttpPortGenerated": {
+      "type": "generated",
+      "generator": "port",
+      "parameters": {
+        "low": 5000,
+        "high": 5300,
+        "fallback": 5133
+      }
+    },
+    "HttpsPortGenerated": {
+      "type": "generated",
+      "generator": "port",
+      "parameters": {
+        "low": 7000,
+        "high": 7300,
+        "fallback": 7095
+      }
+    },
+    "HttpPortReplacer": {
+      "type": "generated",
+      "generator": "coalesce",
+      "replaces": "sd-api-http-port",
+      "parameters": {
+        "sourceVariableName": "HttpPort",
+        "fallbackVariableName": "HttpPortGenerated"
+      }
+    },
+    "HttpsPortReplacer": {
+      "type": "generated",
+      "generator": "coalesce",
+      "replaces": "sd-api-https-port",
+      "parameters": {
+        "sourceVariableName": "HttpsPort",
+        "fallbackVariableName": "HttpsPortGenerated"
+      }
+    },
     "DockerImageName": {
       "type": "parameter",
       "datatype": "text",

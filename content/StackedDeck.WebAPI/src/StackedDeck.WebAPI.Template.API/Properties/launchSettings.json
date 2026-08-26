@@ -8,8 +8,8 @@
         "ASPNETCORE_ENVIRONMENT": "Local"
       },
       "dotnetRunMessages": true,
-      "applicationUrl": "http://localhost:5133/",
-      "launchUrl": "http://localhost:5133/sd-api-route-prefix/documentation"
+      "applicationUrl": "http://localhost:sd-api-http-port/",
+      "launchUrl": "http://localhost:sd-api-http-port/sd-api-route-prefix/documentation"
     },
     "HTTPS-LOCAL": {
       "commandName": "Project",
@@ -18,8 +18,8 @@
         "ASPNETCORE_ENVIRONMENT": "Local"
       },
       "dotnetRunMessages": true,
-      "applicationUrl": "https://localhost:7095/;http://localhost:5133/",
-      "launchUrl": "https://localhost:7095/sd-api-route-prefix/documentation"
+      "applicationUrl": "https://localhost:sd-api-https-port/;http://localhost:sd-api-http-port/",
+      "launchUrl": "https://localhost:sd-api-https-port/sd-api-route-prefix/documentation"
     },
     "HTTP-DEV": {
       "commandName": "Project",
@@ -28,8 +28,8 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
       "dotnetRunMessages": true,
-      "applicationUrl": "http://localhost:5133/",
-      "launchUrl": "http://localhost:5133/sd-api-route-prefix/documentation"
+      "applicationUrl": "http://localhost:sd-api-http-port/",
+      "launchUrl": "http://localhost:sd-api-http-port/sd-api-route-prefix/documentation"
     },
     "HTTPS-DEV": {
       "commandName": "Project",
@@ -38,8 +38,8 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
       "dotnetRunMessages": true,
-      "applicationUrl": "https://localhost:7095/;http://localhost:5133/",
-      "launchUrl": "https://localhost:7095/sd-api-route-prefix/documentation"
+      "applicationUrl": "https://localhost:sd-api-https-port/;http://localhost:sd-api-http-port/",
+      "launchUrl": "https://localhost:sd-api-https-port/sd-api-route-prefix/documentation"
     },
     "HTTP-STG": {
       "commandName": "Project",
@@ -48,8 +48,8 @@
         "ASPNETCORE_ENVIRONMENT": "Staging"
       },
       "dotnetRunMessages": true,
-      "applicationUrl": "http://localhost:5133/",
-      "launchUrl": "http://localhost:5133/sd-api-route-prefix/documentation"
+      "applicationUrl": "http://localhost:sd-api-http-port/",
+      "launchUrl": "http://localhost:sd-api-http-port/sd-api-route-prefix/documentation"
     },
     "HTTPS-STG": {
       "commandName": "Project",
@@ -58,8 +58,8 @@
         "ASPNETCORE_ENVIRONMENT": "Staging"
       },
       "dotnetRunMessages": true,
-      "applicationUrl": "https://localhost:7095/;http://localhost:5133/",
-      "launchUrl": "https://localhost:7095/sd-api-route-prefix/documentation"
+      "applicationUrl": "https://localhost:sd-api-https-port/;http://localhost:sd-api-http-port/",
+      "launchUrl": "https://localhost:sd-api-https-port/sd-api-route-prefix/documentation"
     },
     "HTTP-PROD": {
       "commandName": "Project",
@@ -68,8 +68,8 @@
         "ASPNETCORE_ENVIRONMENT": "Production"
       },
       "dotnetRunMessages": true,
-      "applicationUrl": "http://localhost:5133/",
-      "launchUrl": "http://localhost:5133/sd-api-route-prefix/documentation"
+      "applicationUrl": "http://localhost:sd-api-http-port/",
+      "launchUrl": "http://localhost:sd-api-http-port/sd-api-route-prefix/documentation"
     },
     "HTTPS-PROD": {
       "commandName": "Project",
@@ -78,8 +78,8 @@
         "ASPNETCORE_ENVIRONMENT": "Production"
       },
       "dotnetRunMessages": true,
-      "applicationUrl": "https://localhost:7095/;http://localhost:5133/",
-      "launchUrl": "https://localhost:7095/sd-api-route-prefix/documentation"
+      "applicationUrl": "https://localhost:sd-api-https-port/;http://localhost:sd-api-http-port/",
+      "launchUrl": "https://localhost:sd-api-https-port/sd-api-route-prefix/documentation"
     },
     "HTTP-E2E": {
       "commandName": "Project",
@@ -88,8 +88,8 @@
         "ASPNETCORE_ENVIRONMENT": "E2E"
       },
       "dotnetRunMessages": true,
-      "applicationUrl": "http://localhost:5133/",
-      "launchUrl": "http://localhost:5133/sd-api-route-prefix/documentation"
+      "applicationUrl": "http://localhost:sd-api-http-port/",
+      "launchUrl": "http://localhost:sd-api-http-port/sd-api-route-prefix/documentation"
     },
     "HTTPS-E2E": {
       "commandName": "Project",
@@ -98,8 +98,8 @@
         "ASPNETCORE_ENVIRONMENT": "E2E"
       },
       "dotnetRunMessages": true,
-      "applicationUrl": "https://localhost:7095/;http://localhost:5133/",
-      "launchUrl": "https://localhost:7095/sd-api-route-prefix/documentation"
+      "applicationUrl": "https://localhost:sd-api-https-port/;http://localhost:sd-api-http-port/",
+      "launchUrl": "https://localhost:sd-api-https-port/sd-api-route-prefix/documentation"
     }
   }
 }

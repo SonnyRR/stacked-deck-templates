@@ -83,6 +83,26 @@
         "text": "Choose between Prometheus scraping endpoint for metrics only, or full OTEL Collector setup with traces and metrics via OTLP."
       },
       "isVisible": true
+    },
+    {
+      "id": "HttpPort",
+      "name": {
+        "text": "HTTP Port"
+      },
+      "description": {
+        "text": "HTTP port to use for the local development endpoints in launchSettings.json. If omitted, a random free port is assigned."
+      },
+      "isVisible": true
+    },
+    {
+      "id": "HttpsPort",
+      "name": {
+        "text": "HTTPS Port"
+      },
+      "description": {
+        "text": "HTTPS port to use for the local development endpoints in launchSettings.json. If omitted, a random free port is assigned."
+      },
+      "isVisible": true
     }
   ]
 }

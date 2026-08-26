@@ -12,6 +12,6 @@ scrape_configs:
     tls_config:
       insecure_skip_verify: true
     static_configs:
-      - targets: ['host.docker.internal:7095']
+      - targets: ['host.docker.internal:sd-api-https-port']
     metrics_path: /sd-api-route-prefix/metrics
     scrape_interval: 15s

@@ -28,13 +28,13 @@ docker compose up prometheus
 Access Prometheus UI at: <http://localhost:9090>
 
 Your application should expose metrics at the `/metrics` endpoint
-(default: <http://localhost:5133/metrics>) for Prometheus to scrape.
+(default: <http://localhost:sd-api-http-port/metrics>) for Prometheus to scrape.
 
 > [!NOTE]
-> Prometheus scrapes your API via `host.docker.internal:7095`. This works automatically
+> Prometheus scrapes your API via `host.docker.internal:sd-api-https-port`. This works automatically
 > on macOS and Windows. Linux users may need to add the `--add-host host.docker.internal:host-gateway`
 > flag when running Docker Compose, or alternatively bind the API to all interfaces
-> (`https://*:7095`).
+> (`https://*:sd-api-https-port`).
 
 ## 📁 Configuration Files
 
@@ -60,7 +60,7 @@ Modify the configuration files as needed for your local setup:
 | ------------------------ | ------------------------------------------------------------------------ |
 | Port conflicts           | Modify port mappings in `docker-compose.yml`                             |
 | Service not starting     | Check logs: `docker compose logs prometheus`                             |
-| No metrics in Prometheus | Verify target is reachable at `http://host.docker.internal:5133/metrics` |
+| No metrics in Prometheus | Verify target is reachable at `http://host.docker.internal:sd-api-http-port/metrics` |
 
 <!--#endif-->
 <!--#if(UseOTELCollector)-->
