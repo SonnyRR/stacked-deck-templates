@@ -27,7 +27,6 @@ By default it comes with 3 bootstrap scripts in the root directory:
 
 - `build.sh`
 - `build.ps1`
-- `build.cmd`
 
 These scripts are primarily intended to be used as the entrypoints `*.yml` documents
 for various `CI/CD` providers, like `GitHub Actions`, `Azure Pipelines` and others.
