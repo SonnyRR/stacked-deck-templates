@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <PackageId>StackedDeck.Project.Templates</PackageId>
-    <PackageVersion>1.0.0</PackageVersion>
+    <PackageVersion>1.0.1</PackageVersion>
     <Title>Stacked Deck Project Templates</Title>
     <Authors>Vasil Kotsev</Authors>
     <Description>.NET Project templates, composed to give you advantage akin to a "stacked card deck".</Description>
@@ -20,39 +20,10 @@
     <NoWarn>$(NoWarn);NU5128</NoWarn>
     <NoDefaultExcludes>true</NoDefaultExcludes>
     <PackageReleaseNotes>✨ Features
-- Introduce StackedDeck.CLI template project (ca3dbee)
-- Introduce StackedDeck.Editorconfig item template (588dae1)
-- Rework API versioning with per-version OpenAPI documents (2ac715a)
-- Exclude InheritableApiVersionAttribute from MinimalAPI &amp; FastEndpoints (1b11486)
-- Introduce xunit.runner.json (1b9a131)
-- Randomize local development ports on project creation (2d94058)
-- Override content path (cb47a9e)
-
-🚀 Improvements
-- Migrate build system from NUKE to FALLOUT (#134) (d170ae7)
-- Migrate from VSTest to Microsoft Test Platform V2 (#202) (24c2048)
-- Use container registry username instead of URL for image names (6e8a4a6)
-- Change GHA workflow secret &amp; variable identifiers (6d71c73)
-- Exclude unnecessary GH artifact when PP is None (c969f60)
-- Simplify versioning setup for FastEndpoints (3784382)
-
-🐛 Fixes
-- Fix disposing method implementation to check disposing flag (72d5703)
-- Downgrade FastEndpoints to latest stable version (818b614)
+- Introduce dummy 'launchSettings.json' doc for integration tests asm. (14dd638)
 
 🔧 Chores
-- Bump 3rd party NuGet dependencies (a19a071, 96136a8, b35e193, a22c2fe, bfd7876, bc35b49, 08f08c8, 91018da, 8ea6c22, and 15+ individual package bumps)
-- Bump infrastructure image versions &amp; update configs (2cf604a, 8c7a2bd)
-- Extend dependabot configuration (21b7c17)
-- Remove deprecated telemetry opt-out environment variable (c96f216)
-- Remove references to deprecated 'build.cmd' (2d411fe)
-
-📝 Documentation
-- Update READMEs (2c1b5a7)
-- Replace AGENTS.md with symlink, add CLAUDE.md as canonical (815ffa8)
-
-🤖 Development Tools
-- Replace duplicated sd-logo-7.png copies with symlinks to assets/ canonical (cfa1008)</PackageReleaseNotes>
+- Bump Scalar.AspNetCore from 2.17.1 to 2.17.2 (fcf97a7)</PackageReleaseNotes>
   </PropertyGroup>
 
   <PropertyGroup>
