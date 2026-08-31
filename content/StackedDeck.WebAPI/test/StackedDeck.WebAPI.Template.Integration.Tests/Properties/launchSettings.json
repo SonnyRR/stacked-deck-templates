@@ -1,0 +1,8 @@
+{
+  // Dummy file, since this assembly uses 'Microsoft.NET.Sdk.Web' package.
+  // Whenever you open this assembly in Visual Studio - it will generate
+  // the 'launchSettings.json' document automatically if it doesn't exist.
+  // We don't need automatic launch profiles for this assembly, hence this
+  // dummy file.
+  "profiles": {}
+}

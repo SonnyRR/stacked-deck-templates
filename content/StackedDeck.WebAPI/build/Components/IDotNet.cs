@@ -22,7 +22,13 @@ internal interface IDotNet : IHasProjects, IHasConfiguration, IHasGitVersion, IH
         "--output",
         "Detailed",
         "--show-live-output",
-        "on"
+        "on",
+        // The 'Microsoft.Testing.Platform' runner launches the test assembly as an application, so it
+        // resolves the launch profile the same way 'dotnet run' does. The integration tests project
+        // uses the 'Microsoft.NET.Sdk.Web' package and therefore carries a profile-less 'launchSettings.json'
+        // document which the launcher reports as unusable profile. Skip the lookup, the test host configures
+        // its own environment via 'ApiFactory.cs'. The environment used there is E2E.
+        "--no-launch-profile"
     ];
 
     AbsolutePath PublicationDirectory => WebApiProject.Directory / "publish";
