@@ -1,4 +1,6 @@
 <Project>
+  <Import Project="$([MSBuild]::GetPathOfFileAbove('Directory.Packages.props', '$(MSBuildThisFileDirectory)../'))" />
+
   <ItemGroup>
     <PackageReference Include="coverlet.MTP" Version="10.0.1" />
     <PackageReference Include="Shouldly" Version="4.3.0" />
