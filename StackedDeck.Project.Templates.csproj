@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <PackageId>StackedDeck.Project.Templates</PackageId>
-    <PackageVersion>1.0.1</PackageVersion>
+    <PackageVersion>1.0.2</PackageVersion>
     <Title>Stacked Deck Project Templates</Title>
     <Authors>Vasil Kotsev</Authors>
     <Description>.NET Project templates, composed to give you advantage akin to a "stacked card deck".</Description>
@@ -19,11 +19,8 @@
     <ContentTargetFolders>content</ContentTargetFolders>
     <NoWarn>$(NoWarn);NU5128</NoWarn>
     <NoDefaultExcludes>true</NoDefaultExcludes>
-    <PackageReleaseNotes>✨ Features
-- Introduce dummy 'launchSettings.json' doc for integration tests asm. (14dd638)
-
-🔧 Chores
-- Bump Scalar.AspNetCore from 2.17.1 to 2.17.2 (fcf97a7)</PackageReleaseNotes>
+    <PackageReleaseNotes>🔧 Chores
+- Fix MSBuild multi-level Directory.Build.props and Directory.Packages.props chaining using GetPathOfFileAbove (4fe9fe7, 7fe0209)</PackageReleaseNotes>
   </PropertyGroup>
 
   <PropertyGroup>
