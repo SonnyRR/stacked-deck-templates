@@ -13,6 +13,9 @@ namespace StackedDeck.Persistence.Template;
 public class ApplicationDbContext : DbContext
 {
 #if (UseAuditNet)
+    /// <summary>
+    /// The table for audit log trails.
+    /// </summary>
     public DbSet<AuditLog> AuditLogs { get; set; }
 #endif
 
