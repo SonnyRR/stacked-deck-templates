@@ -33,7 +33,7 @@ public class GreetCommand : AsyncCommand<GreetCommandSettings>
     }
 
     /// <inheritdoc/>
-    protected override async Task<int> ExecuteAsync(CommandContext context, GreetCommandSettings settings, CancellationToken cancellationToken)
+    public override async Task<int> ExecuteAsync(CommandContext context, GreetCommandSettings settings, CancellationToken cancellationToken)
     {
         try
         {
