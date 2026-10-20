@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <PackageId>StackedDeck.Project.Templates</PackageId>
-    <PackageVersion>1.0.3</PackageVersion>
+    <PackageVersion>1.0.4</PackageVersion>
     <Title>Stacked Deck Project Templates</Title>
     <Authors>Vasil Kotsev</Authors>
     <Description>.NET Project templates, composed to give you advantage akin to a "stacked card deck".</Description>
@@ -19,8 +19,12 @@
     <ContentTargetFolders>content</ContentTargetFolders>
     <NoWarn>$(NoWarn);NU5128</NoWarn>
     <NoDefaultExcludes>true</NoDefaultExcludes>
-    <PackageReleaseNotes>🔧 Chores
-- Fix MSBuild multi-level Directory.Build.props and Directory.Packages.props chaining using GetPathOfFileAbove (4fe9fe7, 7fe0209)</PackageReleaseNotes>
+    <PackageReleaseNotes>🐛 Fixes
+- Pin vulnerable transitive System.Security.Cryptography.Pkcs/Xml dependencies to v10.0.13 (94856f2)
+- Adapt CLI template to Spectre.Cli API breaking change (1530ddc)
+
+🔧 Chores
+- Bump 3rd party NuGet dependencies, incl. Scalar.AspNetCore v2.17.14 (e9542ba, b35cfb8, e10b544, 0810400, ee2daf8, c705027)</PackageReleaseNotes>
   </PropertyGroup>
 
   <PropertyGroup>
