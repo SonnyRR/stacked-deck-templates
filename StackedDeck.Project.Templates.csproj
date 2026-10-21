@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <PackageId>StackedDeck.Project.Templates</PackageId>
-    <PackageVersion>1.0.4</PackageVersion>
+    <PackageVersion>1.0.5</PackageVersion>
     <Title>Stacked Deck Project Templates</Title>
     <Authors>Vasil Kotsev</Authors>
     <Description>.NET Project templates, composed to give you advantage akin to a "stacked card deck".</Description>
@@ -19,12 +19,11 @@
     <ContentTargetFolders>content</ContentTargetFolders>
     <NoWarn>$(NoWarn);NU5128</NoWarn>
     <NoDefaultExcludes>true</NoDefaultExcludes>
-    <PackageReleaseNotes>🐛 Fixes
-- Pin vulnerable transitive System.Security.Cryptography.Pkcs/Xml dependencies to v10.0.13 (94856f2)
-- Adapt CLI template to Spectre.Cli API breaking change (1530ddc)
+    <PackageReleaseNotes>🚀 Improvements
+- Replace hardcoded author/company/copyright/project URL metadata in generated projects with 'N/A' placeholders and a TODO reminder to customize them (60b1f2f)
 
 🔧 Chores
-- Bump 3rd party NuGet dependencies, incl. Scalar.AspNetCore v2.17.14 (e9542ba, b35cfb8, e10b544, 0810400, ee2daf8, c705027)</PackageReleaseNotes>
+- Bump OpenTelemetry instrumentation packages to v1.20.1 (AspNetCore, Http, Runtime) (0e473e7)</PackageReleaseNotes>
   </PropertyGroup>
 
   <PropertyGroup>
