@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <PackageId>StackedDeck.Project.Templates</PackageId>
-    <PackageVersion>1.0.5</PackageVersion>
+    <PackageVersion>1.0.6</PackageVersion>
     <Title>Stacked Deck Project Templates</Title>
     <Authors>Vasil Kotsev</Authors>
     <Description>.NET Project templates, composed to give you advantage akin to a "stacked card deck".</Description>
@@ -19,11 +19,10 @@
     <ContentTargetFolders>content</ContentTargetFolders>
     <NoWarn>$(NoWarn);NU5128</NoWarn>
     <NoDefaultExcludes>true</NoDefaultExcludes>
-    <PackageReleaseNotes>🚀 Improvements
-- Replace hardcoded author/company/copyright/project URL metadata in generated projects with 'N/A' placeholders and a TODO reminder to customize them (60b1f2f)
-
-🔧 Chores
-- Bump OpenTelemetry instrumentation packages to v1.20.1 (AspNetCore, Http, Runtime) (0e473e7)</PackageReleaseNotes>
+    <PackageReleaseNotes>
+    🐛 Fixes
+    - Clean up XML comment indentation in generated template files (0b1e876)
+  </PackageReleaseNotes>
   </PropertyGroup>
 
   <PropertyGroup>
