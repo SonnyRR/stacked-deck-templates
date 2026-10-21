@@ -2,9 +2,14 @@
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFramework>net10.0</TargetFramework>
-    <Company>StackedDeck</Company>
-    <Copyright>Copyright © 2026 StackedDeck</Copyright>
-    <PackageProjectUrl>https://github.com/SonnyRR/stacked-deck-templates</PackageProjectUrl>
+    <!--
+       TODO: The author/company/copyright/project URL values are placeholders.
+      Replace them with your actual copyright metadata.
+    -->
+    <Authors>N/A</Authors>
+    <Company>N/A</Company>
+    <Copyright>Copyright © 2026 N/A</Copyright>
+    <PackageProjectUrl>N/A</PackageProjectUrl>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>

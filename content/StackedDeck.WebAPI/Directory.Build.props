@@ -1,9 +1,13 @@
 <Project>
   <PropertyGroup>
-    <Authors>Vasil Kotsev</Authors>
-    <Company>StackedDeck</Company>
-    <Copyright>Copyright © 2025 Vasil Kotsev</Copyright>
-    <PackageProjectUrl>https://github.com/SonnyRR/stacked-deck-templates</PackageProjectUrl>
+    <!--
+       TODO: The author/company/copyright/project URL values are placeholders.
+      Replace them with your actual copyright metadata.
+    -->
+    <Authors>N/A</Authors>
+    <Company>N/A</Company>
+    <Copyright>Copyright © 2025 N/A</Copyright>
+    <PackageProjectUrl>N/A</PackageProjectUrl>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <TargetFramework>net10.0</TargetFramework>
     <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
