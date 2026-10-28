@@ -10,7 +10,7 @@
 
   <ItemGroup>
     <PackageReference Include="Fallout.Common" Version="10.4.0" />
-    <PackageReference Include="Polly" Version="8.8.1" />
+    <PackageReference Include="Polly" Version="8.9.0" />
   </ItemGroup>
 
   <!--
@@ -28,7 +28,7 @@
 
   <ItemGroup>
     <PackageDownload Include="GitVersion.Tool" Version="[6.8.2]" />
-    <PackageDownload Include="ReportGenerator" Version="[5.5.11]" />
+    <PackageDownload Include="ReportGenerator" Version="[5.5.12]" />
   </ItemGroup>
   <!--#if (UseGitHubActions)-->
 
