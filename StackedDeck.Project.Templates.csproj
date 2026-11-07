@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <PackageId>StackedDeck.Project.Templates</PackageId>
-    <PackageVersion>1.0.7</PackageVersion>
+    <PackageVersion>1.1.0</PackageVersion>
     <Title>Stacked Deck Project Templates</Title>
     <Authors>Vasil Kotsev</Authors>
     <Description>.NET Project templates, composed to give you advantage akin to a "stacked card deck".</Description>
@@ -20,8 +20,10 @@
     <NoWarn>$(NoWarn);NU5128</NoWarn>
     <NoDefaultExcludes>true</NoDefaultExcludes>
     <PackageReleaseNotes>🔧 Chores
-    - Bump NuGet dependencies: Microsoft.Extensions.* and Entity Framework Core to v10.0.14 (incl. System.Security.Cryptography security fixes), Azure AppConfiguration to v8.6.1, and Scalar.AspNetCore to v2.18.3 (ed25018, 4b74d60)
-    - Bump GitHub Actions version pins: actions/checkout to v7.0.1 and actions/cache to v6.1.0 (70c8eb6)</PackageReleaseNotes>
+    - Bump Fallout build system to v10.5.0 (db72839)
+    - Bump Polly to v8.9.0 (6c9446e, 9d225b4)
+    - Bump Scalar.AspNetCore to v2.19.0 (2edfbb6, fff4780, 4755616)
+    - Bump ReportGenerator to v5.5.12 (9d225b4)</PackageReleaseNotes>
   </PropertyGroup>
 
   <PropertyGroup>
