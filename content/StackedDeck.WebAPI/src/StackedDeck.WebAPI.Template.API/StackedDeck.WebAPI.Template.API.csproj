@@ -36,7 +36,7 @@
     <!--#endif-->
     <PackageReference Include="Scalar.AspNetCore" Version="2.19.0" />
     <!--#if (UseFastEndpoints)-->
-    <PackageReference Include="FastEndpoints" Version="8.3.0" />
+    <PackageReference Include="FastEndpoints" Version="9.0.0" />
     <PackageReference Include="FastEndpoints.AspVersioning" Version="8.3.0" />
     <!--#endif-->
     <PackageReference Include="Serilog" Version="4.4.0" />
