@@ -117,9 +117,7 @@
       "modifiers": [
         {
           "condition": "(UseTemporal && UseMssqlProvider)",
-          "include": [
-            "Configuration/TemporalEntityTypeConfiguration.cs"
-          ]
+          "include": ["Configuration/TemporalEntityTypeConfiguration.cs"]
         },
         {
           "condition": "UseAuditNet",
@@ -171,9 +169,7 @@
       "description": "WARN: Temporal tables are not supported with PostgreSQL or SQLite. Use AuditNet instead.",
       "manualInstructions": [
         {
-          "text": "Temporal tables are only supported with MSSQL. Either:
-  - Use --provider MSSQL with --auditing Temporal, or
-  - Use --auditing AuditNet for cross-provider support."
+          "text": "Temporal tables are only supported with MSSQL."
         }
       ],
       "continueOnError": true
