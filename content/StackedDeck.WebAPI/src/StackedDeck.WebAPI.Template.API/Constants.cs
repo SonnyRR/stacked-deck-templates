@@ -19,6 +19,17 @@ public static class Constants
     }
 
     /// <summary>
+    /// Constants, related to tracing and telemetry.
+    /// </summary>
+    public static class Tracing
+    {
+        /// <summary>
+        /// The span attribute name, used to correlate traces with consumer requests.
+        /// </summary>
+        public const string CORRELATION_ID = "correlation.id";
+    }
+
+    /// <summary>
     /// Constants, related to the API.
     /// </summary>
     public static class Api
