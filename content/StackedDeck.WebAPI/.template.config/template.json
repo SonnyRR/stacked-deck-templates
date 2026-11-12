@@ -28,7 +28,7 @@
       "generator": "constant",
       "replaces": "templateVersion",
       "parameters": {
-        "value": "1.1.1"
+        "value": "1.1.2"
       }
     },
     "TemplateUrl": {
@@ -298,9 +298,7 @@
         },
         {
           "condition": "UseOTELCollector",
-          "exclude": [
-            "infra/local/prometheus-override.yml"
-          ]
+          "exclude": ["infra/local/prometheus-override.yml"]
         }
       ]
     }

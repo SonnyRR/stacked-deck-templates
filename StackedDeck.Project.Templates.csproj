@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <PackageId>StackedDeck.Project.Templates</PackageId>
-    <PackageVersion>1.1.1</PackageVersion>
+    <PackageVersion>1.1.2</PackageVersion>
     <Title>Stacked Deck Project Templates</Title>
     <Authors>Vasil Kotsev</Authors>
     <Description>.NET Project templates, composed to give you advantage akin to a "stacked card deck".</Description>
@@ -19,12 +19,16 @@
     <ContentTargetFolders>content</ContentTargetFolders>
     <NoWarn>$(NoWarn);NU5128</NoWarn>
     <NoDefaultExcludes>true</NoDefaultExcludes>
-    <PackageReleaseNotes>🐛 Fixes
-- Fix malformed template.json format in Persistence template and simplify Temporal tables warning instruction (c16c183)
-
-🔧 Chores
-- Bump Microsoft.Extensions.* packages to v11.0.0 and pin EF Core-related dependencies to [10.0.15, 11.0.0) (8cf3a18)
-- Bump 3rd party NuGet dependencies, incl. Scalar.AspNetCore v2.21.0, Serilog.Enrichers.ClientInfo v3.0.0, OpenTelemetry packages v1.21.0, SonarAnalyzer v10.36, ReportGenerator v5.6.0, and xunit.v3 v4.0.3 (5ae0b97, 8cf3a18, b79aeff, a229aa2, 7bdba37)</PackageReleaseNotes>
+    <PackageReleaseNotes>
+      ✨ Features
+      - Attach consumer-supplied correlation IDs to incoming request traces (7f4107f)
+      🚀 Improvements
+      - Consolidate local observability stack into a single otel-lgtm container (bfc3c02)
+      - Drop 7 supporting config files while preserving both telemetry modes (OTLP on 4317/4318, /metrics scraping)
+      - Drive compose ports, image version and Grafana credentials via env vars with defaults (.env.example)
+      - Persist telemetry data across container restarts (lgtm-data volume)
+      - Ignore .env files in any directory via .gitignore
+    </PackageReleaseNotes>
   </PropertyGroup>
 
   <PropertyGroup>
