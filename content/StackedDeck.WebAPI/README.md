@@ -193,8 +193,10 @@ infra/
 
 #### 🖥️ Local Development Stack
 
-The `infra/local/` directory includes Docker Compose configurations for
-local observability with support for two telemetry collection modes.
+The `infra/local/` directory provides a single-container Docker Compose
+configuration for running local observability services (Grafana, Prometheus,
+Tempo, and friends via the `grafana/otel-lgtm` image), with support for two
+telemetry collection modes.
 See the [Local Infrastructure README](infra/local/README.md) for detailed
 setup instructions and service URLs.
 

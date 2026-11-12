@@ -246,15 +246,11 @@
         "README.md",
         "**/.DS_Store",
         ".idea/**/*",
-        "logs/**/*",
-        "infra/local/docker-compose.yml"
+        "logs/**/*"
       ],
       "rename": {
         "README-template.md": "README.md",
-        "infra/local/prometheus-scrape.yml": "infra/local/prometheus.yml",
-        "infra/local/prometheus-otel.yml": "infra/local/prometheus.yml",
-        "infra/local/docker-compose-scrape.yml": "infra/local/docker-compose.yml",
-        "infra/local/docker-compose-otel.yml": "infra/local/docker-compose.yml"
+        "infra/local/prometheus-override.yml": "infra/local/prometheus.yml"
       },
       "modifiers": [
         {
@@ -297,19 +293,13 @@
         {
           "condition": "UsePrometheusScrape",
           "exclude": [
-            "infra/local/otel-collector-config.yml",
-            "infra/local/tempo-config.yml",
-            "infra/local/grafana-datasources.yml",
-            "infra/local/prometheus-otel.yml",
-            "infra/local/docker-compose-otel.yml",
             "src/StackedDeck.WebAPI.Template.API/Configuration/OpenTelemetryOptions.cs"
           ]
         },
         {
           "condition": "UseOTELCollector",
           "exclude": [
-            "infra/local/prometheus-scrape.yml",
-            "infra/local/docker-compose-scrape.yml"
+            "infra/local/prometheus-override.yml"
           ]
         }
       ]

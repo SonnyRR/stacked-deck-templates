@@ -1,0 +1,41 @@
+# 🖥️ Local Development Observability Stack
+#
+# A single-container observability backend bundling Grafana, Prometheus, Tempo,
+# Loki, Pyroscope, and the OpenTelemetry Collector:
+# https://github.com/grafana/docker-otel-lgtm
+#
+# All environment variables are optional — the compose file ships with the same
+# defaults documented in `.env.example`. Copy `.env.example` to `.env` to
+# customize them (Docker Compose auto-loads `.env` from this directory).
+services:
+  lgtm:
+    image: grafana/otel-lgtm:${SD_LGTM_IMAGE_TAG:-0.40.0}
+    container_name: ${SD_LGTM_CONTAINER_NAME:-stackeddeck-lgtm}
+    ports:
+      - "${SD_LGTM_GRAFANA_PORT:-3000}:3000" # Grafana UI
+      - "${SD_PROMETHEUS_PORT:-9090}:9090" # Prometheus UI (debugging)
+      - "${SD_OTLP_GRPC_PORT:-4317}:4317" # OTLP gRPC
+      - "${SD_OTLP_HTTP_PORT:-4318}:4318" # OTLP HTTP
+    environment:
+      GF_SECURITY_ADMIN_USER: ${SD_GRAFANA_ADMIN_USER:-admin}
+      GF_SECURITY_ADMIN_PASSWORD: ${SD_GRAFANA_ADMIN_PASSWORD:-admin}
+      GF_USERS_ALLOW_SIGN_UP: "false"
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    volumes:
+      - lgtm-data:/data
+      #if(UsePrometheusScrape)
+      # Custom Prometheus configuration that scrapes the API's `/metrics` endpoint.
+      # ⚠️ Mounting this file overrides the image's default Prometheus config —
+      # keep it in sync when bumping `SD_LGTM_IMAGE_TAG`.
+      - ./prometheus.yml:/otel-lgtm/prometheus.yaml:ro
+    #endif
+    networks:
+      - observability
+
+networks:
+  observability:
+    driver: bridge
+
+volumes:
+  lgtm-data:

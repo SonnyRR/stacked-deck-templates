@@ -33,7 +33,7 @@ Choose the appropriate subdirectory for your target environment:
 | `local/`    | Local development with Prometheus via Docker Compose |
 <!--#endif-->
 <!--#if(UseOTELCollector)-->
-| `local/`    | Local development with full observability stack      |
+| `local/`    | Local development with the full observability stack (single `otel-lgtm` container) |
 <!--#endif-->
 | (your-env)/ | Add your staging/production IaC here                 |
 

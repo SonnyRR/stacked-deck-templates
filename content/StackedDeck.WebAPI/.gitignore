@@ -405,5 +405,11 @@ FodyWeavers.xsd
 # Ignore the .fallout/temp folder
 .fallout/temp/
 
+# Environment files — may contain local secrets (e.g. Grafana credentials).
+# Applies in every directory; environment templates (`*.env.example`) stay committed.
+**/.env
+**/.env.*
+!**/.env.example
+
 # macOS
 .DS_Store

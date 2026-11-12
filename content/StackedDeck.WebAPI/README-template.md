@@ -211,16 +211,18 @@ infra/
 
 #### 🖥️ Local Development Stack
 
-The `infra/local/` directory provides Docker Compose configurations for
-running observability services locally. See the
+The `infra/local/` directory provides a single-container Docker Compose
+configuration for running observability services locally via the
+`grafana/otel-lgtm` image. See the
 [Local Infrastructure README](infra/local/README.md) for detailed setup
 instructions, service URLs, and troubleshooting.
 
 <!--#if(UsePrometheusScrape)-->
-- 🎯 **Prometheus** for metrics collection
+- 📊 **Grafana + 🎯 Prometheus** (single `otel-lgtm` container) for metrics collection
 <!--#endif-->
 <!--#if(UseOTELCollector)-->
-- 🎯 **Prometheus**, 📊 **Grafana**, 🔍 **Tempo**, and 📡 **OTEL Collector**
+- 📊 **Grafana**, 🎯 **Prometheus**, 🔍 **Tempo**, and 📡 **OTEL Collector**
+  (all bundled in a single `otel-lgtm` container)
 <!--#endif-->
 
 #### 🌐 Extensibility

@@ -1,14 +1,18 @@
 # 🖥️ Local Development Infrastructure
 
-This directory contains Docker Compose configurations and supporting files for
-running observability services locally during development.
+This directory contains the Docker Compose configuration for running a
+single-container observability stack locally during development, based on the
+[`grafana/otel-lgtm`](https://github.com/grafana/docker-otel-lgtm) image
+(Grafana + Prometheus + Tempo + Loki + Pyroscope + OpenTelemetry Collector).
 <!--#if(UsePrometheusScrape)-->
 
 ## 📦 Services
 
-| Service           | Port   | Description                    |
-| ----------------- | ------ | ------------------------------ |
-| 🎯 **Prometheus** | `9090` | Metrics collection and storage |
+| Service | Port   | Description                                        |
+| ------- | ------ | -------------------------------------------------- |
+| 📊 **Grafana**    | `3000` | Visualization dashboards (datasources pre-provisioned) |
+| 🎯 **Prometheus** | `9090` | Metrics collection and storage (scrapes the API)   |
+| 📡 **OTLP**       | `4317` `4318` | OpenTelemetry ingestion (gRPC / HTTP)       |
 
 ## 🚀 Quick Start
 
@@ -19,13 +23,16 @@ running observability services locally during development.
 
 ### 🪛 Usage
 
-Start Prometheus for local metrics collection:
+Start the observability stack:
 
 ```bash
-docker compose up prometheus
+docker compose up
 ```
 
-Access Prometheus UI at: <http://localhost:9090>
+Access the services:
+
+- 📊 **Grafana**: <http://localhost:3000> (`admin`/`admin`)
+- 🎯 **Prometheus**: <http://localhost:9090>
 
 Your application should expose metrics at the `/metrics` endpoint
 (default: <http://localhost:sd-api-http-port/metrics>) for Prometheus to scrape.
@@ -36,43 +43,48 @@ Your application should expose metrics at the `/metrics` endpoint
 > flag when running Docker Compose, or alternatively bind the API to all interfaces
 > (`https://*:sd-api-https-port`).
 
-## 📁 Configuration Files
+### ⚙️ Configuration
 
-- `docker-compose.yml` - Service definitions
-- `prometheus.yml` - Prometheus scrape configuration (template-generated)
+- `docker-compose.yml` — Service definitions (ports & credentials via env vars)
+- `.env.example` — Documented environment variables with defaults; copy to `.env` to customize
+- `prometheus.yml` — Prometheus scrape configuration (template-generated)
 
 ## ⚠️ Important Notes
 
 - ⚡ **Local Use Only**: These configurations are optimized for local development and should not be used in production
-- 🗄️ **Data Persistence**: Data is not persisted across container restarts by default
+- 🔒 **Default Credentials**: Grafana uses default credentials (`admin`/`admin`) — change these via `.env` if exposing externally
+- 🗄️ **Data Persistence**: Telemetry data is persisted in the `lgtm-data` Docker volume across container restarts
 - 🌐 **Network**: Services communicate via the `observability` Docker network
+- 🐘 **Footprint**: The single container runs all backends and needs roughly 1 GB+ of memory
 
 ## 🔧 Customization
 
-Modify the configuration files as needed for your local setup:
-
-- Change scrape intervals in `prometheus.yml`
-- Adjust target endpoints if your application runs on different ports
+- Change ports or Grafana credentials in `.env` (see `.env.example` for the available variables)
+- Adjust the image version via `SD_LGTM_IMAGE_TAG` in `.env`
+- Tweak scrape targets/intervals in `prometheus.yml`
+  > [!NOTE]
+  > `prometheus.yml` overrides the image's default Prometheus configuration — when bumping
+  > `SD_LGTM_IMAGE_TAG`, re-sync the non-scrape sections with the
+  > [upstream default](https://github.com/grafana/docker-otel-lgtm/blob/main/docker/prometheus.yaml)
 
 ## 🐛 Troubleshooting
 
-| Issue                    | Solution                                                                 |
-| ------------------------ | ------------------------------------------------------------------------ |
-| Port conflicts           | Modify port mappings in `docker-compose.yml`                             |
-| Service not starting     | Check logs: `docker compose logs prometheus`                             |
-| No metrics in Prometheus | Verify target is reachable at `http://host.docker.internal:sd-api-http-port/metrics` |
-
+| Issue                    | Solution                                                                                              |
+| ------------------------ | ----------------------------------------------------------------------------------------------------- |
+| Port conflicts           | Change the port mappings via `.env` (e.g., `SD_LGTM_GRAFANA_PORT=3001`)                               |
+| Service not starting     | Check logs: `docker compose logs lgtm` (enable per-backend logs via `ENABLE_LOGS_*` env vars)          |
+| No metrics in Prometheus | Verify target is reachable at `http://host.docker.internal:sd-api-https-port/sd-api-route-prefix/metrics` |
 <!--#endif-->
 <!--#if(UseOTELCollector)-->
 
 ## 📦 Services
 
-| Service               | Port                 | Description                    |
-| --------------------- | -------------------- | ------------------------------ |
-| 🎯 **Prometheus**     | `9090`               | Metrics collection and storage |
-| 📊 **Grafana**        | `3000`               | Visualization dashboards       |
-| 🔍 **Tempo**          | `3200`               | Distributed tracing backend    |
-| 📡 **OTEL Collector** | `4317` `4318` `8889` | OpenTelemetry data collection  |
+| Service | Port   | Description                                        |
+| ------- | ------ | -------------------------------------------------- |
+| 📊 **Grafana**    | `3000` | Visualization dashboards (datasources pre-provisioned) |
+| 🎯 **Prometheus** | `9090` | Metrics collection and storage (receives OTLP push) |
+| 🔍 **Tempo**      | —      | Distributed tracing backend (internal, no ports exposed) |
+| 📡 **OTLP**       | `4317` `4318` | OpenTelemetry ingestion (gRPC / HTTP)       |
 
 ## 🚀 Quick Start
 
@@ -83,49 +95,47 @@ Modify the configuration files as needed for your local setup:
 
 ### 🪛 Usage
 
-Start the full observability stack with OTEL Collector:
+Start the observability stack:
 
 ```bash
-docker compose --profile otel up
+docker compose up
 ```
 
 Access the services:
 
-- 📊 **Grafana**: <http://localhost:3000> (admin/admin)
+- 📊 **Grafana**: <http://localhost:3000> (`admin`/`admin`)
 - 🎯 **Prometheus**: <http://localhost:9090>
-- 📡 **Collector Metrics**: <http://localhost:8889/metrics>
 
-Your application will automatically send traces and metrics to the OTEL Collector at `http://localhost:4317` via OTLP/gRPC.
+Your application will automatically send traces and metrics to the OpenTelemetry
+receiver at `http://localhost:4317` via OTLP/gRPC — no collector or backend
+configuration required.
 
-## 📁 Configuration Files
+### ⚙️ Configuration
 
-- `docker-compose.yml` - Service definitions with profiles
-- `prometheus.yml` - Prometheus configuration (template-generated)
-- `otel-collector-config.yml` - Collector receivers, processors, and exporters
-- `tempo-config.yml` - Trace storage configuration
-- `grafana-datasources.yml` - Pre-configured data sources
+- `docker-compose.yml` — Service definitions (ports & credentials via env vars)
+- `.env.example` — Documented environment variables with defaults; copy to `.env` to customize
 
 ## ⚠️ Important Notes
 
 - ⚡ **Local Use Only**: These configurations are optimized for local development and should not be used in production
-- 🔒 **Default Credentials**: Grafana uses default credentials (admin/admin) - change these if exposing externally
-- 🗄️ **Data Persistence**: Data is not persisted across container restarts by default
-- 🌐 **Network**: All services communicate via the `observability` Docker network
+- 🔒 **Default Credentials**: Grafana uses default credentials (`admin`/`admin`) — change these via `.env` if exposing externally
+- 🗄️ **Data Persistence**: Telemetry data is persisted in the `lgtm-data` Docker volume across container restarts
+- 🌐 **Network**: Services communicate via the `observability` Docker network
+- 🐘 **Footprint**: The single container runs all backends and needs roughly 1 GB+ of memory
 
 ## 🔧 Customization
 
-Modify the configuration files as needed for your local setup:
-
-- Change scrape intervals in `prometheus.yml`
-- Adjust batch sizes in `otel-collector-config.yml`
-- Add custom dashboards in Grafana (persist to volume for reuse)
+- Change ports or Grafana credentials in `.env` (see `.env.example` for the available variables)
+- Adjust the image version via `SD_LGTM_IMAGE_TAG` in `.env`
+- Add custom Grafana dashboards by mounting provisioning files (see the
+  [`otel-lgtm` docs](https://github.com/grafana/docker-otel-lgtm#add-custom-dashboards))
 
 ## 🐛 Troubleshooting
 
-| Issue                    | Solution                                                                             |
-| ------------------------ | ------------------------------------------------------------------------------------ |
-| Port conflicts           | Modify port mappings in `docker-compose.yml`                                         |
-| Service not starting     | Check logs: `docker compose logs <service-name>`                                     |
-| No metrics in Prometheus | Verify Collector metrics endpoint is reachable at `:8889/metrics`                    |
-| No traces in Tempo       | Check OTLP endpoint configuration in application (should be `http://localhost:4317`) |
+| Issue                    | Solution                                                                                     |
+| ------------------------ | -------------------------------------------------------------------------------------------- |
+| Port conflicts           | Change the port mappings via `.env` (e.g., `SD_OTLP_GRPC_PORT=4337`)                          |
+| Service not starting     | Check logs: `docker compose logs lgtm` (enable per-backend logs via `ENABLE_LOGS_*` env vars) |
+| No metrics in Grafana    | Verify the app is sending OTLP to `http://localhost:4317` and check `docker compose logs lgtm` |
+| No traces in Tempo       | Check OTLP endpoint configuration in application (should be `http://localhost:4317`)          |
 <!--#endif-->
