@@ -2,7 +2,6 @@ using System;
 #if (UseOTELCollector)
 using System.Diagnostics;
 #endif
-using System.Collections.Generic;
 using System.Threading.Tasks;
 
 using Microsoft.AspNetCore.Http;
@@ -40,7 +39,8 @@ public class CorrelationIdMiddleware
 
         var correlationId = ResolveCorrelationId(context.Request.Headers);
 
-        context.Request.Headers.TryAdd(Constants.Headers.CORRELATION_ID, correlationId);
+        // Set rather than append, so that the header holds the resolved identifier, exactly once.
+        context.Request.Headers[Constants.Headers.CORRELATION_ID] = correlationId;
 
 #if (UseOTELCollector)
         Activity.Current?.SetTag(Constants.Tracing.CORRELATION_ID, correlationId);
