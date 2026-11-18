@@ -293,7 +293,10 @@
         {
           "condition": "UsePrometheusScrape",
           "exclude": [
-            "src/StackedDeck.WebAPI.Template.API/Configuration/OpenTelemetryOptions.cs"
+            "src/StackedDeck.WebAPI.Template.API/Configuration/OpenTelemetryOptions.cs",
+            "test/StackedDeck.WebAPI.Template.Integration.Tests/Telemetry/TracingTests.cs",
+            "test/StackedDeck.WebAPI.Template.Integration.Tests/Utils/AsyncPolling.cs",
+            "test/StackedDeck.WebAPI.Template.Integration.Tests/Utils/ConcurrentItemCollection.cs"
           ]
         },
         {
