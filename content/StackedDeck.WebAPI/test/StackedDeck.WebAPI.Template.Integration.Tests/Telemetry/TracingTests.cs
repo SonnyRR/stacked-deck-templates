@@ -1,4 +1,3 @@
-#if (UseOTELCollector)
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -13,7 +12,6 @@ using StackedDeck.WebAPI.Template.Integration.Tests.Fixtures;
 using StackedDeck.WebAPI.Template.Integration.Tests.Utils;
 
 using static StackedDeck.WebAPI.Template.API.Constants;
-using static StackedDeck.WebAPI.Template.API.Constants.Api;
 
 namespace StackedDeck.WebAPI.Template.Integration.Tests.Telemetry;
 
@@ -163,4 +161,3 @@ public class TracingTests
                 .Where(span => span.TraceId == traceId)
         ];
 }
-#endif
