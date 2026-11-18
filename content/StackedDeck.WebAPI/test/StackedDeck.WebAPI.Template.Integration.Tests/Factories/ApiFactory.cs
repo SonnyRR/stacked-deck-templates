@@ -30,8 +30,8 @@ public class ApiFactory<TProgram> : WebApplicationFactory<TProgram>
     /// The spans exported by the SUT, appended as soon as a sampled span ends.
     /// </summary>
     public ConcurrentItemCollection<Activity> ExportedActivities { get; } = [];
-#endif
 
+#endif
     /// <inheritdoc />
     protected override void ConfigureWebHost(IWebHostBuilder builder)
     {
@@ -40,11 +40,13 @@ public class ApiFactory<TProgram> : WebApplicationFactory<TProgram>
 
         builder.UseEnvironment(Environments.E2E);
 #if (UseOTELCollector)
+
         // The E2E environment points the OTLP exporters at a locally running collector, which is not available
         // under test. Attach an in-memory one to the same tracer provider, so the telemetry tests assert on exactly
         // what the OTLP exporter would push to the collector, without a collector or the network.
         builder.ConfigureTestServices(services =>
             services.ConfigureOpenTelemetryTracerProvider(tracing => tracing.AddInMemoryExporter(ExportedActivities)));
+
 #endif
         base.ConfigureWebHost(builder);
     }
