@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <PackageId>StackedDeck.Project.Templates</PackageId>
-    <PackageVersion>1.1.3</PackageVersion>
+    <PackageVersion>1.1.4</PackageVersion>
     <Title>Stacked Deck Project Templates</Title>
     <Authors>Vasil Kotsev</Authors>
     <Description>.NET Project templates, composed to give you advantage akin to a "stacked card deck".</Description>
@@ -19,18 +19,8 @@
     <ContentTargetFolders>content</ContentTargetFolders>
     <NoWarn>$(NoWarn);NU5128</NoWarn>
     <NoDefaultExcludes>true</NoDefaultExcludes>
-    <PackageReleaseNotes>🚀 Improvements
-- Cover the tracing pipeline with in-memory exporter integration tests (c4d9d9b)
-- Exclude OTEL-only telemetry test assets from Prometheus variants (d00f031)
-- Pin minimum .NET SDK version (4f2251f)
-
-🐛 Fixes
-- Normalize correlation id request header to a single value (e0a4604)
-
-🔧 Chores
-- Bump 3rd party NuGet dependencies (606dc3d, e3e8c52)
-- Drop stale template exclusion for deleted ManagedIdentityOptions file (aa3fa7d)
-- Clean up minor code style issues (00f85c3, 4795b6a, 6e068b7)</PackageReleaseNotes>
+    <PackageReleaseNotes>🐛 Fixes
+- Use API route prefix constant in configuration integration test (a05f2b9)</PackageReleaseNotes>
   </PropertyGroup>
 
   <PropertyGroup>
