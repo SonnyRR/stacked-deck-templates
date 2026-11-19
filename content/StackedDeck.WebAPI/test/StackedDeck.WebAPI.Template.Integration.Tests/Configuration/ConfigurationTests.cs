@@ -8,6 +8,8 @@ using Shouldly;
 
 using StackedDeck.WebAPI.Template.Integration.Tests.Fixtures;
 
+using static StackedDeck.WebAPI.Template.API.Constants;
+
 namespace StackedDeck.WebAPI.Template.Integration.Tests.Configuration;
 
 /// <summary>
@@ -53,7 +55,7 @@ public class ConfigurationTests
             cancellationToken: TestContext.Current.CancellationToken);
 
         await Task.Delay(2_000, TestContext.Current.CancellationToken);
-        var response = await apiFixture.Client.GetAsync("/fast-way/health", TestContext.Current.CancellationToken);
+        var response = await apiFixture.Client.GetAsync($"{Api.Routes.PREFIX}/health", TestContext.Current.CancellationToken);
         response.StatusCode.ShouldBe(HttpStatusCode.OK);
 
         using var newScope = apiFixture.ApiFactory.Services.CreateScope();
