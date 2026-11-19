@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <PackageId>StackedDeck.Project.Templates</PackageId>
-    <PackageVersion>1.1.2</PackageVersion>
+    <PackageVersion>1.1.3</PackageVersion>
     <Title>Stacked Deck Project Templates</Title>
     <Authors>Vasil Kotsev</Authors>
     <Description>.NET Project templates, composed to give you advantage akin to a "stacked card deck".</Description>
@@ -19,16 +19,18 @@
     <ContentTargetFolders>content</ContentTargetFolders>
     <NoWarn>$(NoWarn);NU5128</NoWarn>
     <NoDefaultExcludes>true</NoDefaultExcludes>
-    <PackageReleaseNotes>
-      ✨ Features
-      - Attach consumer-supplied correlation IDs to incoming request traces (7f4107f)
-      🚀 Improvements
-      - Consolidate local observability stack into a single otel-lgtm container (bfc3c02)
-      - Drop 7 supporting config files while preserving both telemetry modes (OTLP on 4317/4318, /metrics scraping)
-      - Drive compose ports, image version and Grafana credentials via env vars with defaults (.env.example)
-      - Persist telemetry data across container restarts (lgtm-data volume)
-      - Ignore .env files in any directory via .gitignore
-    </PackageReleaseNotes>
+    <PackageReleaseNotes>🚀 Improvements
+- Cover the tracing pipeline with in-memory exporter integration tests (c4d9d9b)
+- Exclude OTEL-only telemetry test assets from Prometheus variants (d00f031)
+- Pin minimum .NET SDK version (4f2251f)
+
+🐛 Fixes
+- Normalize correlation id request header to a single value (e0a4604)
+
+🔧 Chores
+- Bump 3rd party NuGet dependencies (606dc3d, e3e8c52)
+- Drop stale template exclusion for deleted ManagedIdentityOptions file (aa3fa7d)
+- Clean up minor code style issues (00f85c3, 4795b6a, 6e068b7)</PackageReleaseNotes>
   </PropertyGroup>
 
   <PropertyGroup>
