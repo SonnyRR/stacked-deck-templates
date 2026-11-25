@@ -9,7 +9,7 @@
 # customize them (Docker Compose auto-loads `.env` from this directory).
 services:
   lgtm:
-    image: grafana/otel-lgtm:${SD_LGTM_IMAGE_TAG:-0.40.0}
+    image: grafana/otel-lgtm:${SD_LGTM_IMAGE_TAG:-0.41.1}
     container_name: ${SD_LGTM_CONTAINER_NAME:-stackeddeck-lgtm}
     ports:
       - "${SD_LGTM_GRAFANA_PORT:-3000}:3000" # Grafana UI
