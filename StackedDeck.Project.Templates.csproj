@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <PackageId>StackedDeck.Project.Templates</PackageId>
-    <PackageVersion>1.1.4</PackageVersion>
+    <PackageVersion>1.1.5</PackageVersion>
     <Title>Stacked Deck Project Templates</Title>
     <Authors>Vasil Kotsev</Authors>
     <Description>.NET Project templates, composed to give you advantage akin to a "stacked card deck".</Description>
@@ -19,8 +19,8 @@
     <ContentTargetFolders>content</ContentTargetFolders>
     <NoWarn>$(NoWarn);NU5128</NoWarn>
     <NoDefaultExcludes>true</NoDefaultExcludes>
-    <PackageReleaseNotes>🐛 Fixes
-- Use API route prefix constant in configuration integration test (a05f2b9)</PackageReleaseNotes>
+    <PackageReleaseNotes>🔧 Chores
+- Bump dependencies: Scalar.AspNetCore to v3.3.0, Npgsql.EntityFrameworkCore.PostgreSQL to v10.0.4, SonarAnalyzer.CSharp to v10.37, and grafana/otel-lgtm image to v0.41.1 (a627ba9, 3cbf93d, bc3a193, f2b1b4d)</PackageReleaseNotes>
   </PropertyGroup>
 
   <PropertyGroup>
